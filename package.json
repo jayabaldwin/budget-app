@@ -11,7 +11,7 @@
     "build": "cd client && npm run build"
   },
   "keywords": [],
-  "author": "jaya baldwin and reid back",
+  "author": "jaya baldwin and Reid Back",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
