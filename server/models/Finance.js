@@ -6,12 +6,36 @@ const financeSchema = new Schema({
     default: 0,
     required: true,
   },
-  income: {
-    type: Number,
+  income: [{
+      amount: {
+        type: Number,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        required: true,
+      }
+    },
+  ],
+  savings: [{
+    amount: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
   },
-  savings: {
-    type: Number,
-  },
+],
   moneyOut: [
     {
       type: Schema.Types.ObjectId,

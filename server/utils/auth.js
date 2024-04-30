@@ -10,10 +10,10 @@ module.exports = {
       code: "UNAUTHENTICATED",
     },
   }),
+
   authMiddleware: function ({ req }) {
     let token = req.body.token || req.query.token || req.headers.authorization;
 
-    // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(" ").pop().trim();
     }
@@ -23,18 +23,17 @@ module.exports = {
     }
 
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      const data = jwt.verify(token, secret);
       req.user = data;
-    } catch {
+    } catch (error) {
       console.log("Invalid token");
     }
 
     return req;
   },
-  // Add further varibales necessary for global context (given at sign up)
-  signToken: function ({ firstName, email, _id }) {
-    const payload = { firstName, email, _id };
 
+  signToken: function ({ firstname, email, _id }) {
+    const payload = { firstname, email, _id };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
