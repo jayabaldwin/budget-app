@@ -4,12 +4,12 @@ const MoneyOut = require("./MoneyOut");
 const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
-  firstName: {
+  firstname: {
     type: String,
     required: true,
     trim: true,
   },
-  lastName: {
+  lastname: {
     type: String,
     required: true,
     trim: true,
@@ -17,14 +17,8 @@ const userSchema = new Schema({
   initials: {
     type: String,
     get: function () {
-      return this.firstName[0].toUpperCase() + this.lastName[0].toUpperCase();
+      return this.firstname[0].toUpperCase() + this.lastname[0].toUpperCase();
     },
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
   },
   email: {
     type: String,
