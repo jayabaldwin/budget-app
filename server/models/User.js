@@ -41,7 +41,20 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Expense',
     }],
-})
+});
+
+userSchema.pre('save', async function (next) {
+    if (this.isNew || this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+    next();
+
+});
+
+userSchema.methods.isCorrectPassword = async function (password){
+    return bcrypt.compare(password, this.password);
+};
+
 
 const User = model('User', userSchema);
 
