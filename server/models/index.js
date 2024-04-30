@@ -1,4 +1,5 @@
 const User = require("./User");
-const Expense = require('./Expense');
+const Finance = require("./Finance");
+const MoneyOut = require("./MoneyOut");
 
-module.exports = { User, Expense };
+module.exports = { User, Finance, MoneyOut };
