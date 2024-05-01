@@ -1,5 +1,4 @@
 const { gql } = require("apollo-server-express");
-const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -143,7 +142,22 @@ const typeDefs = gql`
       email: String!
       balance: Int!
     ): Finance
+
+    addIncome (
+      email: String!
+      amount: Int!
+      description: String!
+      date: Date
+    ): Finance
+
+    addSavings (
+      email: String!
+      amount: Int!
+      description: String!
+      date: Date
+    ): Finance
 }
+
 
 
   scalar Date

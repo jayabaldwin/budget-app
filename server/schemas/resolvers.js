@@ -45,7 +45,6 @@ const resolvers ={
             }
             // gets the finances sub-doc from the User
             const financeId = existingUser.finances; 
-            console.log(financeId);
             const updateFinance = await Finance.findByIdAndUpdate(
                 // filters by finance sub-doc from that user
                 financeId,
@@ -55,7 +54,58 @@ const resolvers ={
             );
             // returns that new 
             return updateFinance;
-        }
+        },
+        
+        // this is basically the same as above but uses $push instead of $inc
+        addIncome: async (parent, { email, amount, description, date}) => {
+            const existingUser = await User.findOne({ email }).populate('finances');
+
+            if(!existingUser){
+                throw new Error("User doesn't exist");
+            }
+            const financeId = existingUser.finances;
+            const updateFinance = await Finance.findByIdAndUpdate(
+                financeId,
+                {
+                // because income is an array, need to use $push
+                $push: {
+                    income: {
+                        amount: amount,
+                        description: description,
+                        date: date
+                    }
+                }
+                },
+            );
+            return updateFinance;
+        },
+        
+        // this is the same code but you're now pushing to savings instead of income
+        addSavings: async (parent, {email, amount, description, date}) => {
+            const existingUser = await User.findOne({ email }).populate('finances');
+
+            if(!existingUser){
+                throw new Error("User doesn't exist");
+            }
+            const financeId = existingUser.finances;
+            const updateFinance = await Finance.findByIdAndUpdate(
+                financeId,
+                {
+                $push: {
+                    savings: {
+                        amount: amount,
+                        description: description,
+                        date: date
+                    }
+                }
+                },
+            );
+            return updateFinance;
+        },
+
+        
+
+
     },
 }
 
