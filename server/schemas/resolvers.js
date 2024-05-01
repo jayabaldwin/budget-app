@@ -66,16 +66,19 @@ const resolvers ={
             const financeId = existingUser.finances;
             const updateFinance = await Finance.findByIdAndUpdate(
                 financeId,
+                                // because income is an array, need to use $push
+
                 {
-                // because income is an array, need to use $push
-                $push: {
-                    income: {
-                        amount: amount,
-                        description: description,
-                        date: date
-                    }
-                }
+                    $push: {
+                        income: {
+                            amount: amount,
+                            description: description,
+                            date: date
+                        }
+                    },
+                $inc: {balance: amount}
                 },
+                {new: true},
             );
             return updateFinance;
         },
@@ -89,6 +92,7 @@ const resolvers ={
             }
             const financeId = existingUser.finances;
             const updateFinance = await Finance.findByIdAndUpdate(
+                // make a running total, of savings. And the option to move money from savings?  
                 financeId,
                 {
                 $push: {
@@ -100,8 +104,11 @@ const resolvers ={
                 }
                 },
             );
+
             return updateFinance;
         },
+
+
 
         
 
