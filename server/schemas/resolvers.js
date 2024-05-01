@@ -1,5 +1,6 @@
 const {User, Finance, MoneyOut } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require('apollo-server-errors');
 
 const resolvers ={
     Query: {
@@ -20,7 +21,6 @@ const resolvers ={
             const user = await User.create({ 
                 firstname,
                 lastname,
-                initials,
                 email, 
                 password,
             });
