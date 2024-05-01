@@ -53,10 +53,11 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        addUser(firstname: String!, lastname: String!, email: String!, password: String!): Auth
+        addUser(firstname: String!, lastname: String!, initials: String, email: String!, password: String!): Auth
     }
 
     scalar Date
 `;
+
 
 module.exports = typeDefs;
