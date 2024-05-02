@@ -1,35 +1,50 @@
 import { Grid } from "@mui/material";
-import TransactionForm from '../components/dashboard/TransactionForm.jsx'
+import { styled } from '@mui/material/styles';
+// import TransactionForm from '../components/dashboard/TransactionForm.jsx'
+
+const Placeholder = styled('div')(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '0.5rem',
+    margin: '1rem',
+    border: '2px solid',
+    borderRadius: '15px'
+}));
 
 export default function Dashboard() {
     return (
-      <Grid container spacing={2}>
+      <Grid container spacing={2} rowSpacing={2}>
         {/* Row 1 */}
-        <Grid container spacing={2} alignItems="stretch">
-          {/* Section: Balance half */}
-          <Grid item xs={6}>
-            {/* Countdown */}
-            <Grid item style={{ height: "100%" }}>
-              {/* Countdown component */}
-              <TransactionForm />
+        <Grid container spacing={2}>
+          {/* Countdown */}
+          <Grid item xs={3}>
+            <Placeholder style={{height:"250px"}}>Countdown Element</Placeholder>
+          </Grid>
+          {/* Metrics */}
+          <Grid item flexDirection={'column'} xs={3}>
+            <Grid item>
+                <Placeholder style={{height:"120px"}}>Balance</Placeholder>
+            </Grid>
+            <Grid item>
+                <Placeholder style={{height:"120px"}}>Money In/Out</Placeholder>
             </Grid>
           </Grid>
-  
-          {/* Expense transactions */}
+          {/* Transaction Input */}
           <Grid item xs={6}>
-            <TransactionForm />
+            {/* <TransactionForm /> */}
+            <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder>
           </Grid>
         </Grid>
-  
+
         {/* Row 2 */}
         <Grid container spacing={2}>
           {/* Spend by category */}
           <Grid item xs={8}>
-            <TransactionForm />
+            <Placeholder style={{height:"250px"}}>Spend by Category</Placeholder>
           </Grid>
           {/* Cash flow */}
           <Grid item xs={4}>
-            <TransactionForm />
+            <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder>
           </Grid>
         </Grid>
       </Grid>
