@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 
+
 const financeSchema = new Schema({
   balance: {
     type: Number,
@@ -17,31 +18,44 @@ const financeSchema = new Schema({
       },
       date: {
         type: Date,
-        required: true,
+        // required: true,
       }
     },
   ],
   savings: [{
-    amount: {
-      type: Number,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    date: {
-      type: Date,
-      required: true,
-    },
-  },
-],
-  moneyOut: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "MoneyOut",
+      amount: {
+        type: Number,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        // required: true,
+      },
     },
   ],
+
+  moneyOut: [{
+      amount: {
+        type: Number,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        // required: true,
+      },
+      category: {
+        type: String,
+        required: true,
+      },
+    }],
 });
 
 
