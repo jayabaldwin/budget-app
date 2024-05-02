@@ -102,8 +102,6 @@ const dividedData = [
   { text: 'Settings', icon: <SettingsIcon />, route: '/Settings' }
 ];
 
-
-
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
