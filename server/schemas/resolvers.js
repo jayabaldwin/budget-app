@@ -107,13 +107,43 @@ const resolvers ={
 
             return updateFinance;
         },
-
-
-
         
+        addMoneyOut: async (parent, {email, amount, description, date, category}) => {
+            const existingUser = await User.findOne({email}).populate('finances')
 
+            if(!existingUser){
+                throw new Error("User doesn't exist");
+            }
+            const financeId = existingUser.finances;
+            console.log('financeId ', financeId);
+            const updateFinance = await Finance.findByIdAndUpdate(
+                financeId,
+                {
+                    $push: {
+                        moneyOut: {
+                            amount: amount,
+                            description: description,
+                            date: date ? date: null,
+                            category: category,
+                        },
+                    },
+                },
+            );
+            console.log('updateFinance ', updateFinance);
+            return updateFinance;
+        },
 
     },
+                //what to do for moneyOut
+            // findeByIdAndUpdate the MoneyOut Model
+            // include the id
+            // include the parameters
+            // new: true
+
+
+            // findById the Finance model
+            // decrement balance from amount
+            // new: true
 }
 
 module.exports = resolvers;

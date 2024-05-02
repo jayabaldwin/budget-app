@@ -22,26 +22,53 @@ const financeSchema = new Schema({
     },
   ],
   savings: [{
-    amount: {
-      type: Number,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    date: {
-      type: Date,
-      required: true,
-    },
-  },
-],
-  moneyOut: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "MoneyOut",
+      amount: {
+        type: Number,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        required: true,
+      },
     },
   ],
+
+  moneyOut: [{
+      amount: {
+        type: Number,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        // required: true,
+      },
+      category: {
+        type: String,
+        required: true,
+        enum: [
+          "Home",
+          "Utilities",
+          "Transport",
+          "Groceries",
+          "Eating Out",
+          "Shopping",
+          "Entertainment",
+          "Health",
+          "Education",
+          "Travel",
+          "Business",
+          "Miscellaneous",
+        ],
+      },
+    }],
 });
 
 
