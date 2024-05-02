@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 
+
 const financeSchema = new Schema({
   balance: {
     type: Number,
@@ -17,7 +18,7 @@ const financeSchema = new Schema({
       },
       date: {
         type: Date,
-        required: true,
+        // required: true,
       }
     },
   ],
@@ -32,7 +33,7 @@ const financeSchema = new Schema({
       },
       date: {
         type: Date,
-        required: true,
+        // required: true,
       },
     },
   ],
@@ -53,20 +54,6 @@ const financeSchema = new Schema({
       category: {
         type: String,
         required: true,
-        enum: [
-          "Home",
-          "Utilities",
-          "Transport",
-          "Groceries",
-          "Eating Out",
-          "Shopping",
-          "Entertainment",
-          "Health",
-          "Education",
-          "Travel",
-          "Business",
-          "Miscellaneous",
-        ],
       },
     }],
 });

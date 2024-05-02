@@ -12,6 +12,8 @@ const resolvers ={
         }
 
     },
+
+
     Mutation: {
         
         addUser: async (parent, {firstname, lastname, email, password}) => {
@@ -66,8 +68,7 @@ const resolvers ={
             const financeId = existingUser.finances;
             const updateFinance = await Finance.findByIdAndUpdate(
                 financeId,
-                                // because income is an array, need to use $push
-
+                // because income is an array, need to use $push
                 {
                     $push: {
                         income: {
@@ -99,7 +100,7 @@ const resolvers ={
                     savings: {
                         amount: amount,
                         description: description,
-                        date: date
+                        date: date ? date: null,
                     }
                 }
                 },
@@ -108,6 +109,7 @@ const resolvers ={
             return updateFinance;
         },
         
+
         addMoneyOut: async (parent, {email, amount, description, date, category}) => {
             const existingUser = await User.findOne({email}).populate('finances')
 
@@ -127,23 +129,16 @@ const resolvers ={
                             category: category,
                         },
                     },
+                    $inc: {balance: -amount}
                 },
+                {new: true},
             );
             console.log('updateFinance ', updateFinance);
             return updateFinance;
         },
 
+
     },
-                //what to do for moneyOut
-            // findeByIdAndUpdate the MoneyOut Model
-            // include the id
-            // include the parameters
-            // new: true
-
-
-            // findById the Finance model
-            // decrement balance from amount
-            // new: true
 }
 
 module.exports = resolvers;

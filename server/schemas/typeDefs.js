@@ -42,22 +42,6 @@ const typeDefs = gql`
     category: String!
   }
 
-  # graphQL basically knows these belong in the category: [] array
-  enum CategoryEnum {
-    Home
-    Utilities
-    Transport
-    Groceries
-    EatingOut
-    Shopping
-    Entertainment
-    Health
-    Education
-    Travel
-    Business
-    Miscellaneous
-  }
-
   type Auth {
     token: String
     user: User
