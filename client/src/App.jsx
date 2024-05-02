@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
 // import { ThemeProvider } from '@mui/material/styles';
 // import theme from './theme/theme.js'
 import './App.css'
@@ -11,9 +11,7 @@ function App() {
     {/* <ThemeProvider theme={theme}> */}
       <CssBaseline />
       <main>
-        <LayoutNav>
-        <Outlet />
-        </LayoutNav>
+        <LayoutNav />
       </main>
     {/* </ThemeProvider> */}
     </>

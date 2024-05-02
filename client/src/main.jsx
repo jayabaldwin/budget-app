@@ -1,30 +1,23 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
-// import Error from './pages/Error.jsx'
-// import Login from './pages/Login.jsx'
+import Landing from './pages/Landing.jsx'
 import Dashboard from './pages/Dashboard.jsx'
-// import Finances from './pages/Finances.jsx'
 import './index.css'
 
 const router = createBrowserRouter([
   {
     path: '/', 
     element: <App/>,
-    // errorElement: <Error/>
     children: [
       {
         index: true,
+        element: <Landing />
+      },
+      {
+        path: '/Home',
         element: <Dashboard />
       },
-    //   {
-    //     path: '/Dashboard',
-    //     element: <Dashboard />
-    //   },
-    //   {
-    //     path: '/Finances',
-    //     element: <Finances />
-    //   },
     ]
   },
 ])

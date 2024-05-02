@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import Container from './Container.jsx';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -93,13 +94,12 @@ const dashboardData = [
   { text: 'Dashboard', icon: <DashboardIcon /> },
   { text: 'Finances', icon: <FinancesIcon /> },
   { text: 'History', icon: <HistoryIcon /> },
-]
+];
 
-// const dividedData = [
-//   { text: 'Dashboard', icon: <DashboardIcon /> },
-//   { text: 'Finances', icon: <FinancesIcon /> },
-//   { text: 'History', icon: <HistoryIcon /> },
-// ]
+const dividedData = [
+  { text: 'Profile', icon: <PersonIcon /> },
+  { text: 'Settings', icon: <SettingsIcon /> }
+];
 
 
 
@@ -178,7 +178,7 @@ export default function MiniDrawer() {
         <Divider />
         {/* Second half */}
         <List>
-          {['Profile', 'Settings'].map((text, index) => (
+          {dividedData.map(({text, icon}) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -193,8 +193,7 @@ export default function MiniDrawer() {
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}
-                >
-                  {index % 2 === 0 ? <PersonIcon /> : <SettingsIcon />}
+                > {icon}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -206,7 +205,10 @@ export default function MiniDrawer() {
       {/* Main component for all other data to come through*/}
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <h1>Make this the children section</h1>
+
+        {/* All page data to be routed through here */}
+        <Container />
+
       </Box>
     </Box>
   );
