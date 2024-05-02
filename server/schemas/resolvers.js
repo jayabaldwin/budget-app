@@ -74,7 +74,7 @@ const resolvers ={
                         income: {
                             amount: amount,
                             description: description,
-                            date: date
+                            date: date ? date: null,
                         }
                     },
                 $inc: {balance: amount}
@@ -101,8 +101,9 @@ const resolvers ={
                         amount: amount,
                         description: description,
                         date: date ? date: null,
-                    }
-                }
+                    },
+                },
+                $inc: {balance: -amount}
                 },
             );
 
