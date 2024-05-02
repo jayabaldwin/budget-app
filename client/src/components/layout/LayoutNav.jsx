@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { Link } from 'react-router-dom'
-import Container from './Container.jsx';
+import { Link, Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -92,14 +91,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const dashboardData = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/Dashboard' },
-  { text: 'Finances', icon: <FinancesIcon />, route: '/Finances' },
-  { text: 'History', icon: <HistoryIcon />, route: '/History' },
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/home/dashboard' },
+  { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
+  { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
 ];
 
 const dividedData = [
-  { text: 'Profile', icon: <PersonIcon />, route: '/Profile' },
-  { text: 'Settings', icon: <SettingsIcon />, route: '/Settings' }
+  { text: 'Profile', icon: <PersonIcon />, route: '/home/profile' },
+  { text: 'Settings', icon: <SettingsIcon />, route: '/home/settings' }
 ];
 
 export default function MiniDrawer() {
@@ -211,7 +210,7 @@ export default function MiniDrawer() {
         <DrawerHeader />
 
         {/* All page data to be routed through here */}
-        <Container />
+        <Outlet />
 
       </Box>
     </Box>
