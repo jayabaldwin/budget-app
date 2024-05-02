@@ -144,4 +144,7 @@ const resolvers = {
   },
 };
 
+// Other Mutations:
+// withdrawSavings
+
 module.exports = resolvers;

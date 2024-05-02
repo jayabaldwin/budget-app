@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 // import { styled } from '@mui/material/styles';
 // import { Grid } from '@mui/material';
 import DatePicker from '../../utils/DatePicker.jsx'
+import Stack from '@mui/material/Stack';
 
 // const Form = styled('div')(() => ({
 //     display: 'flex',
@@ -15,7 +16,11 @@ import DatePicker from '../../utils/DatePicker.jsx'
 export default function TransactionForm(){
     return (
         <Paper>
-            <DatePicker />
+            <Stack>
+             <DatePicker />
+
+
+            </Stack>
         </Paper>
     )
 }
