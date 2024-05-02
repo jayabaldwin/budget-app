@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { styled } from '@mui/material/styles';
 // import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 

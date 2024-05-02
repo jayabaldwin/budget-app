@@ -9,6 +9,7 @@ import History from "./pages/History.jsx";
 import Profile from "./pages/Profile.jsx";
 import Settings from "./pages/Settings.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
+
 import {
   ApolloClient,
   InMemoryCache,
