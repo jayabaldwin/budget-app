@@ -11,8 +11,9 @@ function App() {
     {/* <ThemeProvider theme={theme}> */}
       <CssBaseline />
       <main>
-        <LayoutNav />
+        <LayoutNav>
         <Outlet />
+        </LayoutNav>
       </main>
     {/* </ThemeProvider> */}
     </>

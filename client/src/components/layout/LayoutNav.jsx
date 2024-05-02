@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -16,8 +16,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import DashboardIcon from '@mui/icons-material/SpaceDashboard';
+import FinancesIcon from '@mui/icons-material/CurrencyExchange';
+import HistoryIcon from '@mui/icons-material/History';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings'
 
 const drawerWidth = 240;
 
@@ -86,9 +89,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer(children) {
+const dashboardData = [
+  { text: 'Dashboard', icon: <DashboardIcon /> },
+  { text: 'Finances', icon: <FinancesIcon /> },
+  { text: 'History', icon: <HistoryIcon /> },
+]
+
+// const dividedData = [
+//   { text: 'Dashboard', icon: <DashboardIcon /> },
+//   { text: 'Finances', icon: <FinancesIcon /> },
+//   { text: 'History', icon: <HistoryIcon /> },
+// ]
+
+
+
+export default function MiniDrawer() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,8 +118,11 @@ export default function MiniDrawer(children) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+
+      {/* Top App Bar */}
       <AppBar position="fixed" open={open}>
         <Toolbar>
+          {/* Menu toggle */}
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -115,12 +135,15 @@ export default function MiniDrawer(children) {
           >
             <MenuIcon />
           </IconButton>
+          {/* AppName */}
           <Typography variant="h5" noWrap component="div">
             Florin
           </Typography>
 
         </Toolbar>
       </AppBar>
+
+      {/* Side navigation drawer */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -129,7 +152,7 @@ export default function MiniDrawer(children) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {dashboardData.map(({text, icon}) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -145,7 +168,7 @@ export default function MiniDrawer(children) {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {icon}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -153,8 +176,9 @@ export default function MiniDrawer(children) {
           ))}
         </List>
         <Divider />
+        {/* Second half */}
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Profile', 'Settings'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -170,7 +194,7 @@ export default function MiniDrawer(children) {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <PersonIcon /> : <SettingsIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -178,9 +202,11 @@ export default function MiniDrawer(children) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+
+      {/* Main component for all other data to come through*/}
+      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        { children }
+        <h1>Make this the children section</h1>
       </Box>
     </Box>
   );
