@@ -21,9 +21,21 @@ import DashboardIcon from '@mui/icons-material/SpaceDashboard';
 import FinancesIcon from '@mui/icons-material/CurrencyExchange';
 import HistoryIcon from '@mui/icons-material/History';
 import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings'
+import SettingsIcon from '@mui/icons-material/Settings';
+import UserLogout from './UserLogout';
 
 const drawerWidth = 240;
+
+const dashboardData = [
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/home/dashboard' },
+  { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
+  { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
+];
+
+const dividedData = [
+  { text: 'Profile', icon: <PersonIcon />, route: '/home/profile' },
+  { text: 'Settings', icon: <SettingsIcon />, route: '/home/settings' }
+];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -90,17 +102,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const dashboardData = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/home/dashboard' },
-  { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
-  { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
-];
-
-const dividedData = [
-  { text: 'Profile', icon: <PersonIcon />, route: '/home/profile' },
-  { text: 'Settings', icon: <SettingsIcon />, route: '/home/settings' }
-];
-
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -134,10 +135,11 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           {/* AppName */}
-          <Typography variant="h5" noWrap component="div">
+          <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
             Florin
           </Typography>
-
+          {/* UserLogout */}
+          <UserLogout />
         </Toolbar>
       </AppBar>
 
