@@ -1,38 +1,7 @@
 const { gql } = require("apollo-server-express");
-const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  type User {
-    _id: ID
-    firstname: String!
-    lastname: String!
-    initials: String
-    email: String!
-    password: String
-    finances: [Finance]
-  }
-
-  type Finance {
-    _id: ID
-    balance: Int!
-    income: [Income]
-    savings: [Savings]
-    moneyOut: [MoneyOut]
-  }
-
-  type Income {
-    _id: ID
-    amount: Int!
-    description: String!
-    date: Date
-  }
-
-  type Savings {
-    _id: ID
-    amount: Int!
-    description: String!
-    date: Date
-  }
+  
   type User {
     _id: ID
     firstname: String!
@@ -70,61 +39,14 @@ const typeDefs = gql`
     amount: Int!
     description: String!
     date: Date
-    category: [String]!
-  }
-
-  # graphQL basically knows these belong in the category: [] array
-  enum CategoryEnum {
-    Home
-    Utilities
-    Transport
-    Groceries
-    EatingOut
-    Shopping
-    Entertainment
-    Health
-    Education
-    Travel
-    Business
-    Miscellaneous
-  }
-  type MoneyOut {
-    _id: ID
-    amount: Int!
-    description: String!
-    date: Date
-    category: [String]!
-  }
-
-  # graphQL basically knows these belong in the category: [] array
-  enum CategoryEnum {
-    Home
-    Utilities
-    Transport
-    Groceries
-    EatingOut
-    Shopping
-    Entertainment
-    Health
-    Education
-    Travel
-    Business
-    Miscellaneous
+    category: String!
   }
 
   type Auth {
     token: String
     user: User
   }
-  type Auth {
-    token: String
-    user: User
-  }
 
-  type Query {
-    users: [User]
-    user(email: String!): User
-  }
   type Query {
     users: [User]
     user(email: String!): User
@@ -143,10 +65,31 @@ const typeDefs = gql`
       email: String!
       balance: Int!
     ): Finance
+
+    addIncome (
+      email: String!
+      amount: Int!
+      description: String!
+      date: Date
+    ): Finance
+
+    addSavings (
+      email: String!
+      amount: Int!
+      description: String!
+      date: Date
+    ): Finance
+
+
+    addMoneyOut (
+      email: String!
+      amount: Int!
+      description: String!
+      date: Date
+      category: String!
+    ): MoneyOut
 }
 
-
-  scalar Date
   scalar Date
 `;
 
