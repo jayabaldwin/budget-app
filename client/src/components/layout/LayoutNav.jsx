@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import { Link } from 'react-router-dom'
 import Container from './Container.jsx';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -91,14 +92,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const dashboardData = [
-  { text: 'Dashboard', icon: <DashboardIcon /> },
-  { text: 'Finances', icon: <FinancesIcon /> },
-  { text: 'History', icon: <HistoryIcon /> },
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/Dashboard' },
+  { text: 'Finances', icon: <FinancesIcon />, route: '/Finances' },
+  { text: 'History', icon: <HistoryIcon />, route: '/History' },
 ];
 
 const dividedData = [
-  { text: 'Profile', icon: <PersonIcon /> },
-  { text: 'Settings', icon: <SettingsIcon /> }
+  { text: 'Profile', icon: <PersonIcon />, route: '/Profile' },
+  { text: 'Settings', icon: <SettingsIcon />, route: '/Settings' }
 ];
 
 
@@ -152,51 +153,56 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {dashboardData.map(({text, icon}) => (
+          {dashboardData.map(({ text, icon, route }) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+              <Link to={route} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
         <Divider />
         {/* Second half */}
         <List>
-          {dividedData.map(({text, icon}) => (
+          {dividedData.map(({ text, icon, route }) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+              <Link to={route} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
-                > {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
