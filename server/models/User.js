@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const MoneyOut = require("./MoneyOut");
 
 const bcrypt = require("bcrypt");
 

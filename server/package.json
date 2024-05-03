@@ -9,7 +9,7 @@
         "seed": "node seeders/seed.js"
     },
     "keywords": [],
-    "author": "jaya baldwin and reid back",
+    "author": "Jaya Baldwin and Reid Back",
     "license": "ISC",
     "dependencies": {
         "@apollo/server": "^4.7.1",

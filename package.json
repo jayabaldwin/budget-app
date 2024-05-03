@@ -11,15 +11,9 @@
     "build": "cd client && npm run build"
   },
   "keywords": [],
-  "author": "jaya baldwin and Reid Back",
+  "author": "Jaya Baldwin and Reid Back",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/material": "^6.0.0-alpha.4",
-    "react-router-dom": "^6.23.0"
   }
 }
