@@ -17,7 +17,7 @@ export default function DatePickerValue() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']}>
 
-        {isMobile ? (
+        {!isMobile ? (
           <DatePicker
           label="Transaction Date"
           value={value}
