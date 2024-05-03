@@ -92,7 +92,7 @@ export default function TransactionForm() {
         <Grid item xs={12}>
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={4}>
-              <FormControl fullWidth>
+              <FormControl fullWidth disabled={type !== 'Expense'}>
                 <InputLabel id="budget-category-label">Budget Category</InputLabel>
                 <Select
                   labelId="budget-category-label"
