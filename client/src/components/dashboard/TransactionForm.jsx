@@ -18,6 +18,10 @@ import Grid from '@mui/material/Grid';
 
 export default function TransactionForm() {
   const [type, setType] = useState('Expense');
+
+
+
+
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [budgetCategory, setBudgetCategory] = useState('');
@@ -49,7 +53,7 @@ export default function TransactionForm() {
 
   return (
     <Paper component="form" sx={{ p: 2 }}>
-      <Typography variant='h5'>Add Transaction</Typography>
+      <Typography variant='h5'>Add {type}</Typography>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs={12}>
           <FormControl>
@@ -89,11 +93,12 @@ export default function TransactionForm() {
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={4}>
               <FormControl fullWidth>
-                <InputLabel id="budget-category">Budget Category</InputLabel>
+                <InputLabel id="budget-category-label">Budget Category</InputLabel>
                 <Select
-                  labelId="budget-category"
+                  labelId="budget-category-label"
                   id="budget-category"
                   value={budgetCategory}
+                  label="Budget Category"
                   onChange={handleBudgetCategoryChange}
                 >
                   <MenuItem value={"Home"}>Home</MenuItem>
