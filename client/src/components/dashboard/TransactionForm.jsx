@@ -18,10 +18,6 @@ import Grid from '@mui/material/Grid';
 
 export default function TransactionForm() {
   const [type, setType] = useState('Expense');
-
-
-
-
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [budgetCategory, setBudgetCategory] = useState('');
@@ -29,26 +25,33 @@ export default function TransactionForm() {
 
   const handleTypeChange = (event) => {
     setType(event.target.value);
+    console.log(type)
   };
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
+    console.log(description)
   };
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+    console.log(amount)
   };
 
   const handleBudgetCategoryChange = (event) => {
     setBudgetCategory(event.target.value);
+    console.log(budgetCategory)
+
   };
 
   const handleDateChange = (date) => {
     setDate(date);
+    console.log(date)
+
   };
 
   const handleSubmit = () => {
-    // Handle form submission
+    // Handle 
   };
 
   return (
@@ -106,6 +109,13 @@ export default function TransactionForm() {
                   <MenuItem value={"Transport"}>Transport</MenuItem>
                   <MenuItem value={"Groceries"}>Groceries</MenuItem>
                   <MenuItem value={"Eating Out"}>Eating Out</MenuItem>
+                  <MenuItem value={"Shopping"}>Shopping</MenuItem>
+                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+                  <MenuItem value={"Health"}>Health</MenuItem>
+                  <MenuItem value={"Education"}>Education</MenuItem>
+                  <MenuItem value={"Travel"}>Travel</MenuItem>
+                  <MenuItem value={"Business"}>Business</MenuItem>
+                  <MenuItem value={"Miscellaneous"}>Miscellaneous</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
