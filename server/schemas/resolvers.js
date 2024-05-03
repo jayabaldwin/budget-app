@@ -1,4 +1,4 @@
-const {User, Finance, MoneyOut } = require('../models');
+const {User, Finance } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-errors');
 

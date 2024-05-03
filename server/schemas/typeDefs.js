@@ -91,7 +91,7 @@ const typeDefs = gql`
       description: String!
       date: Date
       category: String!
-    ): MoneyOut
+    ): Finance
 }
 
   scalar Date
