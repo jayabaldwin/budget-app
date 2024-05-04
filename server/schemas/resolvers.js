@@ -127,8 +127,11 @@ const resolvers = {
               date: date ? date : null,
             },
           },
-          $inc: { balance: -amount },
-          $inc: {savingsTotal: amount},
+          $inc: { 
+            balance: -amount,
+            savingsTotal: amount, 
+          },
+          // $inc: {savingsTotal: amount},
         },
         {new: true}
       );

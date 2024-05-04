@@ -10,6 +10,7 @@ query Me {
       email
       finances {
         balance
+        savingsTotal
         income {
           amount
           description

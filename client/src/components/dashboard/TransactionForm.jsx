@@ -21,7 +21,9 @@ import Grid from '@mui/material/Grid';
 import { useMutation } from '@apollo/client';
 
 import { 
-  ADD_SAVINGS 
+  ADD_SAVINGS,
+  ADD_MONEY_OUT,
+  ADD_INCOME,
       } from '../../utils/mutations.js';
 
 import Auth from '../../utils/auth.js';
@@ -29,18 +31,24 @@ import Auth from '../../utils/auth.js';
 
 export default function TransactionForm({email}) {
 
-  console.log('email is ', email);
+  // console.log('email is ', email);
 
   const [formState, setFormState] = useState({
     email: '',
     type: 'Expense',
     description: '',
     amount: 0,
-    budgetCategory: '',
+    // swap things from 'budgetCategory to category
+    category: '',
     date: new Date(),
   })
-  console.log(formState);
-  const [addSavings, { error, data }] = useMutation(ADD_SAVINGS);
+  // console.log(formState);
+  
+  const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
+
+  const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
+
+  const [addIncome, {error: incomeError, data: incomeData}] = useMutation(ADD_INCOME);
 
   // sets up the logged in email. it's needed for the credentials to add to savings
   useEffect(() => {
@@ -64,40 +72,47 @@ export default function TransactionForm({email}) {
   // make the add savings mutation first
 
   const handleSubmit = async (event) => {
-
-    // Need to get the user
-
+    // if we remove this, the balance updates when the form is submitted. if we leave it, it doesn't
     event.preventDefault();
-    console.log(formState.type);
-    console.log(formState.description);
-    console.log(formState.amount);
-    console.log(formState.budgetCategory);
-    console.log(formState.date);
-
+    // Used to send the expenses to the database
     if(formState.type === 'Expense'){
       console.log('Do the expense mutation');
-
-
-
+      console.log(formState);
+      try {
+        const sendToMoneyOut = await addToMoneyOut({
+          variables: {
+            ...formState
+          },
+        });
+        
+      } catch (error) {
+        console.error(error);
+      }
 
     } else if(formState.type === 'Income'){
       console.log('do the income mutaiton');
+      try {
+        const sendAddIncome = await addIncome({
+          variables: {
+            ...formState
+          }
+        });
+        
+      } catch (error) {
+        console.error(error);
+      }
 
 
 
     } // this could just be an 'else{} but i can read it better if i make it an 'else if'
       else if(formState.type === 'Savings'){
-        console.log('do the savings mutation')
-        console.log('formState is ', formState);
-        let sendToSavings = formState;
         try {
-          sendToSavings = await addSavings({
+          const sendToSavings = await addSavings({
             variables: { 
               ...formState 
             },
           });
-          Auth.login(data.addSavings.token);
-          
+          // Auth.login(data.addSavings.token);
         } catch (error) {
           console.error(error);
         }
@@ -105,10 +120,11 @@ export default function TransactionForm({email}) {
   };
 
 
-
   return (
     <form>
-      <Paper component="form" sx={{ p: 2 }}>
+      <Paper 
+      // component="form" 
+      sx={{ p: 2 }}>
         <Typography variant='h5'>Add {formState.type}</Typography>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
@@ -173,8 +189,8 @@ export default function TransactionForm({email}) {
                   <Select
                     labelId="budget-category-label"
                     id="budget-category"
-                    name='budgetCategory'
-                    value={formState.budgetCategory}
+                    name='category'
+                    value={formState.category}
                     label="Budget Category"
                     onChange={handleChange}
                   >
