@@ -30,7 +30,8 @@ export default function SignIn(props) {
           }
         });
         const token = mutationResponse.data.login.token;
-        Auth.login(token);      
+        Auth.login(token);
+        console.log(token);      
     } catch (error) {
       console.error(error);
     }

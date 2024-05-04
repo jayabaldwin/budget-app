@@ -59,7 +59,6 @@ const financeSchema = new Schema({
 });
 
 
-
 const Finance = model("Finance", financeSchema);
 
 module.exports = Finance;
