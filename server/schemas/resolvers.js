@@ -1,6 +1,6 @@
 const {User, Finance } = require('../models');
-const { signToken } = require('../utils/auth');
-const { AuthenticationError } = require('apollo-server-errors');
+const { signToken, AuthenticationError } = require('../utils/auth');
+// const { AuthenticationError } = require('apollo-server-errors');
 
 const resolvers ={
     Query: {
@@ -14,8 +14,7 @@ const resolvers ={
     },
 
 
-    Mutation: {
-        
+    Mutation: {  
         addUser: async (parent, {firstname, lastname, email, password}) => {
             // this is just here to make sure someone isn't already using the email
             const existingUser = await User.findOne({  email });
@@ -37,6 +36,21 @@ const resolvers ={
             // returns the new User document and the token
             return {token, user};
         },
+
+        login: async (parent, {email, password}) => {
+            const user = await User.findOne({email});
+
+            if(!user){
+                throw AuthenticationError;
+            }
+            const correctPw = await user.isCorrectPassword(password)
+            if(!correctPw){
+                throw AuthenticationError;
+            }
+            const token = signToken(user);
+            return { token, user };
+        },
+
 
         addBalance: async (parent, {email, balance}) =>{
             // gets the user by their email, and populates that model with finances

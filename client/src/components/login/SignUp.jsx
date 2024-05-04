@@ -64,8 +64,8 @@ function Signup(props) {
           <TextField
             required
             id="outlined-required"
-            label="Required"
-            defaultValue="First Name"
+            label="First Name"
+            // defaultValue="First Name"
             name='firstname'
             onChange={handleChange}
 
@@ -73,8 +73,8 @@ function Signup(props) {
           <TextField
             required
             id="outlined-required"
-            label="Required"
-            defaultValue="Last Name"
+            label="Last Name"
+            // defaultValue="Last Name"
             name='lastname'
             onChange={handleChange}
 
@@ -82,8 +82,8 @@ function Signup(props) {
           <TextField
             required
             id="outlined-required"
-            label="email"
-            defaultValue="Email"
+            label="Email"
+            // defaultValue="Email"
             name='email'
             onChange={handleChange}
 

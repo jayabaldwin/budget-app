@@ -65,6 +65,12 @@ const typeDefs = gql`
       password: String!
     ): Auth
 
+    login(
+      email: String!
+      password: String!
+    ): Auth
+
+
     addBalance (
       email: String!
       balance: Int!

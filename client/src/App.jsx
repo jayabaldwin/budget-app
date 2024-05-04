@@ -11,7 +11,8 @@ import Settings from "./pages/Settings.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
 
 //  What Reid is adding/working on
-import SignUp from "./components/login/SignUp.jsx"
+import SignUp from "./components/login/SignUp.jsx";
+import SignIn from "./components/login/SignIn.jsx";
 // ////////////////////////////////
 
 
@@ -62,6 +63,7 @@ function App() {
             <Route path="settings" element={<Settings />} />
             {/* What Reid is adding/working on */}
             <Route path="signup" element={<SignUp />} /> 
+            <Route path="signin" element={<SignIn />}/>
             {/* ------------------------------ */}
           </Route>
           <Route path="*" element={<NoMatch />} />

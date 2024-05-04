@@ -1,1 +1,3 @@
-// going to be used to add finances
+// not needed for creating a user
+// not needed for login
+
