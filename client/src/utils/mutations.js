@@ -35,4 +35,23 @@ export const LOGIN = gql`
   }
 `;
 
+export const ADD_SAVINGS = gql`
+  mutation addSavings(
+    $email: String
+    $amount: Int! 
+    $description: String!
+    $date: Date
+    ) {
+      addSavings(
+        email: $email
+        amount: $amount 
+        description: $description
+        date: $date
+      ) {
+        balance
+        savingsTotal
+      }
+  }
+`;
+
 

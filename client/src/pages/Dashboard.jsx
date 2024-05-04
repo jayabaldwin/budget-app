@@ -24,6 +24,8 @@ export default function Dashboard() {
   console.log('overall data about me', data);
   
   const balance = data?.me?.finances[0]?.balance;
+  const email = data?.me?.email;
+  console.log(email);
 
     return (
       <Grid container spacing={2} rowSpacing={2}>
@@ -45,7 +47,7 @@ export default function Dashboard() {
           </Grid>
           {/* Transaction Input */}
           <Grid item xs={6}>
-            <TransactionForm />
+            <TransactionForm email={email}/>
             <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder>
           </Grid>
         </Grid>

@@ -15,6 +15,7 @@ const typeDefs = gql`
   type Finance {
     _id: ID
     balance: Int
+    savingsTotal: Int
     income: [Income]
     savings: [Savings]
     moneyOut: [MoneyOut]
