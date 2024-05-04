@@ -33,24 +33,25 @@ export default function TransactionForm({email}) {
 
   // console.log('email is ', email);
 
+  // this is state i'm using to get the data from form.
   const [formState, setFormState] = useState({
     email: '',
     type: 'Expense',
     description: '',
+    // amount was a bit tricky, it kept showing up as a String and later in the code I had to convert it to an Int
     amount: 0,
-    // swap things from 'budgetCategory to category
+    // I changed this from 'budgetCategory' to category to keep it up with model
     category: '',
     date: new Date(),
   })
-  // console.log(formState);
   
+  // error and data had to be set as 'error: savingsError' and 'data: savingsData' cause just 'error' and 'data' was causing an issue cause it was a variable being used a couple times
   const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
-
   const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
-
   const [addIncome, {error: incomeError, data: incomeData}] = useMutation(ADD_INCOME);
 
   // sets up the logged in email. it's needed for the credentials to add to savings
+  // this is needed to make sure we can get email and use it/send it to the formState
   useEffect(() => {
     setFormState((prevState) => ({
       ...prevState,
@@ -61,24 +62,27 @@ export default function TransactionForm({email}) {
   const handleChange = (event) => {
 
     const { name, value } = event.target;
+    // this is where we are converting the value for amount from a string to an Int. 
     const newValue = name === 'amount' ? parseFloat(value) : value;
-
+    // where that new amount, as an int, is being put into the formState 
     setFormState({
       ...formState,
       [name]: newValue 
     });
   };
 
-  // make the add savings mutation first
 
   const handleSubmit = async (event) => {
     // if we remove this, the balance updates when the form is submitted. if we leave it, it doesn't
+    // basically, without this, the whole page reloads when we submit the transaction form
     event.preventDefault();
+
     // Used to send the expenses to the database
     if(formState.type === 'Expense'){
       console.log('Do the expense mutation');
       console.log(formState);
       try {
+        // these three are pretty simple, essentially just sends the variables and runs the mutations 
         const sendToMoneyOut = await addToMoneyOut({
           variables: {
             ...formState
@@ -101,9 +105,6 @@ export default function TransactionForm({email}) {
       } catch (error) {
         console.error(error);
       }
-
-
-
     } // this could just be an 'else{} but i can read it better if i make it an 'else if'
       else if(formState.type === 'Savings'){
         try {
@@ -239,10 +240,7 @@ export default function TransactionForm({email}) {
 
 
 
-
-  // Make the addSavings mutation first
-
-
+// these chunk of code was what was here earlier but I consolidated it to essentially all be in a single formState variable
 
 
   // const [type, setType] = useState('Expense');
