@@ -35,4 +35,8 @@ export const LOGIN = gql`
   }
 `;
 
+export const ADD_SAVINGS = gql`
+  
+`;
+
 

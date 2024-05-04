@@ -83,8 +83,8 @@ const resolvers = {
         },
         
         // this is basically the same as above but uses $push instead of $inc
-        addIncome: async (parent, { email, amount, description, date}) => {
-            const existingUser = await User.findOne({ email }).populate('finances');
+    addIncome: async (parent, { email, amount, description, date}) => {
+      const existingUser = await User.findOne({ email }).populate('finances');
 
       if (!existingUser) {
         throw new Error("User doesn't exist");
@@ -128,7 +128,9 @@ const resolvers = {
             },
           },
           $inc: { balance: -amount },
-        }
+          $inc: {savingsTotal: amount},
+        },
+        {new: true}
       );
 
       return updateFinance;

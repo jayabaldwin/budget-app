@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Radio from '@mui/material/Radio';
@@ -16,124 +17,213 @@ import SendIcon from '@mui/icons-material/Send';
 import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 
+// what's needed for the reducers
+
+
 export default function TransactionForm() {
-  const [type, setType] = useState('Expense');
-  const [description, setDescription] = useState('');
-  const [amount, setAmount] = useState('');
-  const [budgetCategory, setBudgetCategory] = useState('');
-  const [date, setDate] = useState(new Date());
 
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-    console.log(type)
-  };
+  const [formState, setFormState] = useState({
+    type: 'Expense',
+    description: '',
+    amount: '',
+    budgetCategory: '',
+    date: new Date(),
+  })
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-    console.log(description)
-  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    
+    setFormState({
+      ...formState,
+      [name]: value
+    });
 
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-    console.log(amount)
-  };
-
-  const handleBudgetCategoryChange = (event) => {
-    setBudgetCategory(event.target.value);
-    console.log(budgetCategory)
 
   };
 
-  const handleDateChange = (date) => {
-    setDate(date);
-    console.log(date)
+  // make the add savings mutation first
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState.type);
+    console.log(formState.description);
+    console.log(formState.amount);
+    console.log(formState.budgetCategory);
+    console.log(formState.date);
+
+    if(formState.type === 'Expense'){
+      console.log('Do the expense mutation');
+
+
+
+
+    } else if(formState.type === 'Income'){
+      console.log('do the income mutaiton');
+
+
+
+    } // this could just be an 'else{} but i can read it better if i make it an 'else if'
+      else if(formState.type === 'Savings'){
+      console.log('do the savings mutation')
+
+
+
+
+    }
 
   };
 
-  const handleSubmit = () => {
-    // Handle 
-  };
+
 
   return (
-    <Paper component="form" sx={{ p: 2 }}>
-      <Typography variant='h5'>Add {type}</Typography>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={12}>
-          <FormControl>
-            <RadioGroup row value={type} onChange={handleTypeChange}>
-              <FormControlLabel value="Expense" control={<Radio />} label="Expense" />
-              <FormControlLabel value="Income" control={<Radio />} label="Income" />
-              <FormControlLabel value="Savings" control={<Radio />} label="Savings" />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item xs={9}>
-              <TextField
-                required
-                label="Description"
-                value={description}
-                onChange={handleDescriptionChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <FormControl fullWidth>
-                <InputLabel htmlFor="outlined-amount">Amount</InputLabel>
-                <OutlinedInput
+    <form>
+      <Paper component="form" sx={{ p: 2 }}>
+        <Typography variant='h5'>Add {formState.type}</Typography>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12}>
+            <FormControl>
+              <RadioGroup 
+                row value={formState.type} 
+                onChange={handleChange} 
+                name='type'
+                // value={formState.type} 
+              >
+
+                  <FormControlLabel 
+                      value="Expense" 
+                      control={<Radio />} 
+                      label="Expense" />
+                  <FormControlLabel 
+                      value="Income" 
+                      control={<Radio />} 
+                      label="Income" />
+                  <FormControlLabel 
+                      value="Savings" 
+                      control={<Radio />} 
+                      label="Savings" />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={9}>
+                <TextField
                   required
-                  id="outlined-amount"
-                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                  value={amount}
-                  onChange={handleAmountChange}
+                  label="Description"
+                  name='description'
+                  value={formState.description}
+                  onChange={handleChange}
+                  fullWidth
                 />
-              </FormControl>
+              </Grid>
+              <Grid item xs={3}>
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="outlined-amount">Amount</InputLabel>
+                  <OutlinedInput
+                    required
+                    id="outlined-amount"
+                    name='amount'
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    value={formState.amount}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item xs={4}>
-              <FormControl fullWidth disabled={type !== 'Expense'}>
-                <InputLabel id="budget-category-label">Budget Category</InputLabel>
-                <Select
-                  labelId="budget-category-label"
-                  id="budget-category"
-                  value={budgetCategory}
-                  label="Budget Category"
-                  onChange={handleBudgetCategoryChange}
-                >
-                  <MenuItem value={"Home"}>Home</MenuItem>
-                  <MenuItem value={"Utilities"}>Utilities</MenuItem>
-                  <MenuItem value={"Transport"}>Transport</MenuItem>
-                  <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                  <MenuItem value={"Eating Out"}>Eating Out</MenuItem>
-                  <MenuItem value={"Shopping"}>Shopping</MenuItem>
-                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                  <MenuItem value={"Health"}>Health</MenuItem>
-                  <MenuItem value={"Education"}>Education</MenuItem>
-                  <MenuItem value={"Travel"}>Travel</MenuItem>
-                  <MenuItem value={"Business"}>Business</MenuItem>
-                  <MenuItem value={"Miscellaneous"}>Miscellaneous</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={5}>
-              <DatePicker
-                label="Date"
-                value={date}
-                onChange={handleDateChange}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <Button variant="contained" onClick={handleSubmit} fullWidth endIcon={<SendIcon />}>
-                Add
-              </Button>
+
+          <Grid item xs={12}>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={4}>
+                <FormControl fullWidth disabled={formState.type !== 'Expense'}>
+                  <InputLabel id="budget-category-label">Budget Category</InputLabel>
+                  <Select
+                    labelId="budget-category-label"
+                    id="budget-category"
+                    name='budgetCategory'
+                    value={formState.budgetCategory}
+                    label="Budget Category"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={"Home"}>Home</MenuItem>
+                    <MenuItem value={"Utilities"}>Utilities</MenuItem>
+                    <MenuItem value={"Transport"}>Transport</MenuItem>
+                    <MenuItem value={"Groceries"}>Groceries</MenuItem>
+                    <MenuItem value={"Eating Out"}>Eating Out</MenuItem>
+                    <MenuItem value={"Shopping"}>Shopping</MenuItem>
+                    <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+                    <MenuItem value={"Health"}>Health</MenuItem>
+                    <MenuItem value={"Education"}>Education</MenuItem>
+                    <MenuItem value={"Travel"}>Travel</MenuItem>
+                    <MenuItem value={"Business"}>Business</MenuItem>
+                    <MenuItem value={"Miscellaneous"}>Miscellaneous</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={5}>
+                <DatePicker
+                  label="Date"
+                  name="date"
+                  value={formState.date}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Button 
+                    variant="contained" 
+                    onClick={handleSubmit}
+                    type='submit' 
+                    fullWidth endIcon={<SendIcon />}>
+                  Add
+                </Button>
+
+              </Grid>
             </Grid>
           </Grid>
+
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </form>
   );
 }
+
+
+
+
+
+  // Make the addSavings mutation first
+
+
+
+
+  // const [type, setType] = useState('Expense');
+  // const [description, setDescription] = useState('');
+  // const [amount, setAmount] = useState('');
+  // const [budgetCategory, setBudgetCategory] = useState('');
+  // const [date, setDate] = useState(new Date());
+
+  // const handleTypeChange = (event) => {
+  //   setType(event.target.value);
+  //   console.log(type)
+  // };
+
+  // const handleDescriptionChange = (event) => {
+  //   setDescription(event.target.value);
+  //   console.log(description)
+  // };
+
+  // const handleAmountChange = (event) => {
+  //   setAmount(event.target.value);
+  //   console.log(amount)
+  // };
+
+  // const handleBudgetCategoryChange = (event) => {
+  //   setBudgetCategory(event.target.value);
+  //   console.log(budgetCategory)
+  // };
+
+  // const handleDateChange = (date) => {
+  //   setDate(date);
+  //   console.log(date)
+  // };

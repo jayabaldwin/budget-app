@@ -7,6 +7,10 @@ const financeSchema = new Schema({
     default: 0,
     required: true,
   },
+  savingsTotal: {
+    type: Number,
+    default: 0
+  },
   income: [{
       amount: {
         type: Number,
