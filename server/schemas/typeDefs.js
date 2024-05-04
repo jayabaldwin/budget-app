@@ -24,7 +24,7 @@ const typeDefs = gql`
   type Income {
     _id: ID
     amount: Int!
-    description: String!
+    description: String
     date: Date
   }
 
@@ -76,7 +76,7 @@ const typeDefs = gql`
     addIncome (
       email: String!
       amount: Int!
-      description: String!
+      description: String
       date: Date
     ): Finance
 

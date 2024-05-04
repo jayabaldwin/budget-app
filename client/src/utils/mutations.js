@@ -54,4 +54,43 @@ export const ADD_SAVINGS = gql`
   }
 `;
 
+export const ADD_MONEY_OUT = gql`
+  mutation addMoneyOut(
+      $email: String! 
+      $amount: Int!
+      $description: String!
+      $category: String!
+      $date: Date
+    ) {
+    addMoneyOut(email: $email
+      amount: $amount
+      description: $description
+      category: $category
+      date: $date
+      ) {
+        balance
+        moneyOut {
+          amount
+          description
+          category
+          date
+      }
+    }
+}
+`
+
+export const ADD_INCOME = gql`
+mutation AddIncome(
+  $email: String! 
+  $amount: Int!
+  ) {
+  addIncome(
+    email: $email 
+    amount: $amount
+    ) {
+      balance
+  }
+}
+`;
+
 

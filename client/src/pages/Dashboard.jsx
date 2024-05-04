@@ -21,11 +21,18 @@ export default function Dashboard() {
   // get all the user data via useQuery and send it to each item on the grid
 
   const { loading, data } = useQuery(QUERY_ME);
-  console.log('overall data about me', data);
   
   const balance = data?.me?.finances[0]?.balance;
+  const savingsTotal = data?.me?.finances[0]?.savingsTotal;
   const email = data?.me?.email;
-  console.log(email);
+  console.log(data);
+  console.log(savingsTotal);
+  
+  if(loading){
+    return(
+      <p>Hold on, We're getting your data!</p>
+    )
+  }
 
     return (
       <Grid container spacing={2} rowSpacing={2}>
@@ -39,7 +46,10 @@ export default function Dashboard() {
           <Grid item flexDirection={'column'} xs={3}>
             <Grid item>
                 {/* <Placeholder style={{height:"120px"}}>Balance</Placeholder> */}
-                <Balance balance={balance} style={{height:"120px"}}/>
+                <Balance 
+                  balance={balance}
+                  savingsTotal = {savingsTotal} 
+                  style={{height:"120px"}}/>
             </Grid>
             <Grid item>
                 <Placeholder style={{height:"120px"}}>Money In/Out</Placeholder>

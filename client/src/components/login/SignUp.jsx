@@ -23,11 +23,11 @@ function Signup(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("in the submit");
-    console.log(`${formState.firstname}`);
-    console.log(`${formState.lastname}`);
-    console.log(`${formState.email}`);
-    console.log(`${formState.password}`);
+    // console.log("in the submit");
+    // console.log(`${formState.firstname}`);
+    // console.log(`${formState.lastname}`);
+    // console.log(`${formState.email}`);
+    // console.log(`${formState.password}`);
     // this is the line that the error is pointing to.
     
       const mutationResponse = await addUser({
