@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { styled } from '@mui/material/styles';
-// import TransactionForm from '../components/dashboard/TransactionForm.jsx'
+import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 
 const Placeholder = styled('div')(() => ({
     display: 'flex',
@@ -31,8 +31,8 @@ export default function Dashboard() {
           </Grid>
           {/* Transaction Input */}
           <Grid item xs={6}>
-            {/* <TransactionForm /> */}
-            <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder>
+            <TransactionForm />
+            {/* <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder> */}
           </Grid>
         </Grid>
 

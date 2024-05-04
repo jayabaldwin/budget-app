@@ -1,18 +1,16 @@
-const {User, Finance } = require('../models');
+const { User, Finance } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 // const { AuthenticationError } = require('apollo-server-errors');
 
-const resolvers ={
-    Query: {
-        users: async () => {
-            return User.find().populate('finances');
-        },
-        user: async (parent, {email}) =>{
-            return User.findOne({ email });
-        }
-
+const resolvers = {
+  Query: {
+    users: async () => {
+      return User.find().populate("finances");
     },
-
+    user: async (parent, { email }) => {
+      return User.findOne({ email });
+    },
+  },
 
     Mutation: {  
         addUser: async (parent, {firstname, lastname, email, password}) => {
@@ -32,10 +30,9 @@ const resolvers ={
             });
             // creates the token
             const token = signToken(user);
-
-            // returns the new User document and the token
-            return {token, user};
-        },
+      // returns the new User document and the token
+      return { token, user };
+    },
 
         login: async (parent, {email, password}) => {
             const user = await User.findOne({email});
@@ -76,84 +73,87 @@ const resolvers ={
         addIncome: async (parent, { email, amount, description, date}) => {
             const existingUser = await User.findOne({ email }).populate('finances');
 
-            if(!existingUser){
-                throw new Error("User doesn't exist");
-            }
-            const financeId = existingUser.finances;
-            const updateFinance = await Finance.findByIdAndUpdate(
-                financeId,
-                // because income is an array, need to use $push
-                {
-                    $push: {
-                        income: {
-                            amount: amount,
-                            description: description,
-                            date: date ? date: null,
-                        }
-                    },
-                $inc: {balance: amount}
-                },
-                {new: true},
-            );
-            return updateFinance;
+      if (!existingUser) {
+        throw new Error("User doesn't exist");
+      }
+      const financeId = existingUser.finances;
+      const updateFinance = await Finance.findByIdAndUpdate(
+        financeId,
+        // because income is an array, need to use $push
+        {
+          $push: {
+            income: {
+              amount: amount,
+              description: description,
+              date: date ? date : null,
+            },
+          },
+          $inc: { balance: amount },
         },
-        
-        // this is the same code but you're now pushing to savings instead of income
-        addSavings: async (parent, {email, amount, description, date}) => {
-            const existingUser = await User.findOne({ email }).populate('finances');
-
-            if(!existingUser){
-                throw new Error("User doesn't exist");
-            }
-            const financeId = existingUser.finances;
-            const updateFinance = await Finance.findByIdAndUpdate(
-                // make a running total, of savings. And the option to move money from savings?  
-                financeId,
-                {
-                $push: {
-                    savings: {
-                        amount: amount,
-                        description: description,
-                        date: date ? date: null,
-                    },
-                },
-                $inc: {balance: -amount}
-                },
-            );
-
-            return updateFinance;
-        },
-        
-
-        addMoneyOut: async (parent, {email, amount, description, date, category}) => {
-            const existingUser = await User.findOne({email}).populate('finances')
-
-            if(!existingUser){
-                throw new Error("User doesn't exist");
-            }
-            const financeId = existingUser.finances;
-            console.log('financeId ', financeId);
-            const updateFinance = await Finance.findByIdAndUpdate(
-                financeId,
-                {
-                    $push: {
-                        moneyOut: {
-                            amount: amount,
-                            description: description,
-                            date: date ? date: null,
-                            category: category,
-                        },
-                    },
-                    $inc: {balance: -amount}
-                },
-                {new: true},
-            );
-            console.log('updateFinance ', updateFinance);
-            return updateFinance;
-        },
-
-
+        { new: true }
+      );
+      return updateFinance;
     },
-}
+
+    // this is the same code but you're now pushing to savings instead of income
+    addSavings: async (parent, { email, amount, description, date }) => {
+      const existingUser = await User.findOne({ email }).populate("finances");
+
+      if (!existingUser) {
+        throw new Error("User doesn't exist");
+      }
+      const financeId = existingUser.finances;
+      const updateFinance = await Finance.findByIdAndUpdate(
+        // make a running total, of savings. And the option to move money from savings?
+        financeId,
+        {
+          $push: {
+            savings: {
+              amount: amount,
+              description: description,
+              date: date ? date : null,
+            },
+          },
+          $inc: { balance: -amount },
+        }
+      );
+
+      return updateFinance;
+    },
+
+    addMoneyOut: async (
+      parent,
+      { email, amount, description, date, category }
+    ) => {
+      const existingUser = await User.findOne({ email }).populate("finances");
+
+      if (!existingUser) {
+        throw new Error("User doesn't exist");
+      }
+      const financeId = existingUser.finances;
+      console.log("financeId ", financeId);
+      const updateFinance = await Finance.findByIdAndUpdate(
+        financeId,
+        {
+          $push: {
+            moneyOut: {
+              amount: amount,
+              description: description,
+              date: date ? date : null,
+              category: category,
+            },
+          },
+          $inc: { balance: -amount },
+        },
+        { new: true }
+      );
+      console.log("updateFinance ", updateFinance);
+      return updateFinance;
+    },
+  },
+};
+
+// Other Mutations:
+// withdrawSavings
 
 module.exports = resolvers;
