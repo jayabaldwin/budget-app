@@ -65,6 +65,12 @@ const typeDefs = gql`
       password: String!
     ): Auth
 
+    login(
+      email: String!
+      password: String!
+    ): Auth
+
+
     addBalance (
       email: String!
       balance: Int!
@@ -91,7 +97,7 @@ const typeDefs = gql`
       description: String!
       date: Date
       category: String!
-    ): MoneyOut
+    ): Finance
 }
 
   scalar Date

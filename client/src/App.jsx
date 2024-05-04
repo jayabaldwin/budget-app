@@ -10,12 +10,19 @@ import Profile from "./pages/Profile.jsx";
 import Settings from "./pages/Settings.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
 
+//  What Reid is adding/working on
+import SignUp from "./components/login/SignUp.jsx";
+import SignIn from "./components/login/SignIn.jsx";
+// ////////////////////////////////
+
+
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
+
 
 import { setContext } from '@apollo/client/link/context';
 
@@ -48,12 +55,16 @@ function App() {
         <Routes>
           <Route index element={<Landing />} />
           {/* All home routes must have the /home before the following parameter */}
-          <Route path="home" element={<LayoutNav />}>
+          <Route path="/home" element={<LayoutNav />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="finance" element={<Finances />} />
             <Route path="history" element={<History />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
+            {/* What Reid is adding/working on */}
+            <Route path="signup" element={<SignUp />} /> 
+            <Route path="signin" element={<SignIn />}/>
+            {/* ------------------------------ */}
           </Route>
           <Route path="*" element={<NoMatch />} />
         </Routes>
