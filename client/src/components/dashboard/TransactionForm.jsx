@@ -17,33 +17,56 @@ import SendIcon from '@mui/icons-material/Send';
 import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 
-// what's needed for the reducers
+
+import { useMutation } from '@apollo/client';
+
+import { 
+  ADD_SAVINGS 
+      } from '../../utils/mutations.js';
+
+import Auth from '../../utils/auth.js';
 
 
-export default function TransactionForm() {
+export default function TransactionForm({email}) {
+
+  console.log('email is ', email);
 
   const [formState, setFormState] = useState({
+    email: '',
     type: 'Expense',
     description: '',
-    amount: '',
+    amount: 0,
     budgetCategory: '',
     date: new Date(),
   })
+  console.log(formState);
+  const [addSavings, { error, data }] = useMutation(ADD_SAVINGS);
+
+  // sets up the logged in email. it's needed for the credentials to add to savings
+  useEffect(() => {
+    setFormState((prevState) => ({
+      ...prevState,
+      email: email,
+    }));
+  }, [email]);
 
   const handleChange = (event) => {
+
     const { name, value } = event.target;
-    
+    const newValue = name === 'amount' ? parseFloat(value) : value;
+
     setFormState({
       ...formState,
-      [name]: value
+      [name]: newValue 
     });
-
-
   };
 
   // make the add savings mutation first
 
   const handleSubmit = async (event) => {
+
+    // Need to get the user
+
     event.preventDefault();
     console.log(formState.type);
     console.log(formState.description);
@@ -64,13 +87,21 @@ export default function TransactionForm() {
 
     } // this could just be an 'else{} but i can read it better if i make it an 'else if'
       else if(formState.type === 'Savings'){
-      console.log('do the savings mutation')
-
-
-
-
+        console.log('do the savings mutation')
+        console.log('formState is ', formState);
+        let sendToSavings = formState;
+        try {
+          sendToSavings = await addSavings({
+            variables: { 
+              ...formState 
+            },
+          });
+          Auth.login(data.addSavings.token);
+          
+        } catch (error) {
+          console.error(error);
+        }
     }
-
   };
 
 
@@ -117,6 +148,7 @@ export default function TransactionForm() {
                   fullWidth
                 />
               </Grid>
+
               <Grid item xs={3}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="outlined-amount">Amount</InputLabel>
