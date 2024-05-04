@@ -2,6 +2,12 @@ import Grid from "@mui/material/Grid";
 import { styled } from '@mui/material/styles';
 import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 
+// What Reid is adding
+import Balance from '../components/dashboard/Balance.jsx';
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries.js';
+//////////////
+
 const Placeholder = styled('div')(() => ({
     display: 'flex',
     justifyContent: 'center',
@@ -12,6 +18,13 @@ const Placeholder = styled('div')(() => ({
 }));
 
 export default function Dashboard() {
+  // get all the user data via useQuery and send it to each item on the grid
+
+  const { loading, data } = useQuery(QUERY_ME);
+  console.log('overall data about me', data);
+  
+  const balance = data?.me?.finances[0]?.balance;
+
     return (
       <Grid container spacing={2} rowSpacing={2}>
         {/* Row 1 */}
@@ -23,7 +36,8 @@ export default function Dashboard() {
           {/* Metrics */}
           <Grid item flexDirection={'column'} xs={3}>
             <Grid item>
-                <Placeholder style={{height:"120px"}}>Balance</Placeholder>
+                {/* <Placeholder style={{height:"120px"}}>Balance</Placeholder> */}
+                <Balance balance={balance} style={{height:"120px"}}/>
             </Grid>
             <Grid item>
                 <Placeholder style={{height:"120px"}}>Money In/Out</Placeholder>
@@ -32,7 +46,7 @@ export default function Dashboard() {
           {/* Transaction Input */}
           <Grid item xs={6}>
             <TransactionForm />
-            {/* <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder> */}
+            <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder>
           </Grid>
         </Grid>
 

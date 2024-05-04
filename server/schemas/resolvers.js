@@ -8,8 +8,21 @@ const resolvers = {
       return User.find().populate("finances");
     },
     user: async (parent, { email }) => {
-      return User.findOne({ email });
+      // if this doesn't have .populate('finances') everything i try to get from finances will be null
+      return User.findOne({ email }).populate("finances");
     },
+
+    // this is to get the logged in user
+    me: async (parent, args, context) => {
+      // console.log(context);
+      // console.log('context.user: ', context.user.data._id);
+      if(context.user) {
+        const foundUser = await User.findOne({_id: context.user.data._id}).populate('finances');
+        // console.log(foundUser);
+        return foundUser;
+      }
+      // throw new AuthenticationError('You need to be logged in!');
+    }
   },
 
     Mutation: {  
@@ -152,8 +165,5 @@ const resolvers = {
     },
   },
 };
-
-// Other Mutations:
-// withdrawSavings
 
 module.exports = resolvers;

@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type Finance {
     _id: ID
-    balance: Int!
+    balance: Int
     income: [Income]
     savings: [Savings]
     moneyOut: [MoneyOut]
@@ -48,16 +48,12 @@ const typeDefs = gql`
   }
 
   type Query {
-
     users: [User]
-
     user(email: String!): User
-
-    
+    me: User
   }
 
   type Mutation {
-
     addUser(
       firstname: String!
       lastname: String!
