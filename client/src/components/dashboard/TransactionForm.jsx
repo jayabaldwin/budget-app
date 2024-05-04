@@ -29,7 +29,7 @@ import Auth from '../../utils/auth.js';
 
 export default function TransactionForm({email}) {
 
-  console.log('email is ', email);
+  // console.log('email is ', email);
 
   const [formState, setFormState] = useState({
     email: '',
@@ -87,17 +87,16 @@ export default function TransactionForm({email}) {
 
     } // this could just be an 'else{} but i can read it better if i make it an 'else if'
       else if(formState.type === 'Savings'){
-        console.log('do the savings mutation')
-        console.log('formState is ', formState);
-        let sendToSavings = formState;
+        // console.log('do the savings mutation')
+        // console.log('formState is ', formState);
+        // let sendToSavings = formState;
         try {
-          sendToSavings = await addSavings({
+          const sendToSavings = await addSavings({
             variables: { 
               ...formState 
             },
           });
-          Auth.login(data.addSavings.token);
-          
+          // Auth.login(data.addSavings.token);
         } catch (error) {
           console.error(error);
         }

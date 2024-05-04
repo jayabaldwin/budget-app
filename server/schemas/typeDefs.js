@@ -81,7 +81,7 @@ const typeDefs = gql`
     ): Finance
 
     addSavings (
-      email: String!
+      email: String
       amount: Int!
       description: String!
       date: Date
