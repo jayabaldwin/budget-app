@@ -25,8 +25,15 @@ export default function Dashboard() {
   const balance = data?.me?.finances[0]?.balance;
   const savingsTotal = data?.me?.finances[0]?.savingsTotal;
   const email = data?.me?.email;
-  console.log(data);
-  console.log(savingsTotal);
+
+  // these are the subdocument arrays from finance of moneyOut that can be used as a prop to each component
+  const income = data?.me?.finances[0]?.income;
+  const savings = data?.me?.finances[0]?.savings;
+  const moneyOut = data?.me?.finances[0]?.moneyOut;
+
+  console.log('income: ', income);
+  console.log('savings: ', savings);
+  console.log('moneyOut: ',moneyOut);
   
   if(loading){
     return(
