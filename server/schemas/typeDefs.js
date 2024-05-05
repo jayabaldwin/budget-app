@@ -1,14 +1,12 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  
   type User {
     _id: ID
     firstname: String!
     lastname: String!
     initials: String
     email: String!
-    password: String
     finances: [Finance]
   }
 
@@ -49,7 +47,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User]
     user(email: String!): User
     me: User
   }
@@ -62,40 +59,32 @@ const typeDefs = gql`
       password: String!
     ): Auth
 
-    login(
-      email: String!
-      password: String!
-    ): Auth
+    login(email: String!, password: String!): Auth
 
+    addBalance(email: String!, balance: Int!): Finance
 
-    addBalance (
-      email: String!
-      balance: Int!
-    ): Finance
-
-    addIncome (
+    addIncome(
       email: String!
       amount: Int!
       description: String
       date: Date
     ): Finance
 
-    addSavings (
+    addSavings(
       email: String
       amount: Int!
       description: String!
       date: Date
     ): Finance
 
-
-    addMoneyOut (
+    addMoneyOut(
       email: String!
       amount: Int!
       description: String!
       date: Date
       category: String!
     ): Finance
-}
+  }
 
   scalar Date
 `;
