@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactCardFlip from 'react-card-flip';
 import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -21,14 +22,36 @@ export default function Balance({balance, savingsTotal}) {
         setIsFlipped(!isFlipped);
     };
 
-
     return (
-            <Card sx={{ width: '100%', maxWidth: 500 }} onClick={handleClick}>
-                <CardContent>
+        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+            <Card 
+                sx={{ width: '100%', maxWidth: 500 }} 
+                onClick={handleClick}
+            >
+                <CardContent sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
                     <Typography variant="h6" gutterBottom>
-                        {isFlipped ? `Savings: ${updateSavings}` : `Balance: ${updatedBalance}`}
+                        Balance: {updatedBalance}
                     </Typography>  
                 </CardContent>
             </Card>
+            <Card 
+                sx={{ width: '100%', maxWidth: 500 }} 
+                onClick={handleClick}
+            >
+                <CardContent sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Typography variant="h6" gutterBottom>
+                        Savings: {updateSavings}
+                    </Typography>  
+                </CardContent>
+            </Card>
+        </ReactCardFlip>
     );
 }
