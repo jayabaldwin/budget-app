@@ -54,16 +54,15 @@ function Signup(props) {
 
   return (
     <Box
-      // component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
       noValidate
       autoComplete="off"
     >
-      <div>
         <form 
           onSubmit={handleFormSubmit}
+          style={{display: 'flex', flexDirection: 'column'}}
           >
           <TextField
             required
@@ -108,9 +107,6 @@ function Signup(props) {
               Send
           </Button>
         </form>
-      </div>
-      
-      
     </Box>
   );
 }

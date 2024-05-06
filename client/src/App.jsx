@@ -9,12 +9,8 @@ import History from "./pages/History.jsx";
 import Profile from "./pages/Profile.jsx";
 import Settings from "./pages/Settings.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
-
-//  What Reid is adding/working on
-import SignUp from "./components/login/SignUp.jsx";
-import SignIn from "./components/login/SignIn.jsx";
-// ////////////////////////////////
-
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "./theme/theme.js";
 
 import {
   ApolloClient,
@@ -52,14 +48,10 @@ function App() {
     <>
      <ApolloProvider client={client}>
      <Router>
+      <ThemeProvider theme={theme}>
        <CssBaseline/>
         <Routes>
           <Route index element={<Landing />} />
-            {/* What Reid is adding/working on */}
-            {/* <Route path="signup" element={<SignUp />} /> 
-            <Route path="signin" element={<SignIn />} /> */}
-            {/* ------------------------------ */}
-          
           {/* All home routes must have the /home before the following parameter */}
           <Route path="/home" element={<LayoutNav />}>
             <Route path="dashboard" element={<Dashboard />} />
@@ -67,10 +59,10 @@ function App() {
             <Route path="history" element={<History />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
-
           </Route>
           <Route path="*" element={<NoMatch />} />
         </Routes>
+        </ThemeProvider>
       </Router>
       </ApolloProvider>
     </>

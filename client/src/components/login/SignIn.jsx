@@ -54,9 +54,9 @@ export default function SignIn(props) {
       noValidate
       autoComplete="off"
     >
-      <div>
         <form  
             onSubmit={handleFormSubmit}
+            style={{display: 'flex', flexDirection: 'column'}}
         >
         <TextField
           required
@@ -83,9 +83,7 @@ export default function SignIn(props) {
             endIcon={<SendIcon />}>
               Send
         </Button>
-        </form>
-      </div>
-   
+        </form>   
     </Box>
   );
 }
