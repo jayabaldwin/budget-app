@@ -3,26 +3,35 @@ import SignUp from '../components/login/SignUp';
 import auth from '../utils/auth'
 import Dashboard from "./Dashboard";
 import LayoutNav from '../components/layout/LayoutNav'
+import Card from '@mui/material/Card';
+import { Box } from '@mui/system';
 
-// : display forms  
+
 export default function Landing() {
 
     const isLoggedIn = auth.loggedIn()
 
     return (
-        <div>
+      <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+      >
           {isLoggedIn ? (
-            <>
-              <LayoutNav />
-              <Dashboard />
-            </>
+              <>
+                  <LayoutNav />
+                  <Box mt={10}>
+                    <Dashboard />
+                  </Box>
+              </>
           ) : (
-            <>
-                <SignIn />
-                <SignUp />
-            </>
+              <Card>
+                  <SignIn />
+                  <SignUp />
+              </Card>
           )}
-        </div>
+      </Box>
       );
     }
 

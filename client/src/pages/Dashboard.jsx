@@ -33,6 +33,8 @@ export default function Dashboard() {
   const savings = data?.me?.finances[0]?.savings;
   const moneyOut = data?.me?.finances[0]?.moneyOut;
 
+  
+
   console.log('income: ', income);
   console.log('savings: ', savings);
   console.log('moneyOut: ',moneyOut);
@@ -44,7 +46,9 @@ export default function Dashboard() {
   }
 
     return (
-      <Grid container spacing={2} rowSpacing={2}>
+      <Grid container spacing={2} rowSpacing={2}
+        // sx={{mt:10}}
+        >
         {/* Row 1 */}
         <Grid container spacing={2}>
           {/* Countdown */}
