@@ -10,35 +10,47 @@ const typeDefs = gql`
     finances: [Finance]
   }
 
+  type UserBudgetCategories {
+    _id: ID
+    categoryName: String!
+    setWeeklyAmount: Int!
+  }
+
   type Finance {
     _id: ID
-    balance: Int
+    balance: Float
     savingsTotal: Int
     income: [Income]
     savings: [Savings]
     moneyOut: [MoneyOut]
+    budget: [UserBudgetCategories]
   }
 
   type Income {
     _id: ID
-    amount: Int!
+    amount: Float!
     description: String
     date: Date
   }
 
   type Savings {
     _id: ID
-    amount: Int!
+    amount: Float!
     description: String!
     date: Date
   }
 
   type MoneyOut {
     _id: ID
-    amount: Int!
+    amount: Float!
     description: String!
     date: Date
-    category: String!
+    category: Category!
+  }
+
+  type Category {
+    _id: ID
+    budgetName: String!
   }
 
   type Auth {
@@ -47,6 +59,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    users: [User]
     user(email: String!): User
     me: User
   }
@@ -61,25 +74,25 @@ const typeDefs = gql`
 
     login(email: String!, password: String!): Auth
 
-    addBalance(email: String!, balance: Int!): Finance
+    addBalance(email: String!, balance: Float!): Finance
 
     addIncome(
       email: String!
-      amount: Int!
+      amount: Float!
       description: String
       date: Date
     ): Finance
 
     addSavings(
       email: String
-      amount: Int!
+      amount: Float!
       description: String!
       date: Date
     ): Finance
 
     addMoneyOut(
       email: String!
-      amount: Int!
+      amount: Float!
       description: String!
       date: Date
       category: String!

@@ -1,5 +1,5 @@
-const { User, Finance } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { User, Finance } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 // const { AuthenticationError } = require('apollo-server-errors');
 
 const resolvers = {
@@ -15,78 +15,88 @@ const resolvers = {
     // this is to get the info from the user that's logged in
     me: async (parent, args, context) => {
       // i kinda forget where context is coming from/how it works
-      if(context.user) {
-        const foundUser = await User.findOne({_id: context.user.data._id}).populate('finances');
+      if (context.user) {
+        const foundUser = await User.findOne({
+          _id: context.user.data._id,
+        }).populate({
+          path: "finances",
+          populate: { path: "moneyOut", populate: { path: "category" } },
+        });
         return foundUser;
       }
       // throw new AuthenticationError('You need to be logged in!');
-    }
+    },
   },
 
-    Mutation: {  
-      addUser: async (parent, {firstname, lastname, email, password}) => {
-          // this is just here to make sure someone isn't already using the email
-          const existingUser = await User.findOne({  email });
-          if(existingUser){
-              throw new AuthenticationError('Already a user with this email');
-          }
-          // creates the subdoc that's the finance. I'll probably need to be creating sub docs in income, savings, and moneyOut too
-          const finance = await Finance.create({ balance: 0, income: [], savings: [], moneyOut: [] });
-          const user = await User.create({ 
-              firstname,
-              lastname,
-              email, 
-              password,
-              finances: [finance._id]
-          });
-          // creates the token
-          const token = signToken(user);
-    // returns the new User document and the token
-    return { token, user };
-     },
-
-    login: async (parent, {email, password}) => {
-      // finds the user via their email
-        const user = await User.findOne({email});
-
-        if(!user){
-            throw AuthenticationError;
-        }
-        // makes sure the password is correct
-        const correctPw = await user.isCorrectPassword(password)
-        if(!correctPw){
-            throw AuthenticationError;
-        }
-        // password was correct? give 'em a token!
-        const token = signToken(user);
-        return { token, user };
+  Mutation: {
+    addUser: async (parent, { firstname, lastname, email, password }) => {
+      // this is just here to make sure someone isn't already using the email
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        throw new AuthenticationError("Already a user with this email");
+      }
+      // creates the subdoc that's the finance. I'll probably need to be creating sub docs in income, savings, and moneyOut too
+      const finance = await Finance.create({
+        balance: 0,
+        income: [],
+        savings: [],
+        moneyOut: [],
+      });
+      const user = await User.create({
+        firstname,
+        lastname,
+        email,
+        password,
+        finances: [finance._id],
+      });
+      // creates the token
+      const token = signToken(user);
+      // returns the new User document and the token
+      return { token, user };
     },
 
+    login: async (parent, { email, password }) => {
+      // finds the user via their email
+      const user = await User.findOne({ email });
 
-    addBalance: async (parent, {email, balance}) =>{
-        // gets the user by their email, and populates that model with finances
-        const existingUser = await User.findOne({ email }).populate('finances');
-        // throws an error if the user does not exist
-        if(!existingUser){
-            throw new Error("User doesn't exist");
-        }
+      if (!user) {
+        throw AuthenticationError;
+      }
+      // makes sure the password is correct
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+      // password was correct? give 'em a token!
+      const token = signToken(user);
+      return { token, user };
+    },
+
+    addBalance: async (parent, { email, balance }, context) => {
+      // If logged in
+      if (context.user) {
+        const existingUser = await User.findById(context.user._id).populate(
+          "finances"
+        );
         // because in the db the only thing in the user model in regards to finance is the id
         const financeId = existingUser.finances;
         // now with that we have the finance id from user, we can update it
         const updateFinance = await Finance.findByIdAndUpdate(
-            // filters by finance sub-doc from that user
-            financeId,
-            // increments up the balance by the balance sent to the mutation
-            { $inc: { balance: balance } },
-            { new: true },
+          // filters by finance sub-doc from that user
+          financeId,
+          // increments up the balance by the balance sent to the mutation
+          { $inc: { balance: balance } },
+          { new: true }
         );
-        // returns that new 
+        // returns that new
         return updateFinance;
+      }
+      throw AuthenticationError;
     },
-      
-        // this is basically the same as above but uses $push instead of $inc
-    addIncome: async (parent, { email, amount, description, date}) => {
-      const existingUser = await User.findOne({ email }).populate('finances');
+
+    // this is basically the same as above but uses $push instead of $inc
+    addIncome: async (parent, { email, amount, description, date }) => {
+      const existingUser = await User.findOne({ email }).populate("finances");
 
       if (!existingUser) {
         throw new Error("User doesn't exist");
@@ -129,13 +139,13 @@ const resolvers = {
               date: date ? date : null,
             },
           },
-          $inc: { 
+          $inc: {
             balance: -amount,
-            savingsTotal: amount, 
+            savingsTotal: amount,
           },
           // $inc: {savingsTotal: amount},
         },
-        {new: true}
+        { new: true }
       );
 
       return updateFinance;
