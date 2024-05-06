@@ -1,24 +1,24 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
-mutation addUser(
-  $firstname: String! 
-  $lastname: String! 
-  $email: String!
-  $password: String!
+  mutation AddUser(
+    $firstname: String!
+    $lastname: String!
+    $email: String!
+    $password: String!
   ) {
     addUser(
       firstname: $firstname
       lastname: $lastname
       email: $email
       password: $password
-      ) {
+    ) {
       token
       user {
         _id
       }
     }
-}
+  }
 `;
 
 export const LOGIN = gql`
@@ -36,61 +36,84 @@ export const LOGIN = gql`
 `;
 
 export const ADD_SAVINGS = gql`
-  mutation addSavings(
-    $email: String
-    $amount: Int! 
-    $description: String!
-    $date: Date
-    ) {
-      addSavings(
-        email: $email
-        amount: $amount 
-        description: $description
-        date: $date
-      ) {
-        balance
-        savingsTotal
+  mutation AddSavings($amount: Float!, $description: String!, $date: Date) {
+    addSavings(amount: $amount, description: $description, date: $date) {
+      savings {
+        amount
+        date
+        description
       }
+      balance
+      savingsTotal
+    }
   }
 `;
 
 export const ADD_MONEY_OUT = gql`
-  mutation addMoneyOut(
-      $email: String! 
-      $amount: Int!
-      $description: String!
-      $category: String!
-      $date: Date
-    ) {
-    addMoneyOut(email: $email
+  mutation AddMoneyOut(
+    $amount: Float!
+    $description: String!
+    $category: String!
+    $date: Date
+  ) {
+    addMoneyOut(
       amount: $amount
       description: $description
       category: $category
       date: $date
-      ) {
-        balance
-        moneyOut {
-          amount
-          description
-          category
-          date
+    ) {
+      moneyOut {
+        amount
+        category
+        date
+        description
       }
     }
-}
-`
-
-export const ADD_INCOME = gql`
-mutation AddIncome(
-  $email: String! 
-  $amount: Int!
-  ) {
-  addIncome(
-    email: $email 
-    amount: $amount
-    ) {
-      balance
   }
-}
 `;
 
+export const ADD_INCOME = gql`
+  mutation AddIncome($amount: Float!) {
+    addIncome(amount: $amount) {
+      income {
+        amount
+        date
+        description
+      }
+    }
+  }
+`;
 
+export const ADD_BALANCE = gql`
+  mutation Mutation($balance: Float!) {
+    addBalance(balance: $balance) {
+      finances {
+        balance
+      }
+    }
+  }
+`;
+
+export const ADD_CATEGORY = gql`
+  mutation AddCategory($categoryName: String!, $setWeeklyAmount: Int!) {
+    addCategory(
+      categoryName: $categoryName
+      setWeeklyAmount: $setWeeklyAmount
+    ) {
+      finances {
+        budgetCategories {
+          _id
+          categoryName
+          setWeeklyAmount
+        }
+        moneyOut {
+          _id
+          amount
+          description
+          date
+          category
+        }
+      }
+    }
+  }
+`;

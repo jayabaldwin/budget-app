@@ -1,6 +1,5 @@
 const { User, Finance, UserBudget } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-// const { AuthenticationError } = require('apollo-server-errors');
 
 const resolvers = {
   Query: {
