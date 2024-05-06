@@ -45,7 +45,7 @@ const typeDefs = gql`
     amount: Float!
     description: String!
     date: Date
-    category: Category!
+    category: String!
   }
 
   type Category {
@@ -62,6 +62,8 @@ const typeDefs = gql`
     users: [User]
     user(email: String!): User
     me: User
+    categories: [Category]
+    userBudget: [User]
   }
 
   type Mutation {
