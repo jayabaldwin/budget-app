@@ -1,4 +1,4 @@
-const { User, Finance, UserBudget } = require("../models");
+const { User, Finance, UserBudget, Category } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -23,6 +23,9 @@ const resolvers = {
         return foundUser;
       }
       throw AuthenticationError;
+    },
+    categories: async () => {
+      return Category.find();
     },
   },
 
