@@ -13,6 +13,8 @@ import NoMatch from "./pages/NoMatch.jsx";
 //  What Reid is adding/working on
 import SignUp from "./components/login/SignUp.jsx";
 import SignIn from "./components/login/SignIn.jsx";
+import auth from './utils/auth.js';
+import { useNavigate, useRouters } from "react-router-dom";
 // ////////////////////////////////
 
 
@@ -48,30 +50,38 @@ const client = new ApolloClient({
 });
 
 function App() {
+
+  const isLoggedIn = auth.loggedIn();
+  const navigate = useNavigate();
+  console.log(isLoggedIn);
+
+  if (!isLoggedIn && window.location.pathname.startsWith('/home')) {
+    navigate('/');
+  }
+
   return (
     <>
-     <ApolloProvider client={client}>
-     <Router>
-       <CssBaseline/>
-        <Routes>
-          <Route index element={<Landing />} />
-            {/* What Reid is adding/working on */}
-            {/* <Route path="signup" element={<SignUp />} /> 
-            <Route path="signin" element={<SignIn />} /> */}
-            {/* ------------------------------ */}
-          
-          {/* All home routes must have the /home before the following parameter */}
-          <Route path="/home" element={<LayoutNav />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="finance" element={<Finances />} />
-            <Route path="history" element={<History />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
-
-          </Route>
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
-      </Router>
+      <ApolloProvider client={client}>
+        <Router>
+          <CssBaseline/>
+          <Routes>
+            {isLoggedIn ? (
+              <>
+                <Route index element={<Landing />} />
+                <Route path="/home" element={<LayoutNav />}>
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="finance" element={<Finances />} />
+                  <Route path="history" element={<History />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="settings" element={<Settings />} />
+                </Route>
+              </>
+            ) : (
+              <Route index element={<Landing />} />
+            )}
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+        </Router>
       </ApolloProvider>
     </>
   );
