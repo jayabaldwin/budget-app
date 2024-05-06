@@ -172,7 +172,8 @@ export default function TransactionForm({email}) {
                   <OutlinedInput
                     required
                     id="outlined-amount"
-                    name='amount'
+                    label='amount'
+                    // name='amount'
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     value={formState.amount}
                     onChange={handleChange}
