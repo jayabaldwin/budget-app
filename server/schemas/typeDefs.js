@@ -29,7 +29,7 @@ const typeDefs = gql`
   type Income {
     _id: ID
     amount: Float!
-    description: String!
+    description: String
     date: Date
   }
 
@@ -76,7 +76,7 @@ const typeDefs = gql`
 
     addBalance(balance: Float!): User
 
-    addIncome(amount: Float!, description: String!, date: Date): Finance
+    addIncome(amount: Float!, description: String, date: Date): Finance
 
     addSavings(amount: Float!, description: String!, date: Date): Finance
 

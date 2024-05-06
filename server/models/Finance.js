@@ -58,7 +58,7 @@ const financeSchema = new Schema({
         // required: true,
       },
       category: {
-        type: "String",
+        type: String,
       },
     },
   ],
