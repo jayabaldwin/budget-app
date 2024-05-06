@@ -21,8 +21,8 @@ export default function Balance({balance, savingsTotal}) {
         setIsFlipped(!isFlipped);
     };
 
+
     return (
-        <ClickAwayListener onClickAway={handleClick}>
             <Card sx={{ width: '100%', maxWidth: 500 }} onClick={handleClick}>
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
@@ -30,6 +30,5 @@ export default function Balance({balance, savingsTotal}) {
                     </Typography>  
                 </CardContent>
             </Card>
-        </ClickAwayListener>
     );
 }
