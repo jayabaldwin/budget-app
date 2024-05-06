@@ -8,9 +8,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'; 
 
+import auth from '../../utils/auth';
+
 const settings = [
   { label: 'Profile', link: '/home/profile' },
-  { label: 'Logout', link: '/home/logout' }
+  { label: 'Logout', link: '/' }
 ];
 
 export default function UserLogout() {
@@ -19,6 +21,15 @@ export default function UserLogout() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+  const logoutOnClick = (event) => {
+     const logoutSetting = settings.find((setting) => setting.label === 'Logout');
+
+    if (logoutSetting && event.currentTarget.innerText === logoutSetting.label) {
+      auth.logout();
+    }
+  }
+
+
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -49,7 +60,10 @@ export default function UserLogout() {
       >
         {settings.map((setting) => (
           <MenuItem key={setting.label} onClick={handleCloseUserMenu}>
-            <Link to={setting.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link 
+              onClick= {logoutOnClick} 
+              to={setting.link} 
+              style={{ textDecoration: 'none', color: 'inherit' }}>
               <Typography textAlign="center">{setting.label}</Typography>
             </Link>
           </MenuItem>

@@ -25,6 +25,7 @@ import {
 
 
 import { setContext } from '@apollo/client/link/context';
+import { Lan } from "@mui/icons-material";
 
 
 const httpLink = createHttpLink({
@@ -54,6 +55,11 @@ function App() {
        <CssBaseline/>
         <Routes>
           <Route index element={<Landing />} />
+            {/* What Reid is adding/working on */}
+            {/* <Route path="signup" element={<SignUp />} /> 
+            <Route path="signin" element={<SignIn />} /> */}
+            {/* ------------------------------ */}
+          
           {/* All home routes must have the /home before the following parameter */}
           <Route path="/home" element={<LayoutNav />}>
             <Route path="dashboard" element={<Dashboard />} />
@@ -61,10 +67,7 @@ function App() {
             <Route path="history" element={<History />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
-            {/* What Reid is adding/working on */}
-            <Route path="signup" element={<SignUp />} /> 
-            <Route path="signin" element={<SignIn />}/>
-            {/* ------------------------------ */}
+
           </Route>
           <Route path="*" element={<NoMatch />} />
         </Routes>
