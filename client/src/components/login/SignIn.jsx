@@ -75,6 +75,21 @@ export default function SignIn(props) {
               defaultValue=""
               onChange={handleChange}
             />
+//       autoComplete="off"
+//     >
+//         <form  
+//             onSubmit={handleFormSubmit}
+//             style={{display: 'flex', flexDirection: 'column'}}
+//         >
+//         <TextField
+//           required
+//           id="outlined-required"
+//           label="Email"
+//           type="email"
+//           name='email'
+//           defaultValue=""
+//           onChange={handleChange}
+//         />
 
             <TextField
               id="outlined-password-input"
@@ -94,6 +109,15 @@ export default function SignIn(props) {
           </Stack>
         </form>
       </div> 
+
+//         />
+//         <Button 
+//             variant="contained"
+//             type="submit" 
+//             endIcon={<SendIcon />}>
+//               Send
+//         </Button>
+//         </form>   
     </Box>
   );
 }

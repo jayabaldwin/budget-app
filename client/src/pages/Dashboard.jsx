@@ -1,6 +1,8 @@
 import Grid from "@mui/material/Grid";
 import { styled } from '@mui/material/styles';
 import TransactionForm from '../components/dashboard/TransactionForm.jsx'
+import SpendGraph from "../components/dashboard/SpendGraph.jsx";
+import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
 
 // What Reid is adding
 import Balance from '../components/dashboard/Balance.jsx';
@@ -69,7 +71,6 @@ export default function Dashboard() {
           {/* Transaction Input */}
           <Grid item xs={6}>
             <TransactionForm email={email}/>
-            <Placeholder style={{height:"250px"}}>Transaction Form</Placeholder>
           </Grid>
         </Grid>
 
@@ -77,11 +78,13 @@ export default function Dashboard() {
         <Grid container spacing={2}>
           {/* Spend by category */}
           <Grid item xs={8}>
-            <Placeholder style={{height:"250px"}}>Spend by Category</Placeholder>
+            {/* <Placeholder style={{height:"250px"}}>Spend by Category</Placeholder> */}
+            <SpendGraph />
           </Grid>
           {/* Cash flow */}
           <Grid item xs={4}>
-            <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder>
+            {/* <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder> */}
+            <CashFlowGraph/>
           </Grid>
         </Grid>
       </Grid>

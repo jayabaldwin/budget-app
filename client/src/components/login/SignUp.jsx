@@ -56,7 +56,6 @@ function Signup(props) {
 
   return (
     <Box
-      // component="form"
       sx={{
         '& .MuiTextField-root': { 
           m: 1, 
@@ -66,9 +65,9 @@ function Signup(props) {
       noValidate
       autoComplete="off"
     >
-      <div>
         <form 
           onSubmit={handleFormSubmit}
+          style={{display: 'flex', flexDirection: 'column'}}
           >
           <Stack spacing={2}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
@@ -114,7 +113,6 @@ function Signup(props) {
             </Button>
           </Stack>
         </form>
-      </div>
     </Box>
   );
 }

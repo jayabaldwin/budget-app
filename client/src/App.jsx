@@ -11,11 +11,14 @@ import Settings from "./pages/Settings.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
 
 //  What Reid is adding/working on
-import SignUp from "./components/login/SignUp.jsx";
-import SignIn from "./components/login/SignIn.jsx";
+// import SignUp from "./components/login/SignUp.jsx";
+// import SignIn from "./components/login/SignIn.jsx";
 import auth from './utils/auth.js';
 import { useNavigate } from "react-router-dom";
 // ////////////////////////////////
+
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "./theme/theme.js";
 
 
 import {
@@ -58,6 +61,8 @@ function App() {
     <>
       <ApolloProvider client={client}>
         <Router>
+          <ThemeProvider theme={theme}>
+
           <CssBaseline/>
           <Routes>
             {isLoggedIn ? (
@@ -77,7 +82,9 @@ function App() {
             )}
             <Route path="*" element={<NoMatch />} />
           </Routes>
+          </ThemeProvider>
         </Router>
+
       </ApolloProvider>
     </>
   );
