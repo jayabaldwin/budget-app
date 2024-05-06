@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 import { useState } from 'react';
 // import { Link } from 'react-router-dom';
@@ -56,7 +58,10 @@ function Signup(props) {
     <Box
       // component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { 
+          m: 1, 
+          width: '25ch',         
+        },
       }}
       noValidate
       autoComplete="off"
@@ -65,52 +70,51 @@ function Signup(props) {
         <form 
           onSubmit={handleFormSubmit}
           >
-          <TextField
-            required
-            id="outlined-required"
-            label="First Name"
-            // defaultValue="First Name"
-            name='firstname'
-            onChange={handleChange}
+          <Stack spacing={2}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
+             Account Creation!
+          </Typography>
+            <TextField
+              required
+              id="outlined-required"
+              label="First Name"
+              name='firstname'
+              onChange={handleChange}
 
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Last Name"
-            // defaultValue="Last Name"
-            name='lastname'
-            onChange={handleChange}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Last Name"
+              name='lastname'
+              onChange={handleChange}
 
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Email"
-            // defaultValue="Email"
-            name='email'
-            onChange={handleChange}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Email"
+              name='email'
+              onChange={handleChange}
 
-          />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="Password"
-            name='password'
-            onChange={handleChange}
-          />
-
-          <Button 
-            variant="contained"
-            type="submit" 
-            endIcon={<SendIcon />}>
-              Send
-          </Button>
+            />
+            <TextField
+              id="outlined-password-input"
+              label="Password"
+              type="password"
+              autoComplete="Password"
+              name='password'
+              onChange={handleChange}
+            />
+            <Button 
+              variant="contained"
+              type="submit" 
+              endIcon={<SendIcon />}>
+                Make My Account!
+            </Button>
+          </Stack>
         </form>
       </div>
-      
-      
     </Box>
   );
 }

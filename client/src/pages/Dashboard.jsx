@@ -42,7 +42,8 @@ export default function Dashboard() {
   }
 
     return (
-      <Grid container spacing={2} rowSpacing={2}>
+      <Grid container spacing={2} rowSpacing={2}
+        sx={{mt:10}}>
         {/* Row 1 */}
         <Grid container spacing={2}>
           {/* Countdown */}

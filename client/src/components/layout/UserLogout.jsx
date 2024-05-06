@@ -21,6 +21,7 @@ export default function UserLogout() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+  
   const logoutOnClick = (event) => {
      const logoutSetting = settings.find((setting) => setting.label === 'Logout');
 
