@@ -8,6 +8,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'; 
 
+import { QUERY_ME } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+
 import auth from '../../utils/auth';
 
 const settings = [
@@ -17,6 +20,12 @@ const settings = [
 
 export default function UserLogout() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const { loading, data } = useQuery(QUERY_ME);
+  
+  const initials = data?.me?.initials;
+  console.log(initials);
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -40,7 +49,7 @@ export default function UserLogout() {
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Avatar" src="/static/images/avatar/2.jpg" />
+          <Avatar alt="Avatar" src="/static/images/avatar/2.jpg">{initials}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu

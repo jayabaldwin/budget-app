@@ -21,7 +21,9 @@ export default function Landing() {
           {isLoggedIn ? (
               <>
                   <LayoutNav />
-                  <Dashboard />
+                  <Box mt={10}>
+                    <Dashboard />
+                  </Box>
               </>
           ) : (
               <Card>

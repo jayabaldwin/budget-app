@@ -14,7 +14,7 @@ import NoMatch from "./pages/NoMatch.jsx";
 import SignUp from "./components/login/SignUp.jsx";
 import SignIn from "./components/login/SignIn.jsx";
 import auth from './utils/auth.js';
-import { useNavigate, useRouters } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // ////////////////////////////////
 
 
@@ -52,12 +52,7 @@ const client = new ApolloClient({
 function App() {
 
   const isLoggedIn = auth.loggedIn();
-  const navigate = useNavigate();
-  console.log(isLoggedIn);
 
-  if (!isLoggedIn && window.location.pathname.startsWith('/home')) {
-    navigate('/');
-  }
 
   return (
     <>
@@ -75,6 +70,7 @@ function App() {
                   <Route path="profile" element={<Profile />} />
                   <Route path="settings" element={<Settings />} />
                 </Route>
+
               </>
             ) : (
               <Route index element={<Landing />} />
