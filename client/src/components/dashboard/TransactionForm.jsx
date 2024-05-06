@@ -29,7 +29,7 @@ import {
 import Auth from '../../utils/auth.js';
 
 
-export default function TransactionForm({email}) {
+export default function TransactionForm({email, refetch}) {
 
   // console.log('email is ', email);
 
@@ -88,6 +88,7 @@ export default function TransactionForm({email}) {
             ...formState
           },
         });
+        refetch();
         
       } catch (error) {
         console.error(error);
@@ -101,6 +102,7 @@ export default function TransactionForm({email}) {
             ...formState
           }
         });
+        refetch();
         
       } catch (error) {
         console.error(error);
@@ -113,6 +115,7 @@ export default function TransactionForm({email}) {
               ...formState 
             },
           });
+          refetch();
           // Auth.login(data.addSavings.token);
         } catch (error) {
           console.error(error);

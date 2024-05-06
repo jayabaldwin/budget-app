@@ -24,6 +24,9 @@ export default function History() {
         <Grid container spacing={2} rowSpacing={2}>
             <Grid item xs={3}>
                 <List>
+                <Typography varient='h1'>
+                    Amount Spent!
+                    </Typography>
                     {moneyOut && moneyOut.map((item, index) => (
                         <ListItem key={index}>
                             <Typography varient='h1'>

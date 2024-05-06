@@ -22,7 +22,7 @@ const Placeholder = styled('div')(() => ({
 export default function Dashboard() {
   // get all the user data via useQuery and send it to each item on the grid
 
-  const { loading, data } = useQuery(QUERY_ME);
+  const { loading, data, refetch } = useQuery(QUERY_ME);
   
   const balance = data?.me?.finances[0]?.balance;
   const savingsTotal = data?.me?.finances[0]?.savingsTotal;
@@ -33,11 +33,12 @@ export default function Dashboard() {
   const savings = data?.me?.finances[0]?.savings;
   const moneyOut = data?.me?.finances[0]?.moneyOut;
 
+  if(!loading){
+    console.log('income: ', income);
+    console.log('savings: ', savings);
+    console.log('moneyOut: ', moneyOut);
+  }
   
-
-  console.log('income: ', income);
-  console.log('savings: ', savings);
-  console.log('moneyOut: ',moneyOut);
   
   if(loading){
     return(
@@ -70,7 +71,7 @@ export default function Dashboard() {
           </Grid>
           {/* Transaction Input */}
           <Grid item xs={6}>
-            <TransactionForm email={email}/>
+            <TransactionForm email={email} refetch={refetch}/>
           </Grid>
         </Grid>
 
