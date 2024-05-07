@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,13 +6,20 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
-
 import { ADD_USER } from '../../utils/mutations';
 
-
+const styles = {
+  contactFrame: {
+    backgroundColor: '#ffffff6b',
+    borderRadius: '15px',
+    padding: '30px',
+    marginTop: '20px',
+    width: '100%',
+    maxWidth: '600px'
+  }
+};
 
 function Signup(props) {
   
@@ -56,18 +62,22 @@ function Signup(props) {
 
   return (
     <Box
-      sx={{
-        '& .MuiTextField-root': { 
-          m: 1, 
-          width: '25ch',         
-        },
-      }}
+      // sx={{
+      //   '& .MuiTextField-root': { 
+      //     m: 1, 
+      //     width: '25ch',         
+      //   },
+      // }}
+      sx={{marginTop: '10rem'}}
+      // style={styles.contactFrame}
       noValidate
       autoComplete="off"
     >
         <form 
           onSubmit={handleFormSubmit}
-          style={{display: 'flex', flexDirection: 'column'}}
+          className='loginForm'
+          // style={{display: 'flex', flexDirection: 'column'}}
+          style={styles.contactFrame}
           >
           <Stack spacing={2}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>

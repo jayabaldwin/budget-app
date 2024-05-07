@@ -34,45 +34,45 @@ export default function Dashboard() {
   const email = data?.me?.email;
 
   // these are the subdocument arrays from finance of moneyOut that can be used as a prop to each component
-  const income = data?.me?.finances[0]?.income;
-  const savings = data?.me?.finances[0]?.savings;
-  const moneyOut = data?.me?.finances[0]?.moneyOut;
+  // const income = data?.me?.finances[0]?.income;
+  // const savings = data?.me?.finances[0]?.savings;
+  // const moneyOut = data?.me?.finances[0]?.moneyOut;
 
-  let moneyOutThisWeek;
-  let moneyInThisWeek;
-  let totalIncomeThisWeek;
-  let inOutRatio;
+  // let moneyOutThisWeek;
+  // let moneyInThisWeek;
+  // let totalIncomeThisWeek;
+  // let inOutRatio;
 
-  // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined
-  if(!loading){
-    const oneWeekAgo = dayjs().subtract(1, 'week');
+  // // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined
+  // if(!loading){
+  //   const oneWeekAgo = dayjs().subtract(1, 'week');
 
-    // this is to get how much money has been spent for the past week
-     moneyOutThisWeek = moneyOut.filter((transaction) => {
-      const transactionDate = dayjs(transaction.date);
-      return transactionDate.isAfter(oneWeekAgo);
-    })
-    console.log(moneyOutThisWeek);
-    const totalMoneyOutThisWeek = moneyOutThisWeek.reduce((total, transaction) => total + transaction.amount, 0 );
-    console.log('total money out this week: ', totalMoneyOutThisWeek)
-    ///////////////////////////////////////////////////////////
+  //   // this is to get how much money has been spent for the past week
+  //    moneyOutThisWeek = moneyOut.filter((transaction) => {
+  //     const transactionDate = dayjs(transaction.date);
+  //     return transactionDate.isAfter(oneWeekAgo);
+  //   })
+  //   console.log(moneyOutThisWeek);
+  //   const totalMoneyOutThisWeek = moneyOutThisWeek.reduce((total, transaction) => total + transaction.amount, 0 );
+  //   console.log('total money out this week: ', totalMoneyOutThisWeek)
+  //   ///////////////////////////////////////////////////////////
 
-    // this is to calculate how much has been spent in the past week
-     moneyInThisWeek = income.filter((transaction) => {
-      const incomeAddDate = dayjs(transaction.date);
-      return incomeAddDate.isAfter(oneWeekAgo);
-    })
-    console.log(moneyInThisWeek);
+  //   // this is to calculate how much has been spent in the past week
+  //    moneyInThisWeek = income.filter((transaction) => {
+  //     const incomeAddDate = dayjs(transaction.date);
+  //     return incomeAddDate.isAfter(oneWeekAgo);
+  //   })
+  //   console.log(moneyInThisWeek);
 
-    totalIncomeThisWeek = moneyInThisWeek.reduce((total, transaction) => total + transaction.amount, 0);
-    console.log('total income: ', totalIncomeThisWeek);
-    //////////////////////////////////////////////////////////////////
+  //   totalIncomeThisWeek = moneyInThisWeek.reduce((total, transaction) => total + transaction.amount, 0);
+  //   console.log('total income: ', totalIncomeThisWeek);
+  //   //////////////////////////////////////////////////////////////////
 
-    // gets how much was put in vs taken out
-    inOutRatio = totalIncomeThisWeek - totalMoneyOutThisWeek;
-    console.log('inOutRatio: ', inOutRatio);
-    refetch();
-  }
+  //   // gets how much was put in vs taken out
+  //   inOutRatio = totalIncomeThisWeek - totalMoneyOutThisWeek;
+  //   console.log('inOutRatio: ', inOutRatio);
+  //   refetch();
+  // }
 
   
   if(loading){
@@ -101,11 +101,11 @@ export default function Dashboard() {
                   style={{height:"120px"}}/>
             </Grid>
             <Grid item>
-                <MoneyInOut 
+                {/* <MoneyInOut 
                 sx={{
                   height:"120px"}}
                 inOutRatio={inOutRatio}>
-                  Money In/Out</MoneyInOut>
+                  Money In/Out</MoneyInOut> */}
             </Grid>
           </Grid>
           {/* Transaction Input */}

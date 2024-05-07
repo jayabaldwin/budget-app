@@ -10,7 +10,16 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import Stack from '@mui/material/Stack';
 
-
+const styles = {
+  contactFrame: {
+    backgroundColor: '#ffffff6b',
+    borderRadius: '15px',
+    padding: '30px',
+    marginTop: '20px',
+    width: '100%',
+    maxWidth: '600px'
+  }
+};
 
 export default function SignIn(props) {
   const [formState, setFormState] = useState ({email: '', password: ''});
@@ -46,14 +55,16 @@ export default function SignIn(props) {
 
   return (
     <Box
-      sx={{'& .MuiTextField-root': { 
-        m: 1, 
-        width: '25ch', 
-      },}}
+      // sx={{'& .MuiTextField-root': { 
+      //   m: 1, 
+      //   width: '25ch', 
+      // },}}
+      sx={{marginTop: '10rem'}}
       noValidate
       autoComplete="off" >
       <div>
-        <form  
+        <form
+        style={styles.contactFrame}  
             onSubmit={handleFormSubmit}>
           <Stack spacing={2}>
           <Typography

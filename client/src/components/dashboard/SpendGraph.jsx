@@ -1,5 +1,4 @@
 // import React from 'react';
-import React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
@@ -55,11 +54,11 @@ export default function SpendGraph() {
     <>
       {data && (
         <BarChart
-          width={300}
-          height={300}
+          width={400}
+          height={600}
           series={[
-            { data: pData, label: "remaining from budget", id: "pvId", stack: "total" },
-            { data: uData, label: "spent amount", id: "uvId", stack: "total" },
+            { data: uData, label: "Spent so far", id: "uvId", stack: "total" },
+            { data: pData, label: "Remaining", id: "pvId", stack: "total" },
           ]}
           xAxis={[{ data: xLabels, scaleType: "band" }]}
         />
