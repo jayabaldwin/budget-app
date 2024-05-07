@@ -28,7 +28,7 @@ const resolvers = {
     categories: async () => {
       return Category.find();
     },
-    userBudgetCategories: async (_, __, context) => {
+    userBudgetCategories: async (parent, __, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
         const finance = await Finance.findById(user.finances[0]._id);
@@ -48,15 +48,15 @@ const resolvers = {
               moneyOutArr[j].date <= endDate
             ) {
               const expense = {
-                amount: moneyOutArr[j].amount,
-                description: moneyOutArr[j].description,
-                date: moneyOutArr[j].date,
-                category: moneyOutArr[j].category,
-                _id: moneyOutArr[j]._id,
+                ...moneyOutArr[j].toObject(),
+                // amount: moneyOutArr[j].amount,
+                // description: moneyOutArr[j].description,
+                // date: moneyOutArr[j].date,
+                // category: moneyOutArr[j].category,
+                // _id: moneyOutArr[j]._id,
                 totalBudget: userBudgetCatArr[i].budgetAmount,
                 remainingAmount: userBudgetCatArr[i].remainingAmount,
               };
-
               filtered.push(expense);
             }
           }
