@@ -77,6 +77,7 @@ export default function TransactionForm() {
           },
         }); 
         console.log(sendAddToIncome)
+
       } catch (error) {
         console.error(error);
       }

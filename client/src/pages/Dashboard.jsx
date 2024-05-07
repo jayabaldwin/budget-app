@@ -3,8 +3,6 @@ import { styled } from '@mui/material/styles';
 import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 import SpendGraph from "../components/dashboard/SpendGraph.jsx";
 import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
-import Stack from '@mui/material/Stack'
-import Skeleton from '@mui/material/Skeleton'
 
 // What Reid is adding
 import Balance from '../components/dashboard/Balance.jsx';
@@ -35,22 +33,15 @@ export default function Dashboard() {
   const savings = data?.me?.finances[0]?.savings;
   const moneyOut = data?.me?.finances[0]?.moneyOut;
 
+  
+
   console.log('income: ', income);
   console.log('savings: ', savings);
-  console.log('moneyOut: ', moneyOut);
+  console.log('moneyOut: ',moneyOut);
   
   if(loading){
     return(
-      // <p>Hold on, We're getting your data!</p>
-      <Stack spacing={1}>
-      {/* For variant="text", adjust the height via font-size */}
-      <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-
-      {/* For other variants, adjust the size with `width` and `height` */}
-      <Skeleton variant="circular" width={40} height={40} />
-      <Skeleton variant="rectangular" width={210} height={60} />
-      <Skeleton variant="rounded" width={210} height={60} />
-    </Stack>
+      <p>Hold on, We're getting your data!</p>
     )
   }
 
@@ -61,11 +52,11 @@ export default function Dashboard() {
         {/* Row 1 */}
         <Grid container spacing={2}>
           {/* Countdown */}
-          <Grid item xs={6} md={3}>
+          <Grid item xs={3}>
             <Placeholder style={{height:"250px"}}>Countdown Element</Placeholder>
           </Grid>
           {/* Metrics */}
-          <Grid item flexDirection={'column'} xs={6} md={3}>
+          <Grid item flexDirection={'column'} xs={3}>
             <Grid item>
                 {/* <Placeholder style={{height:"120px"}}>Balance</Placeholder> */}
                 <Balance 
@@ -78,7 +69,7 @@ export default function Dashboard() {
             </Grid>
           </Grid>
           {/* Transaction Input */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={6}>
             <TransactionForm email={email}/>
           </Grid>
         </Grid>
@@ -86,12 +77,12 @@ export default function Dashboard() {
         {/* Row 2 */}
         <Grid container spacing={2}>
           {/* Spend by category */}
-          <Grid item xs={12} md={8}>
+          <Grid item xs={8}>
             {/* <Placeholder style={{height:"250px"}}>Spend by Category</Placeholder> */}
             <SpendGraph />
           </Grid>
           {/* Cash flow */}
-          <Grid item xs={12} md={4}>
+          <Grid item xs={4}>
             {/* <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder> */}
             <CashFlowGraph/>
           </Grid>

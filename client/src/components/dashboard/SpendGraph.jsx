@@ -1,42 +1,69 @@
 // import React from 'react';
-import { useState } from 'react';
+import React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-// Different query now
-import { QUERY_ME } from '../../utils/queries';
+import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
-import dayjs from "dayjs";
-
-// This data needs to be based on a weekly budget
-
-// WeeklyBudgetAmount = remainData + spentData
-// ARRAY: Total spent for the category
-const spentData = [2400];
-// ARRAY: Total remaining
-const remainData = [4000];
-
-// User: categoryName to populate
-const xLabels = [
-  'Home'
-];
 
 export default function SpendGraph() {
-  
-  const {data, loading, error} = useQuery(QUERY_ME)
+  const { data, loading, error } = useQuery(QUERY_USER_CATEGORIES);
+  const categories = data?.userBudgetCategories || [];
 
   if (loading) {
-    return <div>LOADING... </div>
+    return <div>LOADING... </div>;
   }
 
-  console.log("me", data);
+  if (error) {
+    return <div>ERROR {error.message}</div>;
+  }
+
+  function getTotalBudgetPerCategory(transactions) {
+    const uniqueCategories = [];
+    const amountArr = [];
+    transactions.forEach((transaction) => {
+      const { category } = transaction;
+      if (!uniqueCategories.includes(category)) {
+        uniqueCategories.push(category);
+        amountArr.push(parseFloat(transaction.remainingAmount));
+      }
+    });
+    return amountArr;
+  }
+
+  function getSpentAmountPerCategory(transactions) {
+    const uniqueCategories = [];
+    const amountArr = [];
+    transactions.forEach((transaction) => {
+      const { category } = transaction;
+      if (!uniqueCategories.includes(category)) {
+        uniqueCategories.push(category);
+        amountArr.push(
+          parseFloat(transaction.totalBudget - transaction.remainingAmount)
+        );
+      }
+    });
+
+    return amountArr;
+  }
+
+  const pData = getTotalBudgetPerCategory(categories);
+  const uData = getSpentAmountPerCategory(categories);
+  const xLabels = [
+    ...new Set(categories.map((transaction) => transaction.category)),
+  ];
+
   return (
-    <BarChart
-      width={500}
-      height={300}
-      series={[
-        { data: spentData, label: 'Spent', id: 'spentId', stack: 'total' },
-        { data: remainData, label: 'Remaining', id: 'remainId', stack: 'total' },
-      ]}
-      xAxis={[{ data: xLabels, scaleType: 'band' }]}
-    />
+    <>
+      {data && (
+        <BarChart
+          width={300}
+          height={300}
+          series={[
+            { data: pData, label: "remaining from budget", id: "pvId", stack: "total" },
+            { data: uData, label: "spent amount", id: "uvId", stack: "total" },
+          ]}
+          xAxis={[{ data: xLabels, scaleType: "band" }]}
+        />
+      )}
+    </>
   );
 }

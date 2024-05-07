@@ -49,18 +49,16 @@ const resolvers = {
             ) {
               const expense = {
                 ...moneyOutArr[j].toObject(),
-                // amount: moneyOutArr[j].amount,
-                // description: moneyOutArr[j].description,
-                // date: moneyOutArr[j].date,
-                // category: moneyOutArr[j].category,
-                // _id: moneyOutArr[j]._id,
+
                 totalBudget: userBudgetCatArr[i].budgetAmount,
                 remainingAmount: userBudgetCatArr[i].remainingAmount,
               };
+
               filtered.push(expense);
             }
           }
         }
+
         console.log("filtered ", filtered);
 
         return filtered;
@@ -143,7 +141,6 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    // Doesnt currently update the remaining balance
     updateCategoryBudget: async (_, { category, amount }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
