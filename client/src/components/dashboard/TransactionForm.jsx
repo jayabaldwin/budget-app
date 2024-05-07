@@ -88,6 +88,7 @@ export default function TransactionForm({email, refetch}) {
             ...formState
           },
         });
+        // this is here to get the updated balance and savings amount from the database
         refetch();
         
       } catch (error) {

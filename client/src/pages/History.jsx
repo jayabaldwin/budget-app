@@ -14,7 +14,7 @@ export default function History() {
     const income = data?.me?.finances[0]?.income;
     const savings = data?.me?.finances[0]?.savings;
     const moneyOut = data?.me?.finances[0]?.moneyOut;
-    
+
     console.log('income: ', income);
     console.log('savings: ', savings);
     console.log('moneyOut: ',moneyOut);
@@ -24,50 +24,57 @@ export default function History() {
         <Grid container spacing={2} rowSpacing={2}>
             <Grid item xs={3}>
                 <List>
-                <Typography varient='h1'>
-                    Amount Spent!
+                    <Typography varient='h1'>
+                        Money Out 
                     </Typography>
-                    {moneyOut && moneyOut.map((item, index) => (
-                        <ListItem key={index}>
-                            <Typography varient='h1'>
-                                Amount: ${item.amount}
-                                <br/>
-                                Description: {item.description}
-                                <br/>
-                                On: {item.date}
-                            </Typography>
-                        </ListItem>
-                    ))}
+                        {/* this code will reverse the array but i want it to display it based on the earliest date */}
+                        {moneyOut && [...moneyOut].reverse().map((item, index) => (
+                            <ListItem key={index}>
+                                <Typography varient='h1'>
+                                    Amount: ${item.amount}
+                                    <br/>
+                                    Description: {item.description}
+                                    <br/>
+                                    On: {item.date}
+                                </Typography>
+                            </ListItem>
+                        ))}
                 </List>
             </Grid>
             <Grid item xs={3}>
                 <List>
-                    {income && income.map((item, index) => (
-                        <ListItem key={index}>
-                            <Typography varient='h1'>
-                                amount: ${item.amount}
-                                <br/>
-                                Description: {item.description}
-                                <br/>
-                                On: {item.date}
-                            </Typography>
-                        </ListItem>
-                    ))}
+                    <Typography varient='h1'>
+                        Income
+                    </Typography>
+                        {income && [...income].reverse().map((item, index) => (
+                            <ListItem key={index}>
+                                <Typography varient='h1'>
+                                    amount: ${item.amount}
+                                    <br/>
+                                    Description: {item.description}
+                                    <br/>
+                                    On: {item.date}
+                                </Typography>
+                            </ListItem>
+                        ))}
                 </List>
             </Grid>
             <Grid item xs={3}>
                 <List>
-                    {savings && savings.map((item, index) => (
-                        <ListItem key={index}>
-                            <Typography varient='h1'>
-                                Amount: ${item.amount}
-                                <br/>
-                                Description: {item.description}
-                                <br/>
-                                On: {item.date}
-                            </Typography>
-                        </ListItem>
-                    ))}
+                    <Typography varient='h1'>
+                        Money Out 
+                    </Typography>
+                        {savings && [...savings].reverse().map((item, index) => (
+                            <ListItem key={index}>
+                                <Typography varient='h1'>
+                                    Amount: ${item.amount}
+                                    <br/>
+                                    Description: {item.description}
+                                    <br/>
+                                    On: {item.date}
+                                </Typography>
+                            </ListItem>
+                        ))}
                 </List>
             </Grid>
 

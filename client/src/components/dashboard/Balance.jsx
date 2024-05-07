@@ -5,10 +5,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-
-import { useQuery } from '@apollo/client';
-import { QUERY_ME } from '../../utils/queries';
 
 export default function Balance({balance, savingsTotal}) {
    
