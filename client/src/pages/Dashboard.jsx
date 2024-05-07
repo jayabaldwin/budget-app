@@ -38,12 +38,12 @@ export default function Dashboard() {
   const savings = data?.me?.finances[0]?.savings;
   const moneyOut = data?.me?.finances[0]?.moneyOut;
 
-
   let moneyOutThisWeek;
   let moneyInThisWeek;
   let totalIncomeThisWeek;
   let inOutRatio;
 
+  // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined
   if(!loading){
     const oneWeekAgo = dayjs().subtract(1, 'week');
 
@@ -102,7 +102,8 @@ export default function Dashboard() {
             </Grid>
             <Grid item>
                 <MoneyInOut 
-                style={{height:"120px"}} 
+                sx={{
+                  height:"120px"}}
                 inOutRatio={inOutRatio}>
                   Money In/Out</MoneyInOut>
             </Grid>

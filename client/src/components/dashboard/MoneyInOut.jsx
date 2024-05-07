@@ -10,8 +10,19 @@ export default function MoneyInOut({inOutRatio}){
 
 
     return (
-        <Card>
-            <p>inOutRatio: {inOutRatio}</p>
+        <Card
+        sx={{
+            mt:3,
+            p: 3,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: 500,
+        }}>
+            <Typography varient="h4" gutterBottom>
+                Money in vs out this week: {inOutRatio}
+            </Typography>
         </Card>
     )
 }

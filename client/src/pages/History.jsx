@@ -3,9 +3,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 
+import dayjs from 'dayjs';
+
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries.js';
-
 
 
 export default function History() {
@@ -15,10 +16,15 @@ export default function History() {
     const savings = data?.me?.finances[0]?.savings;
     const moneyOut = data?.me?.finances[0]?.moneyOut;
 
-    console.log('income: ', income);
-    console.log('savings: ', savings);
-    console.log('moneyOut: ',moneyOut);
+    // console.log('income: ', income);
+    // console.log('savings: ', savings);
+    // console.log('moneyOut: ',moneyOut);
 
+    if(loading){
+        return(
+            <p>getting your history!</p>
+        )
+    }
 
     return(
         <Grid container spacing={2} rowSpacing={2}>
@@ -27,7 +33,6 @@ export default function History() {
                     <Typography varient='h1'>
                         Money Out 
                     </Typography>
-                        {/* this code will reverse the array but i want it to display it based on the earliest date */}
                         {moneyOut && [...moneyOut].reverse().map((item, index) => (
                             <ListItem key={index}>
                                 <Typography varient='h1'>
@@ -77,8 +82,6 @@ export default function History() {
                         ))}
                 </List>
             </Grid>
-
         </Grid>
-        
     );
 }
