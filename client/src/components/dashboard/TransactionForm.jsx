@@ -27,7 +27,7 @@ import {
 import Auth from '../../utils/auth.js';
 
 
-export default function TransactionForm({ refetch }) {
+export default function TransactionForm({refetch}) {
 
   const [formState, setFormState] = useState({
     type: 'Expense',
