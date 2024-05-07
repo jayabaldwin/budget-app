@@ -13,16 +13,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-// import DatePicker from '../../utils/DatePicker.jsx';
+import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 import { useMutation } from '@apollo/client';
-import { useMediaQuery } from '@mui/material';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 import { 
   ADD_SAVINGS,
@@ -31,14 +25,11 @@ import {
       } from '../../utils/mutations.js';
 
 export default function TransactionForm() {
-  const isMobile = useMediaQuery('(max-width:670px)');
   // this is state i'm using to get the data from form.
   const [formState, setFormState] = useState({
     type: 'Expense',
     description: '',
-    // amount was a bit tricky, it kept showing up as a String and later in the code I had to convert it to an Int
     amount: '',
-    // I changed this from 'budgetCategory' to category to keep it up with model
     category: '',
     date: dayjs().format("MM/DD/YYYY"),
   })
@@ -108,7 +99,6 @@ export default function TransactionForm() {
   return (
     <form>
       <Paper 
-      // component="form" 
       sx={{ p: 2 }}>
         <Typography variant='h5'>Add {formState.type}</Typography>
         <Grid container spacing={2} alignItems="center">
@@ -196,10 +186,8 @@ export default function TransactionForm() {
               </Grid>
               <Grid item xs={5}>
                 <DatePicker
-                  label="Date"
-                  name="date"
-                  value={formState.date}
-                  onChange={handleChange}
+                   setFormState={setFormState}
+                   formState={formState}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -218,3 +206,40 @@ export default function TransactionForm() {
     </form>
   );
 }
+
+
+
+
+// these chunk of code was what was here earlier but I consolidated it to essentially all be in a single formState variable
+
+
+  // const [type, setType] = useState('Expense');
+  // const [description, setDescription] = useState('');
+  // const [amount, setAmount] = useState('');
+  // const [budgetCategory, setBudgetCategory] = useState('');
+  // const [date, setDate] = useState(new Date());
+
+  // const handleTypeChange = (event) => {
+  //   setType(event.target.value);
+  //   console.log(type)
+  // };
+
+  // const handleDescriptionChange = (event) => {
+  //   setDescription(event.target.value);
+  //   console.log(description)
+  // };
+
+  // const handleAmountChange = (event) => {
+  //   setAmount(event.target.value);
+  //   console.log(amount)
+  // };
+
+  // const handleBudgetCategoryChange = (event) => {
+  //   setBudgetCategory(event.target.value);
+  //   console.log(budgetCategory)
+  // };
+
+  // const handleDateChange = (date) => {
+  //   setDate(date);
+  //   console.log(date)
+  // };

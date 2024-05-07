@@ -1,6 +1,7 @@
 // import React from 'react';
 import { useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
+// Different query now
 import { QUERY_ME } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 import dayjs from "dayjs";
@@ -19,6 +20,14 @@ const xLabels = [
 ];
 
 export default function SpendGraph() {
+  
+  const {data, loading, error} = useQuery(QUERY_ME)
+
+  if (loading) {
+    return <div>LOADING... </div>
+  }
+
+  console.log("me", data);
   return (
     <BarChart
       width={500}
