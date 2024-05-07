@@ -29,13 +29,9 @@ import {
 import Auth from '../../utils/auth.js';
 
 
-export default function TransactionForm({email}) {
-
-  // console.log('email is ', email);
-
+export default function TransactionForm() {
   // this is state i'm using to get the data from form.
   const [formState, setFormState] = useState({
-    email: '',
     type: 'Expense',
     description: '',
     // amount was a bit tricky, it kept showing up as a String and later in the code I had to convert it to an Int

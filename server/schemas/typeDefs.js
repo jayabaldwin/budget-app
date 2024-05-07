@@ -75,7 +75,7 @@ const typeDefs = gql`
 
     login(email: String!, password: String!): Auth
 
-    addBalance(balance: Float!): User
+    addBalance(balance: Float!): Finance
 
     addIncome(amount: Float!, description: String, date: Date): Finance
 
@@ -88,7 +88,11 @@ const typeDefs = gql`
       category: String!
     ): Finance
 
-    addCategory(categoryName: String!, setWeeklyAmount: Int!): User
+    addCategory(categoryName: String!, setWeeklyAmount: Float!): Finance
+
+    updateCategoryBudget(category: String!, amount: Float!): Finance
+
+    deleteTransaction(transaction_id: ID!, type: String!): Finance
   }
 
   scalar Date

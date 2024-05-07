@@ -75,12 +75,12 @@ const resolvers = {
       if (context.user) {
         const user = await User.findById(context.user._id);
 
-        await Finance.findByIdAndUpdate(
+        const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
           { balance },
           { new: true }
         );
-        return user;
+        return finance;
       }
       throw AuthenticationError;
     },
@@ -88,15 +88,34 @@ const resolvers = {
     addCategory: async (_, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
-        await Finance.findByIdAndUpdate(
+        const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
           { $push: { budgetCategories: args } },
           { new: true }
         );
-        return user;
+        return finance;
       }
       throw AuthenticationError;
     },
+
+    updateCategoryBudget: async (_, { category, amount }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const updateFinance = await Finance.findById(user.finances[0]._id);
+        const index = updateFinance.budgetCategories.findIndex(
+          (cat) => cat.categoryName === category
+        );
+        if (index !== -1) {
+          updateFinance.budgetCategories[index].setWeeklyAmount = amount;
+          await updateFinance.save();
+        }
+
+        return updateFinance;
+      }
+      throw AuthenticationError;
+    },
+
+    // Delete category
 
     addIncome: async (parent, { amount, description, date }, context) => {
       if (context.user) {
@@ -182,6 +201,31 @@ const resolvers = {
         updateFinance.budgetCategories[index].setWeeklyAmount -= amount;
         await updateFinance.save();
 
+        return updateFinance;
+      }
+      throw AuthenticationError;
+    },
+
+    deleteTransaction: async (_, { transaction_id, type }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const updateFinance = await Finance.findById(user.finances[0]._id);
+
+        const arrayType = updateFinance[type];
+        const item = arrayType.find((t) => t.id === transaction_id);
+
+        if (type === "income") {
+          updateFinance.balance -= item.amount;
+        } else if (type === "moneyOut" || "savings") {
+          updateFinance.balance += item.amount;
+        }
+
+        const filteredOut = updateFinance[type].filter(
+          (t) => t.id !== transaction_id
+        );
+
+        updateFinance[type] = filteredOut;
+        await updateFinance.save();
         return updateFinance;
       }
       throw AuthenticationError;

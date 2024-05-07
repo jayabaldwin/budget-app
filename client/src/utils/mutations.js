@@ -95,7 +95,7 @@ export const ADD_BALANCE = gql`
 `;
 
 export const ADD_CATEGORY = gql`
-  mutation AddCategory($categoryName: String!, $setWeeklyAmount: Int!) {
+  mutation AddCategory($categoryName: String!, $setWeeklyAmount: Float!) {
     addCategory(
       categoryName: $categoryName
       setWeeklyAmount: $setWeeklyAmount
