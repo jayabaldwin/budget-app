@@ -41,3 +41,17 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_USER_CATEGORIES = gql`
+  query UserCategories {
+    userBudgetCategories {
+      amount
+      description
+      date
+      category
+      _id
+      remainingAmount
+      totalBudget
+    }
+  }
+`;
