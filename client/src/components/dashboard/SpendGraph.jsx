@@ -4,16 +4,17 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { QUERY_ME } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
-const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
+// This data needs to be based on a weekly budget
+
+// WeeklyBudgetAmount = remainData + spentData
+// ARRAY: Total spent for the category
+const spentData = [2400];
+// ARRAY: Total remaining
+const remainData = [4000];
+
+// userBudgetCategories to populate
 const xLabels = [
-  'Page A',
-  'Page B',
-  'Page C',
-  'Page D',
-  'Page E',
-  'Page F',
-  'Page G',
+  'Home'
 ];
 
 export default function SpendGraph() {
@@ -22,8 +23,8 @@ export default function SpendGraph() {
       width={500}
       height={300}
       series={[
-        { data: pData, label: 'pv', id: 'pvId', stack: 'total' },
-        { data: uData, label: 'uv', id: 'uvId', stack: 'total' },
+        { data: spentData, label: 'Spent', id: 'spentId', stack: 'total' },
+        { data: remainData, label: 'Remaining', id: 'remainId', stack: 'total' },
       ]}
       xAxis={[{ data: xLabels, scaleType: 'band' }]}
     />

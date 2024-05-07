@@ -6,9 +6,12 @@ const budgetSchema = new Schema({
     required: true,
     trim: true,
   },
-  setWeeklyAmount: {
+  remainingAmount: {
     type: Number,
     required: true,
+  },
+  budgetAmount: {
+    type: Number,
   },
 });
 

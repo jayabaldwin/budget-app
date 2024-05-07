@@ -106,7 +106,7 @@ const resolvers = {
           (cat) => cat.categoryName === category
         );
         if (index !== -1) {
-          updateFinance.budgetCategories[index].setWeeklyAmount = amount;
+          updateFinance.budgetCategories[index].budgetAmount = amount;
           await updateFinance.save();
         }
 
@@ -198,7 +198,7 @@ const resolvers = {
         const index = updateFinance.budgetCategories.findIndex(
           (cat) => cat.categoryName === category
         );
-        updateFinance.budgetCategories[index].setWeeklyAmount -= amount;
+        updateFinance.budgetCategories[index].remainingAmount -= amount;
         await updateFinance.save();
 
         return updateFinance;

@@ -34,7 +34,7 @@ export const QUERY_ME = gql`
         budgetCategories {
           _id
           categoryName
-          setWeeklyAmount
+          remainingAmount
         }
       }
     }
