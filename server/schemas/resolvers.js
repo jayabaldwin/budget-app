@@ -160,8 +160,8 @@ const resolvers = {
             },
             $inc: {
               balance: -amount,
+              savingsTotal: amount,
             },
-            $set: { savingsTotal: amount },
           },
           { new: true }
         );
