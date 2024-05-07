@@ -8,10 +8,10 @@ const budgetSchema = new Schema({
   },
   remainingAmount: {
     type: Number,
-    required: true,
   },
   budgetAmount: {
     type: Number,
+    required: true,
   },
 });
 

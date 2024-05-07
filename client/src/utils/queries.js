@@ -35,6 +35,7 @@ export const QUERY_ME = gql`
           _id
           categoryName
           remainingAmount
+          budgetAmount
         }
       }
     }

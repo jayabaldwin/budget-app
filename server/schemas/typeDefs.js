@@ -13,8 +13,8 @@ const typeDefs = gql`
   type UserBudgetCategories {
     _id: ID
     categoryName: String!
-    remainingAmount: Float!
-    budgetAmount: Float
+    remainingAmount: Float
+    budgetAmount: Float!
   }
 
   type Finance {
@@ -89,7 +89,7 @@ const typeDefs = gql`
       category: String!
     ): Finance
 
-    addCategory(categoryName: String!, remainingAmount: Float!): Finance
+    addCategory(categoryName: String!, budgetAmount: Float!): Finance
 
     updateCategoryBudget(category: String!, amount: Float!): Finance
 

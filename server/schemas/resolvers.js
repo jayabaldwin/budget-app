@@ -90,7 +90,11 @@ const resolvers = {
         const user = await User.findById(context.user._id);
         const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
-          { $push: { budgetCategories: args } },
+          {
+            $push: {
+              budgetCategories: { ...args, remainingAmount: args.budgetAmount },
+            },
+          },
           { new: true }
         );
         return finance;

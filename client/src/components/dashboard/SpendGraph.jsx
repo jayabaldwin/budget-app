@@ -12,7 +12,7 @@ const spentData = [2400];
 // ARRAY: Total remaining
 const remainData = [4000];
 
-// userBudgetCategories to populate
+// User: categoryName to populate
 const xLabels = [
   'Home'
 ];
