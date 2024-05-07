@@ -55,6 +55,8 @@ const typeDefs = gql`
     date: Date
     category: String!
     _id: ID
+    totalBudget: Float
+    remainingAmount: Float
   }
 
   type Category {

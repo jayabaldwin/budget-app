@@ -70,12 +70,13 @@ export default function TransactionForm() {
     } else if(formState.type === 'Income'){
       console.log('do the income mutaiton');
       try {
-        await addIncome({
+        const sendAddToIncome = await addIncome({
           variables: {
             ...formState,
             amount: parseFloat(formState.amount),
-          }
+          },
         }); 
+        console.log(sendAddToIncome)
       } catch (error) {
         console.error(error);
       }

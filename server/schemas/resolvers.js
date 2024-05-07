@@ -28,6 +28,45 @@ const resolvers = {
     categories: async () => {
       return Category.find();
     },
+    userBudgetCategories: async (_, __, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const finance = await Finance.findById(user.finances[0]._id);
+
+        const userBudgetCatArr = finance.budgetCategories;
+        const moneyOutArr = finance.moneyOut;
+
+        const startDate = dayjs().startOf("week").add(1, "day");
+        const endDate = dayjs().endOf("week").add(1, "day");
+
+        let filtered = [];
+        for (let i = 0; i < userBudgetCatArr.length; i++) {
+          for (let j = 0; j < moneyOutArr.length; j++) {
+            if (
+              moneyOutArr[j].category === userBudgetCatArr[i].categoryName &&
+              moneyOutArr[j].date >= startDate &&
+              moneyOutArr[j].date <= endDate
+            ) {
+              const expense = {
+                amount: moneyOutArr[j].amount,
+                description: moneyOutArr[j].description,
+                date: moneyOutArr[j].date,
+                category: moneyOutArr[j].category,
+                _id: moneyOutArr[j]._id,
+                totalBudget: userBudgetCatArr[i].budgetAmount,
+                remainingAmount: userBudgetCatArr[i].remainingAmount,
+              };
+
+              filtered.push(expense);
+            }
+          }
+        }
+        console.log("filtered ", filtered);
+
+        return filtered;
+      }
+      throw AuthenticationError;
+    },
   },
 
   Mutation: {
@@ -88,6 +127,7 @@ const resolvers = {
     // category names must come from a drop down, no user input!
     addCategory: async (_, args, context) => {
       if (context.user) {
+        console.log(args);
         const user = await User.findById(context.user._id);
         const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
@@ -103,6 +143,7 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    // Doesnt currently update the remaining balance
     updateCategoryBudget: async (_, { category, amount }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);

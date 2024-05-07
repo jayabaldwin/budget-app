@@ -19,6 +19,7 @@ const financeSchema = new Schema({
       },
       description: {
         type: String,
+        required: true,
       },
       date: {
         type: Date,
@@ -59,6 +60,7 @@ const financeSchema = new Schema({
       },
       category: {
         type: String,
+        required: true,
       },
     },
   ],

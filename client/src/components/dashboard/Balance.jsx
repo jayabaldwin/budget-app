@@ -15,8 +15,8 @@ export default function Balance({balance, savingsTotal}) {
     return (
         <Box sx={{ width: '100%', maxWidth: 500 }}>
             <Typography variant="h6" gutterBottom>
-                Balance: {balance} <br/>
-                Savings: {savingsTotal}
+                Balance: ${balance} <br/>
+                Savings: ${savingsTotal}
             </Typography>  
         </Box>
     );
