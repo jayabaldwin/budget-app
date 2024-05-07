@@ -34,9 +34,24 @@ export const QUERY_ME = gql`
         budgetCategories {
           _id
           categoryName
-          setWeeklyAmount
+          remainingAmount
+          budgetAmount
         }
       }
+    }
+  }
+`;
+
+export const QUERY_USER_CATEGORIES = gql`
+  query UserCategories {
+    userBudgetCategories {
+      amount
+      description
+      date
+      category
+      _id
+      remainingAmount
+      totalBudget
     }
   }
 `;

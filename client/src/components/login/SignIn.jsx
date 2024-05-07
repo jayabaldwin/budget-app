@@ -1,12 +1,9 @@
-// imports needed for MUI
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send'
 import Typography from '@mui/material/Typography';
-
-// the imports needed for apollo and login
 import { LOGIN } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { useState } from 'react';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
@@ -27,7 +27,7 @@ export default function Balance({balance, savingsTotal}) {
                     justifyContent: 'center',
                 }}>
                     <Typography variant="h6" gutterBottom>
-                        Balance: {balance}
+                        Balance: ${balance}
                     </Typography>  
                 </CardContent>
             </Card>
@@ -42,7 +42,7 @@ export default function Balance({balance, savingsTotal}) {
                     justifyContent: 'center',
                 }}>
                     <Typography variant="h6" gutterBottom>
-                        Savings: {savingsTotal}
+                        Savings: ${savingsTotal}
                     </Typography>  
                 </CardContent>
             </Card>

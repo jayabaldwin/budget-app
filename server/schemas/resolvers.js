@@ -1,5 +1,6 @@
-const { User, Finance, UserBudget } = require("../models");
+const { User, Finance, UserBudget, Category } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+const dayjs = require("dayjs");
 
 const resolvers = {
   Query: {
@@ -21,6 +22,46 @@ const resolvers = {
           path: "finances",
         });
         return foundUser;
+      }
+      throw AuthenticationError;
+    },
+    categories: async () => {
+      return Category.find();
+    },
+    userBudgetCategories: async (parent, __, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const finance = await Finance.findById(user.finances[0]._id);
+
+        const userBudgetCatArr = finance.budgetCategories;
+        const moneyOutArr = finance.moneyOut;
+
+        const startDate = dayjs().startOf("week").add(1, "day");
+        const endDate = dayjs().endOf("week").add(1, "day");
+
+        let filtered = [];
+        for (let i = 0; i < userBudgetCatArr.length; i++) {
+          for (let j = 0; j < moneyOutArr.length; j++) {
+            if (
+              moneyOutArr[j].category === userBudgetCatArr[i].categoryName &&
+              moneyOutArr[j].date >= startDate &&
+              moneyOutArr[j].date <= endDate
+            ) {
+              const expense = {
+                ...moneyOutArr[j].toObject(),
+
+                totalBudget: userBudgetCatArr[i].budgetAmount,
+                remainingAmount: userBudgetCatArr[i].remainingAmount,
+              };
+
+              filtered.push(expense);
+            }
+          }
+        }
+
+        console.log("filtered ", filtered);
+
+        return filtered;
       }
       throw AuthenticationError;
     },
@@ -73,28 +114,52 @@ const resolvers = {
       if (context.user) {
         const user = await User.findById(context.user._id);
 
-        await Finance.findByIdAndUpdate(
+        const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
           { balance },
           { new: true }
         );
-        return user;
+        return finance;
       }
       throw AuthenticationError;
     },
     // category names must come from a drop down, no user input!
     addCategory: async (_, args, context) => {
       if (context.user) {
+        console.log(args);
         const user = await User.findById(context.user._id);
-        await Finance.findByIdAndUpdate(
+        const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
-          { $push: { budgetCategories: args } },
+          {
+            $push: {
+              budgetCategories: { ...args, remainingAmount: args.budgetAmount },
+            },
+          },
           { new: true }
         );
-        return user;
+        return finance;
       }
       throw AuthenticationError;
     },
+
+    updateCategoryBudget: async (_, { category, amount }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const updateFinance = await Finance.findById(user.finances[0]._id);
+        const index = updateFinance.budgetCategories.findIndex(
+          (cat) => cat.categoryName === category
+        );
+        if (index !== -1) {
+          updateFinance.budgetCategories[index].budgetAmount = amount;
+          await updateFinance.save();
+        }
+
+        return updateFinance;
+      }
+      throw AuthenticationError;
+    },
+
+    // Delete category
 
     addIncome: async (parent, { amount, description, date }, context) => {
       if (context.user) {
@@ -139,8 +204,8 @@ const resolvers = {
             },
             $inc: {
               balance: -amount,
+              savingsTotal: amount,
             },
-            $set: { savingsTotal: amount },
           },
           { new: true }
         );
@@ -174,15 +239,37 @@ const resolvers = {
           },
           { new: true }
         );
-
-        // I'm not sure what this is doing but things work without it
-        // const index = updateFinance.budgetCategories.findIndex(
-        //   (cat) => cat.categoryName === category
-        // );
-        // updateFinance.budgetCategories[index].setWeeklyAmount -= amount;
-        
+        const index = updateFinance.budgetCategories.findIndex(
+          (cat) => cat.categoryName === category
+        );
+        updateFinance.budgetCategories[index].remainingAmount -= amount;
         await updateFinance.save();
 
+        return updateFinance;
+      }
+      throw AuthenticationError;
+    },
+
+    deleteTransaction: async (_, { transaction_id, type }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const updateFinance = await Finance.findById(user.finances[0]._id);
+
+        const arrayType = updateFinance[type];
+        const item = arrayType.find((t) => t.id === transaction_id);
+
+        if (type === "income") {
+          updateFinance.balance -= item.amount;
+        } else if (type === "moneyOut" || "savings") {
+          updateFinance.balance += item.amount;
+        }
+
+        const filteredOut = updateFinance[type].filter(
+          (t) => t.id !== transaction_id
+        );
+
+        updateFinance[type] = filteredOut;
+        await updateFinance.save();
         return updateFinance;
       }
       throw AuthenticationError;
