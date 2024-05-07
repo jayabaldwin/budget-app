@@ -16,7 +16,7 @@ export default function Landing() {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          minHeight="100vh"
+          minHeight="80vh"
       >
           {isLoggedIn ? (
               <>

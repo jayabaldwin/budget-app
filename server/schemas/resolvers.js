@@ -77,6 +77,7 @@ const resolvers = {
         moneyOut: [],
         budgetCategories: [],
       });
+
       const user = await User.create({
         firstname,
         lastname,

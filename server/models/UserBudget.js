@@ -3,7 +3,7 @@ const { Schema } = require("mongoose");
 const budgetSchema = new Schema({
   categoryName: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
   remainingAmount: {
@@ -11,7 +11,7 @@ const budgetSchema = new Schema({
   },
   budgetAmount: {
     type: Number,
-    required: true,
+    // required: true,
   },
 });
 

@@ -24,8 +24,11 @@ import {
   ADD_INCOME,
       } from '../../utils/mutations.js';
 
-export default function TransactionForm() {
-  // this is state i'm using to get the data from form.
+import Auth from '../../utils/auth.js';
+
+
+export default function TransactionForm({ refetch }) {
+
   const [formState, setFormState] = useState({
     type: 'Expense',
     description: '',
@@ -34,7 +37,6 @@ export default function TransactionForm() {
     date: dayjs().format("MM/DD/YYYY"),
   })
   
-  // error and data had to be set as 'error: savingsError' and 'data: savingsData' cause just 'error' and 'data' was causing an issue cause it was a variable being used a couple times
   const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
   const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
   const [addIncome, {error: incomeError, data: incomeData}] = useMutation(ADD_INCOME);
@@ -63,6 +65,8 @@ export default function TransactionForm() {
             amount: parseFloat(formState.amount),
           },
         });
+        // this is here to get the updated balance and savings amount from the database
+        refetch();
       } catch (error) {
         console.error(error);
       }
@@ -70,14 +74,13 @@ export default function TransactionForm() {
     } else if(formState.type === 'Income'){
       console.log('do the income mutaiton');
       try {
-        const sendAddToIncome = await addIncome({
+        await addIncome({
           variables: {
             ...formState,
             amount: parseFloat(formState.amount),
           },
         }); 
-        console.log(sendAddToIncome)
-
+        refetch();
       } catch (error) {
         console.error(error);
       }
@@ -91,6 +94,8 @@ export default function TransactionForm() {
               amount: parseFloat(formState.amount),
             },
           });
+          refetch();
+          // Auth.login(data.addSavings.token);
         } catch (error) {
           console.error(error);
         }
@@ -208,40 +213,3 @@ export default function TransactionForm() {
     </form>
   );
 }
-
-
-
-
-// these chunk of code was what was here earlier but I consolidated it to essentially all be in a single formState variable
-
-
-  // const [type, setType] = useState('Expense');
-  // const [description, setDescription] = useState('');
-  // const [amount, setAmount] = useState('');
-  // const [budgetCategory, setBudgetCategory] = useState('');
-  // const [date, setDate] = useState(new Date());
-
-  // const handleTypeChange = (event) => {
-  //   setType(event.target.value);
-  //   console.log(type)
-  // };
-
-  // const handleDescriptionChange = (event) => {
-  //   setDescription(event.target.value);
-  //   console.log(description)
-  // };
-
-  // const handleAmountChange = (event) => {
-  //   setAmount(event.target.value);
-  //   console.log(amount)
-  // };
-
-  // const handleBudgetCategoryChange = (event) => {
-  //   setBudgetCategory(event.target.value);
-  //   console.log(budgetCategory)
-  // };
-
-  // const handleDateChange = (date) => {
-  //   setDate(date);
-  //   console.log(date)
-  // };
