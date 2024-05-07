@@ -10,11 +10,7 @@ const typeDefs = gql`
     finances: [Finance]
   }
 
-  type UserBudgetCategories {
-    _id: ID
-    categoryName: String!
-    setWeeklyAmount: Float!
-  }
+ 
 
   type Finance {
     _id: ID
@@ -24,6 +20,12 @@ const typeDefs = gql`
     savings: [Savings]
     moneyOut: [MoneyOut]
     budgetCategories: [UserBudgetCategories]
+  }
+
+  type UserBudgetCategories {
+    _id: ID
+    categoryName: String
+    setWeeklyAmount: Float
   }
 
   type Income {

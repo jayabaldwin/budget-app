@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send'
 import Typography from '@mui/material/Typography';
-import { paperClasses } from '@mui/material';
 
 // the imports needed for apollo and login
 import { LOGIN } from '../../utils/mutations';
@@ -75,22 +74,6 @@ export default function SignIn(props) {
               defaultValue=""
               onChange={handleChange}
             />
-//       autoComplete="off"
-//     >
-//         <form  
-//             onSubmit={handleFormSubmit}
-//             style={{display: 'flex', flexDirection: 'column'}}
-//         >
-//         <TextField
-//           required
-//           id="outlined-required"
-//           label="Email"
-//           type="email"
-//           name='email'
-//           defaultValue=""
-//           onChange={handleChange}
-//         />
-
             <TextField
               id="outlined-password-input"
               label="Password"
@@ -109,15 +92,6 @@ export default function SignIn(props) {
           </Stack>
         </form>
       </div> 
-
-//         />
-//         <Button 
-//             variant="contained"
-//             type="submit" 
-//             endIcon={<SendIcon />}>
-//               Send
-//         </Button>
-//         </form>   
     </Box>
   );
 }

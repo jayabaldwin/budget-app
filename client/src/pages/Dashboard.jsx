@@ -3,6 +3,10 @@ import { styled } from '@mui/material/styles';
 import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 import SpendGraph from "../components/dashboard/SpendGraph.jsx";
 import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
+import MoneyInOut from "../components/dashboard/MoneyInOut.jsx";
+
+import dayjs from "dayjs";
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 // What Reid is adding
 import Balance from '../components/dashboard/Balance.jsx';
@@ -20,9 +24,10 @@ const Placeholder = styled('div')(() => ({
 }));
 
 export default function Dashboard() {
+  dayjs.extend(weekOfYear);
   // get all the user data via useQuery and send it to each item on the grid
 
-  const { loading, data } = useQuery(QUERY_ME);
+  const { loading, data, refetch } = useQuery(QUERY_ME);
   
   const balance = data?.me?.finances[0]?.balance;
   const savingsTotal = data?.me?.finances[0]?.savingsTotal;
@@ -33,11 +38,42 @@ export default function Dashboard() {
   const savings = data?.me?.finances[0]?.savings;
   const moneyOut = data?.me?.finances[0]?.moneyOut;
 
-  
+  let moneyOutThisWeek;
+  let moneyInThisWeek;
+  let totalIncomeThisWeek;
+  let inOutRatio;
 
-  console.log('income: ', income);
-  console.log('savings: ', savings);
-  console.log('moneyOut: ',moneyOut);
+  // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined
+  if(!loading){
+    const oneWeekAgo = dayjs().subtract(1, 'week');
+
+    // this is to get how much money has been spent for the past week
+     moneyOutThisWeek = moneyOut.filter((transaction) => {
+      const transactionDate = dayjs(transaction.date);
+      return transactionDate.isAfter(oneWeekAgo);
+    })
+    console.log(moneyOutThisWeek);
+    const totalMoneyOutThisWeek = moneyOutThisWeek.reduce((total, transaction) => total + transaction.amount, 0 );
+    console.log('total money out this week: ', totalMoneyOutThisWeek)
+    ///////////////////////////////////////////////////////////
+
+    // this is to calculate how much has been spent in the past week
+     moneyInThisWeek = income.filter((transaction) => {
+      const incomeAddDate = dayjs(transaction.date);
+      return incomeAddDate.isAfter(oneWeekAgo);
+    })
+    console.log(moneyInThisWeek);
+
+    totalIncomeThisWeek = moneyInThisWeek.reduce((total, transaction) => total + transaction.amount, 0);
+    console.log('total income: ', totalIncomeThisWeek);
+    //////////////////////////////////////////////////////////////////
+
+    // gets how much was put in vs taken out
+    inOutRatio = totalIncomeThisWeek - totalMoneyOutThisWeek;
+    console.log('inOutRatio: ', inOutRatio);
+    refetch();
+  }
+
   
   if(loading){
     return(
@@ -61,16 +97,21 @@ export default function Dashboard() {
                 {/* <Placeholder style={{height:"120px"}}>Balance</Placeholder> */}
                 <Balance 
                   balance={balance}
-                  savingsTotal = {savingsTotal} 
+                  savingsTotal={savingsTotal} 
                   style={{height:"120px"}}/>
             </Grid>
             <Grid item>
-                <Placeholder style={{height:"120px"}}>Money In/Out</Placeholder>
+                <MoneyInOut 
+                sx={{
+                  height:"120px"}}
+                inOutRatio={inOutRatio}>
+                  Money In/Out</MoneyInOut>
             </Grid>
           </Grid>
           {/* Transaction Input */}
           <Grid item xs={6}>
-            <TransactionForm email={email}/>
+            {/* refetch is sent to be able to get an updated balance amount when the database changes */}
+            <TransactionForm email={email} refetch={refetch}/>
           </Grid>
         </Grid>
 

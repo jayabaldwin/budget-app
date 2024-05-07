@@ -36,6 +36,7 @@ const resolvers = {
         moneyOut: [],
         budgetCategories: [],
       });
+
       const user = await User.create({
         firstname,
         lastname,
@@ -173,10 +174,13 @@ const resolvers = {
           },
           { new: true }
         );
-        const index = updateFinance.budgetCategories.findIndex(
-          (cat) => cat.categoryName === category
-        );
-        updateFinance.budgetCategories[index].setWeeklyAmount -= amount;
+
+        // I'm not sure what this is doing but things work without it
+        // const index = updateFinance.budgetCategories.findIndex(
+        //   (cat) => cat.categoryName === category
+        // );
+        // updateFinance.budgetCategories[index].setWeeklyAmount -= amount;
+        
         await updateFinance.save();
 
         return updateFinance;

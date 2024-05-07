@@ -24,7 +24,7 @@ export default function UserLogout() {
   const { loading, data } = useQuery(QUERY_ME);
   
   const initials = data?.me?.initials;
-  console.log(initials);
+  // console.log(initials);
 
 
   const handleOpenUserMenu = (event) => {
