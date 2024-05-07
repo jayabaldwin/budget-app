@@ -4,10 +4,9 @@ const cleanDB = require("./cleanDB");
 
 db.once("open", async () => {
   await cleanDB("Category", "categories");
-  //   await cleanDB('User', 'users');
-  //   await cleanDB('Finance', 'finances');
 
-  const categories = await Category.insertMany([
+  // Seed categories
+  await Category.insertMany([
     { budgetName: "Home" },
     { budgetName: "Utilities" },
     { budgetName: "Transport" },
@@ -22,7 +21,7 @@ db.once("open", async () => {
     { budgetName: "Miscellaneous" },
   ]);
 
-  console.log("categories seeded");
+  console.log("Categories seeded");
 
   process.exit();
 });
