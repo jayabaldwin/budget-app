@@ -13,10 +13,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-import DatePicker from '../../utils/DatePicker.jsx';
+// import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 import { useMutation } from '@apollo/client';
+import { useMediaQuery } from '@mui/material';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 import { 
   ADD_SAVINGS,
@@ -25,6 +31,7 @@ import {
       } from '../../utils/mutations.js';
 
 export default function TransactionForm() {
+  const isMobile = useMediaQuery('(max-width:670px)');
   // this is state i'm using to get the data from form.
   const [formState, setFormState] = useState({
     type: 'Expense',

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { QUERY_ME } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
+import dayjs from "dayjs";
 
 // This data needs to be based on a weekly budget
 

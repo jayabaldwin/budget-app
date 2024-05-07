@@ -14,7 +14,7 @@ const typeDefs = gql`
     _id: ID
     categoryName: String!
     remainingAmount: Float
-    budgetAmount: Float!
+    budgetAmount: Float
   }
 
   type Finance {
@@ -30,7 +30,7 @@ const typeDefs = gql`
   type Income {
     _id: ID
     amount: Float!
-    description: String
+    description: String!
     date: Date
   }
 
@@ -49,6 +49,14 @@ const typeDefs = gql`
     category: String!
   }
 
+  type SortedCategories {
+    amount: Float!
+    description: String
+    date: Date
+    category: String!
+    _id: ID
+  }
+
   type Category {
     _id: ID
     budgetName: String!
@@ -64,6 +72,7 @@ const typeDefs = gql`
     user(email: String!): User
     me: User
     categories: [Category]
+    userBudgetCategories: [SortedCategories]
   }
 
   type Mutation {
