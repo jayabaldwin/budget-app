@@ -1,9 +1,10 @@
 import ReactCardFlip from 'react-card-flip';
-import {useEffect, useState} from 'react';
-import Box from '@mui/material/Box';
+import { useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
+import PaidIcon from '@mui/icons-material/Paid';
+import PaymentsIcon from '@mui/icons-material/Payments';
 
 
 export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyOutThisWeek}){
@@ -16,39 +17,46 @@ export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyO
 
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-        <Card 
-            sx={{ width: '100%', maxWidth: 500 }} 
-            onClick={handleClick}
-        >
-            <CardContent sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}>
-                <Typography variant="h6" gutterBottom>
-                    Money in this week: ${totalIncomeThisWeek}
-                    <br/>
-                    In - Out: ${inOutRatio}
-                </Typography>  
-            </CardContent>
-        </Card>
-
-        <Card 
-            sx={{ width: '100%', maxWidth: 500 }} 
-            onClick={handleClick}
-        >
-            <CardContent sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}>
-                <Typography variant="h6" gutterBottom>
-                    Money out this week: ${totalMoneyOutThisWeek}
-                    <br/>
-                    In - Out: ${inOutRatio}
-                </Typography>  
-            </CardContent>
-        </Card>
-    </ReactCardFlip>
-);
+            <Paper elevation={8}
+                sx={{ width: '100%', maxWidth: 500 }} 
+                onClick={handleClick}
+            >
+                <CardContent sx={{
+                    display: 'flex',}}>
+                    <div style={{flexGrow: 1}}>
+                    <Typography variant="h5">
+                        Money In
+                    </Typography> 
+                    <Typography variant="subtitle2" gutterBottom>
+                        Past 7 days
+                    </Typography>   
+                    </div>
+                    <PaidIcon fontSize='large' />
+                </CardContent>
+                    <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
+                        ${totalIncomeThisWeek}
+                    </Typography>    
+            </Paper>
+            <Paper elevation={8}
+                sx={{ width: '100%', maxWidth: 500 }} 
+                onClick={handleClick}
+            >
+                <CardContent sx={{
+                    display: 'flex',}}>
+                    <div style={{flexGrow: 1}}>
+                    <Typography variant="h5">
+                        Money Out
+                    </Typography> 
+                    <Typography variant="subtitle2" gutterBottom>
+                        Past 7 days
+                    </Typography>   
+                    </div>
+                    <PaidIcon fontSize='large' />
+                </CardContent>
+                    <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
+                        ${totalMoneyOutThisWeek}
+                    </Typography>    
+            </Paper>
+        </ReactCardFlip>
+    );
 }
