@@ -95,26 +95,14 @@ export const ADD_BALANCE = gql`
 `;
 
 export const ADD_CATEGORY = gql`
-  mutation AddCategory($categoryName: String!, $remainingAmount: Float!) {
+  mutation AddCategory($categoryName: String!, $budgetAmount: Float!) {
     addCategory(
       categoryName: $categoryName
-      remainingAmount: $remainingAmount
+      budgetAmount: $budgetAmount
     ) {
-      finances {
-        budgetCategories {
-          _id
-          categoryName
-          remainingAmount
-        }
-        moneyOut {
-          _id
-          amount
-          description
-          date
-          category
-        }
+        _id
       }
-    }
+    
   }
 `;
 
