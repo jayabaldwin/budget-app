@@ -94,7 +94,7 @@ export default function Dashboard() {
           {/* Countdown */}
           <Grid item xs={3}>
             <Countdown />
-            <Placeholder style={{height:"250px"}}>Countdown Element</Placeholder>
+            {/* <Placeholder style={{height:"250px"}}>Countdown Element</Placeholder> */}
           </Grid>
           {/* Metrics */}
           <Grid item flexDirection={'column'} xs={3}>

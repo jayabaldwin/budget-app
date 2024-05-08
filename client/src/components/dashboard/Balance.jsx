@@ -19,7 +19,7 @@ export default function Balance({balance, savingsTotal}) {
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
             <Paper elevation={8}
-                sx={{ width: '100%', maxWidth: 500 }} 
+                sx={{ width: '100%', maxWidth: 500, borderRadius: '15px' }} 
                 onClick={handleClick}
             >
                 <CardContent sx={{
@@ -34,7 +34,7 @@ export default function Balance({balance, savingsTotal}) {
                     </Typography>    
             </Paper>
             <Paper elevation={8}
-                sx={{ width: '100%', maxWidth: 500 }} 
+                sx={{ width: '100%', maxWidth: 500, borderRadius: '15px' }} 
                 onClick={handleClick}
             >
                 <CardContent sx={{

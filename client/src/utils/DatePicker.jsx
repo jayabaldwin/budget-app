@@ -19,13 +19,13 @@ export default function DatePickerValue({formState, setFormState}) {
 
         {!isMobile ? (
           <DatePicker
-          label="Transaction Date"
+          label="Transaction"
           value={dayjs(formState.date)}
           onChange={(date) => setFormState({...formState, date})}
         />
         ) : (
           <MobileDatePicker
-          label="Transaction Date"
+          label="Transaction"
           value={dayjs(formState.date)}
           onChange={(date) => setFormState({...formState, date})}
         />

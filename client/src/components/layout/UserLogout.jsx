@@ -52,7 +52,7 @@ export default function UserLogout() {
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title={`${first} ${last}`}>
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Initials" sx={{ bgcolor: '#663ab7' }} src="/static/images/avatar/2.jpg">{initials}</Avatar>
+          <Avatar alt="Initials" sx={{ bgcolor: '#663ab7', color: '#ffffff' }} src="/static/images/avatar/2.jpg">{initials}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu
