@@ -67,6 +67,12 @@ body {
   background-color: #000000;
 }
 
+/* Balance card on hover */
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.css-1aaqq5i-MuiPaper-root:hover
+ {
+  box-shadow: #8148b3;
+  }
+
 
 
 
