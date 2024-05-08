@@ -8,15 +8,25 @@ import Typography from "@mui/material/Typography";
 import dayjs from 'dayjs'
 
 export default function Countdown() {
-    const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
-    const allBudgetCategories = data?.userBudgetCategories
-    console.log(allBudgetCategories)
-    // const remainingToSpend = data?.userBudgetCategories?.remainingAmount
-    // console.log(remainingToSpend)
+    // How many days left in the budget week
     const currentDayOfWeek = dayjs().day();
     const daysLeftInWeek = 7 - currentDayOfWeek;
-    console.log(daysLeftInWeek)
 
+    const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
+    const all = data?.userBudgetCategories
+    console.log(all)
+
+    if (loading) {
+        return <div>LOADING... </div>;
+      }
+    
+    if (error) {
+        return <div>ERROR {error.message}</div>;
+    }
+    
+    // Use state or use map/reduce method?
+
+  
     return (
         <Paper 
         elevation={8}
@@ -32,12 +42,12 @@ export default function Countdown() {
         <Typography sx={{ fontSize: 16, mb: 4 }} color="text.secondary" gutterBottom>
           Countdown...
         </Typography>
-        <Typography variant="h3" gutterBottom>
-          $197 left
-        </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5 }}>
-          $133 spend of $330 budget
-        </Typography>
+            <Typography variant="h3" gutterBottom>
+            $197 left
+            </Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5 }}>
+            $133 spend of $330 budget
+            </Typography>
         <Typography variant="body1" component="div">
           {daysLeftInWeek} days to go this week
         </Typography>
