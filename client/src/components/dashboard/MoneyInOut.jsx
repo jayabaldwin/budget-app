@@ -34,7 +34,7 @@ export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyO
                     <PaidIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
-                        ${totalIncomeThisWeek}
+                        ${totalIncomeThisWeek.toFixed(2) || 0}
                     </Typography>    
             </Paper>
             <Paper elevation={8}
@@ -54,7 +54,7 @@ export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyO
                     <PaidIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
-                        ${totalMoneyOutThisWeek}
+                        ${totalMoneyOutThisWeek.toFixed(2) || 0}
                     </Typography>    
             </Paper>
         </ReactCardFlip>

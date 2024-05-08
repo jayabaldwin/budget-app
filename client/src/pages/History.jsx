@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Grid from "@mui/material/Grid";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -109,7 +109,7 @@ export default function History() {
 
     if(loading){
         return(
-        <p>getting your history!</p>
+        <p>Getting your history!</p>
         )
     }
 
@@ -128,7 +128,7 @@ export default function History() {
           boxShadow: 1
         }}>
           <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.40', borderRadius: 2, boxShadow: 1 }}>
-            <Typography sx={{ textAlign: 'center', fontWeight: 'bold', mb: 2 }}>Money Out!</Typography>
+            <Typography sx={{ textAlign: 'left', fontWeight: 'bold', mb: 2 }}>Expenses</Typography>
             <FixedSizeList
               height={500}
               width={'100%'}
@@ -140,7 +140,7 @@ export default function History() {
             </FixedSizeList>
           </Box>
           <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.40', borderRadius: 2, boxShadow: 1 }}>
-            <Typography sx={{ textAlign: 'center', fontWeight: 'bold', mb: 2 }}>Income</Typography>
+            <Typography sx={{ textAlign: 'left', fontWeight: 'bold', mb: 2 }}>Income</Typography>
             <FixedSizeList
               height={500}
               width={'100%'}
@@ -152,7 +152,7 @@ export default function History() {
             </FixedSizeList>
           </Box>
           <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.40', borderRadius: 2, boxShadow: 1 }}>
-            <Typography sx={{ textAlign: 'center', fontWeight: 'bold', mb: 2 }}>Savings!</Typography>
+            <Typography sx={{ textAlign: 'left', fontWeight: 'bold', mb: 2 }}>Savings</Typography>
             <FixedSizeList
               height={500}
               width={'100%'}

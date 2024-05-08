@@ -1,4 +1,5 @@
 // import React from 'react';
+import React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
@@ -22,7 +23,7 @@ export default function SpendGraph() {
       const { category } = transaction;
       if (!uniqueCategories.includes(category)) {
         uniqueCategories.push(category);
-        amountArr.push(parseFloat(transaction.remainingAmount));
+        amountArr.push(parseFloat(transaction.totalBudget));
       }
     });
     return amountArr;
@@ -36,7 +37,7 @@ export default function SpendGraph() {
       if (!uniqueCategories.includes(category)) {
         uniqueCategories.push(category);
         amountArr.push(
-          parseFloat(transaction.totalBudget - transaction.remainingAmount)
+          parseFloat(transaction.totalBudget + transaction.remainingAmount)
         );
       }
     });
@@ -46,6 +47,7 @@ export default function SpendGraph() {
 
   const pData = getTotalBudgetPerCategory(categories);
   const uData = getSpentAmountPerCategory(categories);
+  
   const xLabels = [
     ...new Set(categories.map((transaction) => transaction.category)),
   ];
@@ -54,11 +56,11 @@ export default function SpendGraph() {
     <>
       {data && (
         <BarChart
-          width={400}
+          width={500}
           height={400}
           series={[
-            { data: uData, label: "Spent so far", id: "uvId", stack: "total" },
-            { data: pData, label: "Remaining", id: "pvId", stack: "total" },
+            { data: uData, label: "Total Budget", id: "uvId", stack: "total" },
+            { data: pData, label: "Spent", id: "pvId"},
           ]}
           xAxis={[{ data: xLabels, scaleType: "band" }]}
         />

@@ -129,11 +129,11 @@ export default function Dashboard() {
           {/* Spend by category */}
           <Grid item xs={8}>
             {/* <Placeholder style={{height:"250px"}}>Spend by Category</Placeholder> */}
-            <SpendGraph />
+            {/* <SpendGraph /> */}
           </Grid>
           {/* Cash flow */}
           <Grid item xs={4}>
-            <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder>
+            {/* <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder> */}
             {/* <CashFlowGraph/> */}
           </Grid>
         </Grid>

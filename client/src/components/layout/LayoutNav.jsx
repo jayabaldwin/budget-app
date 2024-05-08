@@ -23,6 +23,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserLogout from './UserLogout';
+import Tooltip from '@mui/material/Tooltip';
 import Logo from '../../assets/logo/florin-logo-small.png'
 
 
@@ -36,7 +37,7 @@ const styles = {
 }
 const dashboardData = [
   { text: 'Dashboard', icon: <DashboardIcon color='white'/>, route: '/home' },
-  { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
+  { text: 'Set Budget', icon: <FinancesIcon />, route: '/home/finance' },
   { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
 ];
 
