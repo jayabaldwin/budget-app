@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
 
 export default function Balance({balance, savingsTotal}) {
    
@@ -16,8 +17,9 @@ export default function Balance({balance, savingsTotal}) {
     };
 
     return (
+        // <Paper elevation={8}>
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-            <Card 
+            <Paper elevation={8}
                 sx={{ width: '100%', maxWidth: 500 }} 
                 onClick={handleClick}
             >
@@ -30,9 +32,9 @@ export default function Balance({balance, savingsTotal}) {
                         Balance: ${balance}
                     </Typography>  
                 </CardContent>
-            </Card>
+            </Paper>
 
-            <Card 
+            <Paper 
                 sx={{ width: '100%', maxWidth: 500 }} 
                 onClick={handleClick}
             >
@@ -45,7 +47,8 @@ export default function Balance({balance, savingsTotal}) {
                         Savings: ${savingsTotal}
                     </Typography>  
                 </CardContent>
-            </Card>
+            </Paper>
         </ReactCardFlip>
+        // </Paper>
     );
 }

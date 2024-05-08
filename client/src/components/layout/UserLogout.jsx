@@ -24,7 +24,10 @@ export default function UserLogout() {
   const { loading, data } = useQuery(QUERY_ME);
   
   const initials = data?.me?.initials;
-  // console.log(initials);
+  const first = data?.me?.firstname; 
+  const last = data?.me?.lastname; 
+  console.log('Initials: ' + initials, 'Firstname: ' + first, 'Lastname: ' + last);
+
 
 
   const handleOpenUserMenu = (event) => {
@@ -47,9 +50,9 @@ export default function UserLogout() {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Open settings">
+      <Tooltip title={`${first} ${last}`}>
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Avatar" src="/static/images/avatar/2.jpg">{initials}</Avatar>
+          <Avatar alt="Initials" sx={{ bgcolor: '#663ab7' }} src="/static/images/avatar/2.jpg">{initials}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu

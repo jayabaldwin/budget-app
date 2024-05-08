@@ -31,13 +31,6 @@ function Signup(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // console.log("in the submit");
-    // console.log(`${formState.firstname}`);
-    // console.log(`${formState.lastname}`);
-    // console.log(`${formState.email}`);
-    // console.log(`${formState.password}`);
-    // this is the line that the error is pointing to.
-    
       const mutationResponse = await addUser({
         variables: {
           firstname: formState.firstname,
@@ -62,21 +55,13 @@ function Signup(props) {
 
   return (
     <Box
-      // sx={{
-      //   '& .MuiTextField-root': { 
-      //     m: 1, 
-      //     width: '25ch',         
-      //   },
-      // }}
       sx={{marginTop: '10rem'}}
-      // style={styles.contactFrame}
       noValidate
       autoComplete="off"
     >
         <form 
           onSubmit={handleFormSubmit}
           className='loginForm'
-          // style={{display: 'flex', flexDirection: 'column'}}
           style={styles.contactFrame}
           >
           <Stack spacing={2}>

@@ -106,7 +106,7 @@ export default function TransactionForm({refetch}) {
   return (
     <form>
       <Paper 
-      sx={{ p: 2 }}>
+      sx={{ p: 2 }} elevation={8}>
         <Typography variant='h5'>Add {formState.type}</Typography>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>

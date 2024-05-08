@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -55,10 +54,6 @@ export default function SignIn(props) {
 
   return (
     <Box
-      // sx={{'& .MuiTextField-root': { 
-      //   m: 1, 
-      //   width: '25ch', 
-      // },}}
       sx={{marginTop: '10rem'}}
       noValidate
       autoComplete="off" >

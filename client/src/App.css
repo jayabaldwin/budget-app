@@ -42,9 +42,9 @@
 } */
 
 body {
-  background: linear-gradient(300deg,#000000,#000000,#412794,rgb(53, 38, 101));
-  background-size: 400% 400%;
-  animation: gradient-animation 40s ease infinite;
+  background: linear-gradient(85deg,#8148b3,#7c0ae3,#0ae3e3);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
 }
 
 @keyframes gradient-animation {
@@ -58,3 +58,34 @@ body {
     background-position: 0% 50%;
   }
 }
+
+/* Background paper form */
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.css-1fcwo32-MuiPaper-root,
+/* Balance card */
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.css-1aaqq5i-MuiPaper-root
+ {
+  background-color: #000000;
+}
+
+
+
+
+ /* Drawer */
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.css-15b8vjn-MuiPaper-root-MuiDrawer-paper {
+  background-color: #2c0f61;
+  color: #ffffff;
+}
+
+/* Top Bar */
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
+  background-color: #000000;
+}
+/* Icons */
+/* .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+  color: #ffffff;
+} */
+
+/* Paper */
+/* .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-53nwn4-MuiPaper-root-MuiCard-root {
+  background-color: #000000;
+} */
