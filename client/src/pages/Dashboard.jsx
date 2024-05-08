@@ -5,6 +5,7 @@ import SpendGraph from "../components/dashboard/SpendGraph.jsx";
 import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
 import MoneyInOut from "../components/dashboard/MoneyInOut.jsx";
 import Countdown from "../components/dashboard/CountDown.jsx";
+import Box from '@mui/material/Box'
 
 
 import dayjs from "dayjs";
@@ -133,8 +134,12 @@ export default function Dashboard() {
           </Grid>
           {/* Cash flow */}
           <Grid item xs={4}>
-            {/* <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder> */}
-            {/* <CashFlowGraph/> */}
+          {/* <Box sx={{display: "flex", flexDirection: "flex-start"}}>
+        {" "}
+            <SpendGraph 
+              
+            />
+          </Box> */}
           </Grid>
         </Grid>
       </Grid>
