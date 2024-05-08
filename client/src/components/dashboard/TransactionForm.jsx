@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -16,10 +17,10 @@ import SendIcon from '@mui/icons-material/Send';
 import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
-import { useMutation, useQuery } from '@apollo/client';
-
+import SpendGraph from './SpendGraph.jsx';
+import { useMutation, useQuery } from '@apollo/client'; 
 import {
-  QUERY_ME,
+  QUERY_ME, QUERY_USER_CATEGORIES
 } from '../../utils/queries.js';
 
 import { 
@@ -53,8 +54,11 @@ import Auth from '../../utils/auth.js';
 
 export default function TransactionForm( { refetch, budgetCategorie } ) {
 
-  console.log('budgetCategorie is: ',budgetCategorie);
-  const { loading, data } = useQuery(QUERY_ME);
+  const { data, loading, error, refetch:refetchCat } = useQuery(QUERY_USER_CATEGORIES, {
+    fetchPolicy: "no-cache"
+  });
+  const categories = data?.userBudgetCategories || [];
+
   const [formState, setFormState] = useState({
     type: 'Expense',
     description: '',
@@ -81,9 +85,10 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
     event.preventDefault();
 
     // Used to send the expenses to the database
-    if(formState.type === 'Expense'){
+    if (formState.type === "Expense") {
       console.log(formState);
       try {
+        // these three are pretty simple, essentially just sends the variables and runs the mutations
         await addToMoneyOut({
           variables: {
             ...formState,
@@ -92,6 +97,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
           },
         });
 
+        // add the update_category_budget here
         await updateCategoryBudget({
           variables: {
             ...formState,
@@ -99,39 +105,37 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             category: formState.category,
           }
         });
-
         refetch();
-
+        refetchCat()
       } catch (error) {
         console.error(error);
       }
-    } else if(formState.type === 'Income'){
-      console.log('do the income mutaiton');
+    } else if (formState.type === "Income") {
+      console.log("do the income mutaiton");
       try {
         await addIncome({
           variables: {
             ...formState,
             amount: parseFloat(formState.amount),
           },
-        }); 
+        });
         refetch();
       } catch (error) {
         console.error(error);
       }
-    }
-
-      else if(formState.type === 'Savings'){
-        try {
-          await addSavings({
-            variables: { 
-              ...formState,
-              amount: parseFloat(formState.amount),
-            },
-          });
-          refetch();
-        } catch (error) {
-          console.error(error);
-        }
+    } else if (formState.type === "Savings") {
+      try {
+        await addSavings({
+          variables: {
+            ...formState,
+            amount: parseFloat(formState.amount),
+          },
+        });
+        refetch();
+        // Auth.login(data.addSavings.token);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -241,6 +245,10 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
           </Grid>
         </Grid>
       </Paper>
+      <Box sx={{display: "flex", flexDirection: "flex-start"}}>
+        {" "}
+        <SpendGraph categories={categories}/>
+      </Box>
     </form>
   );
 }
