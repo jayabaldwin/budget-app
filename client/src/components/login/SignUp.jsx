@@ -62,11 +62,11 @@ function Signup(props) {
         <form 
           onSubmit={handleFormSubmit}
           className='loginForm'
-          style={styles.contactFrame}
+          // style={styles.contactFrame}
           >
           <Stack spacing={2}>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
-             Account Creation!
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: 'flex-start' }}>
+             Account Creation.
           </Typography>
             <TextField
               required

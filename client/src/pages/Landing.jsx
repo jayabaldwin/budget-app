@@ -3,6 +3,7 @@ import SignIn from "../components/login/SignIn";
 import SignUp from '../components/login/SignUp';
 import auth from '../utils/auth'
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import Logo from '../assets/logo/florin-logo.png'
 
 // Adjust for responsivity
@@ -37,9 +38,10 @@ export default function Landing() {
             <Grid item xs={12} md={5}
                 sx={{backgroundColor: 'black', height: '100vh', paddingLeft: '5rem', paddingRight: '5rem'}}>
                  {isSignUpMode ? <SignUp /> : <SignIn />}
-                    <button onClick={handleToggleMode}>
+                    <Button onClick={handleToggleMode} 
+                    sx={{background: 'transparent', color: '#ffffff'}}>
                     {isSignUpMode ? 'Already have an account? Sign In' : 'New User? Sign Up'}
-                </button>
+                </Button>
                 </Grid>
             </>
             )}

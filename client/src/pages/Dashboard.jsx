@@ -14,7 +14,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 import Balance from '../components/dashboard/Balance.jsx';
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries.js';
-//////////////
+
 
 const Placeholder = styled('div')(() => ({
     display: 'flex',

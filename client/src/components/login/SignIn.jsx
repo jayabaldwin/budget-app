@@ -59,14 +59,14 @@ export default function SignIn(props) {
       autoComplete="off" >
       <div>
         <form
-        style={styles.contactFrame}  
+        // style={styles.contactFrame}  
             onSubmit={handleFormSubmit}>
           <Stack spacing={2}>
           <Typography
-            variant="h6" 
+            variant="h4" 
             component="div" 
-            sx={{ flexGrow: 1, textAlign: 'center' }}>
-             Login!
+            sx={{ flexGrow: 1, textAlign: 'flex-start' }}>
+             Login.
           </Typography>
             <TextField
               required
