@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const UserBudget = require("./UserBudget");
+const UserBudgetCategories = require("./UserBudget");
 
 const financeSchema = new Schema({
   balance: {
@@ -19,6 +19,7 @@ const financeSchema = new Schema({
       },
       description: {
         type: String,
+        required: true,
       },
       date: {
         type: Date,
@@ -59,11 +60,11 @@ const financeSchema = new Schema({
       },
       category: {
         type: String,
+        required: true,
       },
     },
   ],
-
-  budgetCategories: [UserBudget],
+  budgetCategories: [UserBudgetCategories],
 });
 
 const Finance = model("Finance", financeSchema);

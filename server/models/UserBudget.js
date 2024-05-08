@@ -1,14 +1,18 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 const budgetSchema = new Schema({
   categoryName: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
-  setWeeklyAmount: {
+  remainingAmount: {
     type: Number,
-    required: true,
+    // default: 0,
+  },
+  budgetAmount: {
+    type: Number,
+    // required: true,
   },
 });
 

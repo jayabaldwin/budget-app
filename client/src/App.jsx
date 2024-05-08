@@ -9,17 +9,10 @@ import History from "./pages/History.jsx";
 import Profile from "./pages/Profile.jsx";
 import Settings from "./pages/Settings.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
-
-//  What Reid is adding/working on
-// import SignUp from "./components/login/SignUp.jsx";
-// import SignIn from "./components/login/SignIn.jsx";
 import auth from './utils/auth.js';
-import { useNavigate } from "react-router-dom";
-// ////////////////////////////////
 
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "./theme/theme.js";
-
 
 import {
   ApolloClient,
@@ -28,10 +21,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 
-
 import { setContext } from '@apollo/client/link/context';
-import { Lan } from "@mui/icons-material";
-
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -56,35 +46,31 @@ function App() {
 
   const isLoggedIn = auth.loggedIn();
 
-
   return (
     <>
       <ApolloProvider client={client}>
         <Router>
           <ThemeProvider theme={theme}>
-
-          <CssBaseline/>
-          <Routes>
-            {isLoggedIn ? (
-              <>
+            <CssBaseline/>
+            <Routes>
+              {isLoggedIn ? (
+                <>
+                  <Route index element={<Landing />} />
+                  <Route path="/home" element={<LayoutNav />}>
+                  <Route index element={<Dashboard />} />
+                    <Route path="finance" element={<Finances />} />
+                    <Route path="history" element={<History />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="settings" element={<Settings />} />
+                  </Route>
+                </>
+              ) : (
                 <Route index element={<Landing />} />
-                <Route path="/home" element={<LayoutNav />}>
-                  <Route path="dashboard" element={<Dashboard />} />
-                  <Route path="finance" element={<Finances />} />
-                  <Route path="history" element={<History />} />
-                  <Route path="profile" element={<Profile />} />
-                  <Route path="settings" element={<Settings />} />
-                </Route>
-
-              </>
-            ) : (
-              <Route index element={<Landing />} />
-            )}
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
+              )}
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
           </ThemeProvider>
         </Router>
-
       </ApolloProvider>
     </>
   );

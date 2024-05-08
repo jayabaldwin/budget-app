@@ -23,12 +23,21 @@ import HistoryIcon from '@mui/icons-material/History';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserLogout from './UserLogout';
+import Tooltip from '@mui/material/Tooltip';
+import Logo from '../../assets/logo/florin-logo-small.png'
+
 
 const drawerWidth = 240;
 
+const styles = {
+  logo: {
+    flexGrow: 1,
+    maxWidth: '120px'
+  }
+}
 const dashboardData = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/home/dashboard' },
-  { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
+  { text: 'Dashboard', icon: <DashboardIcon color='white'/>, route: '/home' },
+  { text: 'Set Budget', icon: <FinancesIcon />, route: '/home/finance' },
   { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
 ];
 
@@ -88,6 +97,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
+    backgroundColor: '#000000',
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -118,34 +128,39 @@ export default function MiniDrawer() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      {/* Top App Bar */}
       <AppBar position="fixed" open={open}>
-        <Toolbar>
-          {/* Menu toggle */}
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* AppName */}
-          <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Florin
-          </Typography>
-          {/* UserLogout */}
-          <UserLogout />
-        </Toolbar>
-      </AppBar>
+  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    {/* Menu toggle */}
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        onClick={handleDrawerOpen}
+        edge="start"
+        sx={{
+          marginRight: 5, // Adjust the margin as needed
+          ...(open && { display: 'none' }),
+        }}
+      >
+        <MenuIcon />
+      </IconButton>
+      {/* AppName */}
+      {/* <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
+        Florin
+      </Typography> */}
+      <img src={Logo} alt="Logo" style={styles.logo} />
+    </div>
+
+    {/* UserLogout */}
+    <UserLogout />
+  </Toolbar>
+</AppBar>
+
+
 
       {/* Side navigation drawer */}
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+      <Drawer variant="permanent" color='primary' open={open}>
+        <DrawerHeader color='412794'>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>

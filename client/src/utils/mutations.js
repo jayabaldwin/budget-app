@@ -73,9 +73,10 @@ export const ADD_MONEY_OUT = gql`
 `;
 
 export const ADD_INCOME = gql`
-  mutation AddIncome($amount: Float!) {
-    addIncome(amount: $amount) {
+  mutation AddIncome($amount: Float!, $date: Date, $description: String) {
+    addIncome(amount: $amount, date: $date, description: $description) {
       income {
+        _id
         amount
         date
         description
@@ -85,9 +86,10 @@ export const ADD_INCOME = gql`
 `;
 
 export const ADD_BALANCE = gql`
-  mutation Mutation($balance: Float!) {
+  mutation AddBalance($balance: Float!) {
     addBalance(balance: $balance) {
       finances {
+        _id
         balance
       }
     }
@@ -95,25 +97,29 @@ export const ADD_BALANCE = gql`
 `;
 
 export const ADD_CATEGORY = gql`
-  mutation AddCategory($categoryName: String!, $setWeeklyAmount: Int!) {
-    addCategory(
-      categoryName: $categoryName
-      setWeeklyAmount: $setWeeklyAmount
-    ) {
-      finances {
-        budgetCategories {
-          _id
-          categoryName
-          setWeeklyAmount
-        }
-        moneyOut {
-          _id
-          amount
-          description
-          date
-          category
-        }
+  mutation AddCategory($categoryName: String!, $budgetAmount: Float!) {
+    addCategory(categoryName: $categoryName, budgetAmount: $budgetAmount) {
+      _id
+    }
+  }
+`;
+
+export const UPDATE_CATEGORY_BUDGET = gql`
+  mutation UpdateCategoryBudget($category: String!, $amount: Float!) {
+    updateCategoryBudget(category: $category, amount: $amount) {
+      budgetCategories {
+        categoryName
+        remainingAmount
+        budgetAmount
       }
+    }
+  }
+`;
+
+export const DELETE_TRANSACTION = gql`
+  mutation DeleteTransaction($transactionId: ID!, $type: String!) {
+    deleteTransaction(transaction_id: $transactionId, type: $type) {
+      _id
     }
   }
 `;

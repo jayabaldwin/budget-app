@@ -1,20 +1,24 @@
-// imports needed for MUI
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send'
 import Typography from '@mui/material/Typography';
-import { paperClasses } from '@mui/material';
-
-// the imports needed for apollo and login
 import { LOGIN } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import Stack from '@mui/material/Stack';
 
-
+const styles = {
+  contactFrame: {
+    backgroundColor: '#ffffff6b',
+    borderRadius: '15px',
+    padding: '30px',
+    marginTop: '20px',
+    width: '100%',
+    maxWidth: '600px'
+  }
+};
 
 export default function SignIn(props) {
   const [formState, setFormState] = useState ({email: '', password: ''});
@@ -50,21 +54,19 @@ export default function SignIn(props) {
 
   return (
     <Box
-      sx={{'& .MuiTextField-root': { 
-        m: 1, 
-        width: '25ch', 
-      },}}
+      sx={{marginTop: '10rem'}}
       noValidate
       autoComplete="off" >
       <div>
-        <form  
+        <form
+        // style={styles.contactFrame}  
             onSubmit={handleFormSubmit}>
           <Stack spacing={2}>
           <Typography
-            variant="h6" 
+            variant="h4" 
             component="div" 
-            sx={{ flexGrow: 1, textAlign: 'center' }}>
-             Login!
+            sx={{ flexGrow: 1, textAlign: 'flex-start' }}>
+             Login.
           </Typography>
             <TextField
               required
@@ -75,23 +77,6 @@ export default function SignIn(props) {
               defaultValue=""
               onChange={handleChange}
             />
-              {/* autoComplete="off" */}
-            
-     
-         {/* <form  
-            onSubmit={handleFormSubmit}
-            style={{display: 'flex', flexDirection: 'column'}}
-        > */}
-        {/* <TextField
-          required
-          id="outlined-required"
-          label="Email"
-          type="email"
-          name='email'
-          defaultValue=""
-          onChange={handleChange}
-        /> */}
-
             <TextField
               id="outlined-password-input"
               label="Password"
@@ -111,14 +96,14 @@ export default function SignIn(props) {
         </form>
       </div> 
 
-{/* //         />
+//         />
 //         <Button 
 //             variant="contained"
 //             type="submit" 
 //             endIcon={<SendIcon />}>
 //               Send
 //         </Button>
-//         </form>    */}
+//         </form>   
     </Box>
   );
 }

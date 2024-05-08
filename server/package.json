@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node server.js",
         "watch": "nodemon",
-        "seed": "node seeders/seed.js"
+        "seed": "node config/seed.js"
     },
     "keywords": [],
     "author": "Jaya Baldwin and Reid Back",
@@ -15,6 +15,7 @@
         "@apollo/server": "^4.7.1",
         "apollo-server-express": "^3.6.2",
         "bcrypt": "^5.0.0",
+        "dayjs": "^1.11.11",
         "dotenv": "^16.4.5",
         "express": "^4.17.2",
         "graphql": "^16.6.0",

@@ -13,7 +13,8 @@ const typeDefs = gql`
   type UserBudgetCategories {
     _id: ID
     categoryName: String!
-    setWeeklyAmount: Float!
+    remainingAmount: Float
+    budgetAmount: Float
   }
 
   type Finance {
@@ -29,7 +30,7 @@ const typeDefs = gql`
   type Income {
     _id: ID
     amount: Float!
-    description: String
+    description: String!
     date: Date
   }
 
@@ -48,6 +49,16 @@ const typeDefs = gql`
     category: String!
   }
 
+  type SortedCategories {
+    amount: Float!
+    description: String
+    date: Date
+    category: String!
+    _id: ID
+    totalBudget: Float
+    remainingAmount: Float
+  }
+
   type Category {
     _id: ID
     budgetName: String!
@@ -62,6 +73,8 @@ const typeDefs = gql`
     users: [User]
     user(email: String!): User
     me: User
+    categories: [Category]
+    userBudgetCategories: [SortedCategories]
   }
 
   type Mutation {
@@ -74,7 +87,7 @@ const typeDefs = gql`
 
     login(email: String!, password: String!): Auth
 
-    addBalance(balance: Float!): User
+    addBalance(balance: Float!): Finance
 
     addIncome(amount: Float!, description: String, date: Date): Finance
 
@@ -87,7 +100,11 @@ const typeDefs = gql`
       category: String!
     ): Finance
 
-    addCategory(categoryName: String!, setWeeklyAmount: Int!): User
+    addCategory(categoryName: String!, budgetAmount: Float!): Finance
+
+    updateCategoryBudget(category: String!, amount: Float!): Finance
+
+    deleteTransaction(transaction_id: ID!, type: String!): Finance
   }
 
   scalar Date

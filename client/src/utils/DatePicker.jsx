@@ -8,8 +8,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 
-export default function DatePickerValue() {
-  const [value, setValue] = useState(dayjs('DD-MM-YYYY'));
+export default function DatePickerValue({formState, setFormState}) {
+  // const [value, setValue] = useState(dayjs('DD-MM-YYYY'));
   const isMobile = useMediaQuery('(max-width:670px)');
 
 
@@ -19,15 +19,15 @@ export default function DatePickerValue() {
 
         {!isMobile ? (
           <DatePicker
-          label="Transaction Date"
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
+          label="Transaction"
+          value={dayjs(formState.date)}
+          onChange={(date) => setFormState({...formState, date})}
         />
         ) : (
           <MobileDatePicker
-          label="Transaction Date"
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
+          label="Transaction"
+          value={dayjs(formState.date)}
+          onChange={(date) => setFormState({...formState, date})}
         />
         )}
       </DemoContainer>
