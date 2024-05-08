@@ -27,6 +27,12 @@ import {
 import Auth from '../../utils/auth.js';
 
 
+
+
+
+
+
+
 export default function TransactionForm({refetch}) {
 
   const [formState, setFormState] = useState({
@@ -173,6 +179,7 @@ export default function TransactionForm({refetch}) {
                     value={formState.category}
                     label="Budget Category"
                     onChange={handleChange}
+
                   >
                     <MenuItem value={"Home"}>Home</MenuItem>
                     <MenuItem value={"Utilities"}>Utilities</MenuItem>

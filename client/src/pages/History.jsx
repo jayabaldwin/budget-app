@@ -127,7 +127,7 @@ export default function History() {
           borderRadius: 2,
           boxShadow: 1
         }}>
-          <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.100', borderRadius: 2, boxShadow: 1 }}>
+          <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.40', borderRadius: 2, boxShadow: 1 }}>
             <Typography sx={{ textAlign: 'center', fontWeight: 'bold', mb: 2 }}>Money Out!</Typography>
             <FixedSizeList
               height={500}
@@ -139,7 +139,7 @@ export default function History() {
               {moneyOutRow}
             </FixedSizeList>
           </Box>
-          <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.100', borderRadius: 2, boxShadow: 1 }}>
+          <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.40', borderRadius: 2, boxShadow: 1 }}>
             <Typography sx={{ textAlign: 'center', fontWeight: 'bold', mb: 2 }}>Income</Typography>
             <FixedSizeList
               height={500}
@@ -151,7 +151,7 @@ export default function History() {
               {incomeRow}
             </FixedSizeList>
           </Box>
-          <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.100', borderRadius: 2, boxShadow: 1 }}>
+          <Box sx={{ width: {xs: '90%', m: '30vw'}, height: 600, m: 1, p: 2, bgcolor: 'grey.40', borderRadius: 2, boxShadow: 1 }}>
             <Typography sx={{ textAlign: 'center', fontWeight: 'bold', mb: 2 }}>Savings!</Typography>
             <FixedSizeList
               height={500}
