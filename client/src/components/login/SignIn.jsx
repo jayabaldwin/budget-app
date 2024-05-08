@@ -95,8 +95,6 @@ export default function SignIn(props) {
           </Stack>
         </form>
       </div> 
-
-
     </Box>
   );
 }
