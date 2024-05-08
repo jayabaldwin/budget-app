@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
@@ -15,7 +15,7 @@ const server = new ApolloServer({
   resolvers,
   // context: ({ req }) => {
   //   const token = req.headers.authorization || '';
-    
+
   //   const user = getUserFromToken(token);
   //   return { user }
   // }

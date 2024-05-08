@@ -23,11 +23,19 @@ import HistoryIcon from '@mui/icons-material/History';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserLogout from './UserLogout';
+import Logo from '../../assets/logo/florin-logo-small.png'
+
 
 const drawerWidth = 240;
 
+const styles = {
+  logo: {
+    flexGrow: 1,
+    maxWidth: '120px'
+  }
+}
 const dashboardData = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/home/dashboard' },
+  { text: 'Dashboard', icon: <DashboardIcon color='white'/>, route: '/home/dashboard' },
   { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
   { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
 ];
@@ -88,6 +96,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
+    backgroundColor: '#000000',
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -135,17 +144,19 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           {/* AppName */}
-          <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
+          {/* <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
             Florin
-          </Typography>
+          </Typography> */}
+          <img src={Logo} alt="Logo" style={styles.logo} />
+
           {/* UserLogout */}
           <UserLogout />
         </Toolbar>
       </AppBar>
 
       {/* Side navigation drawer */}
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+      <Drawer variant="permanent" color='primary' open={open}>
+        <DrawerHeader color='412794'>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>

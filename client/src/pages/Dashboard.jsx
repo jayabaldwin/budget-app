@@ -84,7 +84,7 @@ export default function Dashboard() {
   }
 
     return (
-      <Grid container spacing={2} rowSpacing={2}
+      <Grid container sx={{marginTop: '1rem', marginRight: '1rem'}} 
         // sx={{mt:10}}
         >
         {/* Row 1 */}
@@ -129,8 +129,8 @@ export default function Dashboard() {
           </Grid>
           {/* Cash flow */}
           <Grid item xs={4}>
-            {/* <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder> */}
-            <CashFlowGraph/>
+            <Placeholder style={{height:"250px"}}>Cash Flow</Placeholder>
+            {/* <CashFlowGraph/> */}
           </Grid>
         </Grid>
       </Grid>
