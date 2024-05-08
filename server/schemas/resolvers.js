@@ -1,6 +1,6 @@
-const { User, Finance } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
-// const { AuthenticationError } = require('apollo-server-errors');
+const { User, Finance, UserBudget, Category } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
+const dayjs = require("dayjs");
 
 const resolvers = {
   Query: {
@@ -8,152 +8,275 @@ const resolvers = {
       return User.find().populate("finances");
     },
     user: async (parent, { email }) => {
-      return User.findOne({ email });
+      // if this doesn't have .populate('finances') everything i try to get from finances will be null
+      return User.findOne({ email }).populate("finances");
+    },
+
+    // this is to get the info from the user that's logged in
+    me: async (parent, args, context) => {
+      // i kinda forget where context is coming from/how it works
+      if (context.user) {
+        const foundUser = await User.findOne({
+          _id: context.user._id,
+        }).populate({
+          path: "finances",
+        });
+        return foundUser;
+      }
+      throw AuthenticationError;
+    },
+    
+    categories: async () => {
+      return Category.find();
+    },
+
+    userBudgetCategories: async (parent, __, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const finance = await Finance.findById(user.finances[0]._id);
+
+        const userBudgetCatArr = finance.budgetCategories;
+        const moneyOutArr = finance.moneyOut;
+
+        const startDate = dayjs().startOf("week").add(1, "day");
+        const endDate = dayjs().endOf("week").add(1, "day");
+
+        let filtered = [];
+        for (let i = 0; i < userBudgetCatArr.length; i++) {
+          for (let j = 0; j < moneyOutArr.length; j++) {
+            if (
+              moneyOutArr[j].category === userBudgetCatArr[i].categoryName &&
+              moneyOutArr[j].date >= startDate &&
+              moneyOutArr[j].date <= endDate
+            ) {
+              const expense = {
+                ...moneyOutArr[j].toObject(),
+
+                totalBudget: userBudgetCatArr[i].budgetAmount,
+                remainingAmount: userBudgetCatArr[i].remainingAmount,
+              };
+
+              filtered.push(expense);
+            }
+          }
+        }
+
+        console.log("filtered ", filtered);
+
+        return filtered;
+      }
+      throw AuthenticationError;
     },
   },
 
-    Mutation: {  
-        addUser: async (parent, {firstname, lastname, email, password}) => {
-            // this is just here to make sure someone isn't already using the email
-            const existingUser = await User.findOne({  email });
-            if(existingUser){
-                throw new AuthenticationError('Already a user with this email');
-            }
-            // creates the subdoc that's the finance. I'll probably need to be creating sub docs in income, savings, and moneyOut too
-            const finance = await Finance.create({ balance: 0, income: [], savings: [], moneyOut: [] });
-            const user = await User.create({ 
-                firstname,
-                lastname,
-                email, 
-                password,
-                finances: [finance._id]
-            });
-            // creates the token
-            const token = signToken(user);
+  Mutation: {
+    addUser: async (parent, { firstname, lastname, email, password }) => {
+      const finance = await Finance.create({
+        balance: 0,
+        savingsTotal: 0,
+        income: [],
+        savings: [],
+        moneyOut: [],
+        budgetCategories: [],
+      });
+
+      const user = await User.create({
+        firstname,
+        lastname,
+        email,
+        password,
+        finances: finance._id,
+      });
+
+      // creates the token
+      const token = signToken(user);
       // returns the new User document and the token
       return { token, user };
     },
 
-        login: async (parent, {email, password}) => {
-            const user = await User.findOne({email});
+    login: async (parent, { email, password }) => {
+      // finds the user via their email
+      const user = await User.findOne({ email });
 
-            if(!user){
-                throw AuthenticationError;
-            }
-            const correctPw = await user.isCorrectPassword(password)
-            if(!correctPw){
-                throw AuthenticationError;
-            }
-            const token = signToken(user);
-            return { token, user };
-        },
-
-
-        addBalance: async (parent, {email, balance}) =>{
-            // gets the user by their email, and populates that model with finances
-            const existingUser = await User.findOne({ email }).populate('finances');
-            // throws an error if the user does not exist
-            if(!existingUser){
-                throw new Error("User doesn't exist");
-            }
-            // gets the finances sub-doc from the User
-            const financeId = existingUser.finances; 
-            const updateFinance = await Finance.findByIdAndUpdate(
-                // filters by finance sub-doc from that user
-                financeId,
-                // increments up the balance by the balance sent to the mutation
-                { $inc: { balance: balance } },
-                { new: true },
-            );
-            // returns that new 
-            return updateFinance;
-        },
-        
-        // this is basically the same as above but uses $push instead of $inc
-        addIncome: async (parent, { email, amount, description, date}) => {
-            const existingUser = await User.findOne({ email }).populate('finances');
-
-      if (!existingUser) {
-        throw new Error("User doesn't exist");
+      if (!user) {
+        throw AuthenticationError;
       }
-      const financeId = existingUser.finances;
-      const updateFinance = await Finance.findByIdAndUpdate(
-        financeId,
-        // because income is an array, need to use $push
-        {
-          $push: {
-            income: {
-              amount: amount,
-              description: description,
-              date: date ? date : null,
+      // makes sure the password is correct
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+      // password was correct? give 'em a token!
+      const token = signToken(user);
+      return { token, user };
+    },
+
+    addBalance: async (parent, { balance }, context) => {
+      // If logged in
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+
+        const finance = await Finance.findByIdAndUpdate(
+          user.finances[0]._id,
+          { balance },
+          { new: true }
+        );
+        return finance;
+      }
+      throw AuthenticationError;
+    },
+    // category names must come from a drop down, no user input!
+    addCategory: async (_, args, context) => {
+      if (context.user) {
+        console.log(args);
+        const user = await User.findById(context.user._id);
+        const finance = await Finance.findByIdAndUpdate(
+          user.finances[0]._id,
+          {
+            $push: {
+              budgetCategories: { ...args, remainingAmount: args.budgetAmount },
             },
           },
-          $inc: { balance: amount },
-        },
-        { new: true }
-      );
-      return updateFinance;
+          { new: true }
+        );
+        return finance;
+      }
+      throw AuthenticationError;
+    },
+
+    updateCategoryBudget: async (_, { category, amount }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const updateFinance = await Finance.findById(user.finances[0]._id);
+        const index = updateFinance.budgetCategories.findIndex(
+          (cat) => cat.categoryName === category
+        );
+        if (index !== -1) {
+          updateFinance.budgetCategories[index].budgetAmount = amount;
+          await updateFinance.save();
+        }
+
+        return updateFinance;
+      }
+      throw AuthenticationError;
+    },
+
+    // Delete category
+
+    addIncome: async (parent, { amount, description, date }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+
+        const financeId = user.finances[0]._id;
+        const updateFinance = await Finance.findByIdAndUpdate(
+          financeId,
+          // because income is an array, need to use $push
+          {
+            $push: {
+              income: {
+                amount: amount,
+                description: description,
+                date: date ? date : null,
+              },
+            },
+            $inc: { balance: amount },
+          },
+          { new: true }
+        );
+        return updateFinance;
+      }
+      throw AuthenticationError;
     },
 
     // this is the same code but you're now pushing to savings instead of income
-    addSavings: async (parent, { email, amount, description, date }) => {
-      const existingUser = await User.findOne({ email }).populate("finances");
+    addSavings: async (parent, { amount, description, date }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
 
-      if (!existingUser) {
-        throw new Error("User doesn't exist");
-      }
-      const financeId = existingUser.finances;
-      const updateFinance = await Finance.findByIdAndUpdate(
-        // make a running total, of savings. And the option to move money from savings?
-        financeId,
-        {
-          $push: {
-            savings: {
-              amount: amount,
-              description: description,
-              date: date ? date : null,
+        const financeId = user.finances[0]._id;
+        const updateFinance = await Finance.findByIdAndUpdate(
+          financeId,
+          {
+            $push: {
+              savings: {
+                amount: amount,
+                description: description,
+                date: date ? date : null,
+              },
+            },
+            $inc: {
+              balance: -amount,
+              savingsTotal: amount,
             },
           },
-          $inc: { balance: -amount },
-        }
-      );
+          { new: true }
+        );
 
-      return updateFinance;
+        return updateFinance;
+      }
+      throw AuthenticationError;
     },
 
     addMoneyOut: async (
       parent,
-      { email, amount, description, date, category }
+      { amount, description, date, category },
+      context
     ) => {
-      const existingUser = await User.findOne({ email }).populate("finances");
+      if (context.user) {
+        const user = await User.findById(context.user._id);
 
-      if (!existingUser) {
-        throw new Error("User doesn't exist");
-      }
-      const financeId = existingUser.finances;
-      console.log("financeId ", financeId);
-      const updateFinance = await Finance.findByIdAndUpdate(
-        financeId,
-        {
-          $push: {
-            moneyOut: {
-              amount: amount,
-              description: description,
-              date: date ? date : null,
-              category: category,
+        const financeId = user.finances[0]._id;
+        const updateFinance = await Finance.findByIdAndUpdate(
+          financeId,
+          {
+            $push: {
+              moneyOut: {
+                amount: amount,
+                description: description,
+                date: date ? date : null,
+                category: category,
+              },
             },
+            $inc: { balance: -amount },
           },
-          $inc: { balance: -amount },
-        },
-        { new: true }
-      );
-      console.log("updateFinance ", updateFinance);
-      return updateFinance;
+          { new: true }
+        );
+        const index = updateFinance.budgetCategories.findIndex(
+          (cat) => cat.categoryName === category
+        );
+        updateFinance.budgetCategories[index].remainingAmount -= amount;
+        await updateFinance.save();
+
+        return updateFinance;
+      }
+      throw AuthenticationError;
+    },
+
+    deleteTransaction: async (_, { transaction_id, type }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const updateFinance = await Finance.findById(user.finances[0]._id);
+
+        const arrayType = updateFinance[type];
+        const item = arrayType.find((t) => t.id === transaction_id);
+
+        if (type === "income") {
+          updateFinance.balance -= item.amount;
+        } else if (type === "moneyOut" || "savings") {
+          updateFinance.balance += item.amount;
+        }
+
+        const filteredOut = updateFinance[type].filter(
+          (t) => t.id !== transaction_id
+        );
+
+        updateFinance[type] = filteredOut;
+        await updateFinance.save();
+        return updateFinance;
+      }
+      throw AuthenticationError;
     },
   },
 };
-
-// Other Mutations:
-// withdrawSavings
 
 module.exports = resolvers;

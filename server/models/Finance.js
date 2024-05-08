@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const UserBudgetCategories = require("./UserBudget");
 
 const financeSchema = new Schema({
   balance: {
@@ -7,7 +7,12 @@ const financeSchema = new Schema({
     default: 0,
     required: true,
   },
-  income: [{
+  savingsTotal: {
+    type: Number,
+    default: 0,
+  },
+  income: [
+    {
       amount: {
         type: Number,
         required: true,
@@ -19,10 +24,11 @@ const financeSchema = new Schema({
       date: {
         type: Date,
         // required: true,
-      }
+      },
     },
   ],
-  savings: [{
+  savings: [
+    {
       amount: {
         type: Number,
         required: true,
@@ -38,7 +44,8 @@ const financeSchema = new Schema({
     },
   ],
 
-  moneyOut: [{
+  moneyOut: [
+    {
       amount: {
         type: Number,
         required: true,
@@ -55,10 +62,10 @@ const financeSchema = new Schema({
         type: String,
         required: true,
       },
-    }],
+    },
+  ],
+  budgetCategories: [UserBudgetCategories],
 });
-
-
 
 const Finance = model("Finance", financeSchema);
 

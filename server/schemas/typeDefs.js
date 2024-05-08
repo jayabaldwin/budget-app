@@ -1,45 +1,67 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  
   type User {
     _id: ID
     firstname: String!
     lastname: String!
     initials: String
     email: String!
-    password: String
     finances: [Finance]
+  }
+
+  type UserBudgetCategories {
+    _id: ID
+    categoryName: String!
+    remainingAmount: Float
+    budgetAmount: Float
   }
 
   type Finance {
     _id: ID
-    balance: Int!
+    balance: Float
+    savingsTotal: Float
     income: [Income]
     savings: [Savings]
     moneyOut: [MoneyOut]
+    budgetCategories: [UserBudgetCategories]
   }
 
   type Income {
     _id: ID
-    amount: Int!
+    amount: Float!
     description: String!
     date: Date
   }
 
   type Savings {
     _id: ID
-    amount: Int!
+    amount: Float!
     description: String!
     date: Date
   }
 
   type MoneyOut {
     _id: ID
-    amount: Int!
+    amount: Float!
     description: String!
     date: Date
     category: String!
+  }
+
+  type SortedCategories {
+    amount: Float!
+    description: String
+    date: Date
+    category: String!
+    _id: ID
+    totalBudget: Float
+    remainingAmount: Float
+  }
+
+  type Category {
+    _id: ID
+    budgetName: String!
   }
 
   type Auth {
@@ -48,16 +70,14 @@ const typeDefs = gql`
   }
 
   type Query {
-
     users: [User]
-
     user(email: String!): User
-
-    
+    me: User
+    categories: [Category]
+    userBudgetCategories: [SortedCategories]
   }
 
   type Mutation {
-
     addUser(
       firstname: String!
       lastname: String!
@@ -65,40 +85,27 @@ const typeDefs = gql`
       password: String!
     ): Auth
 
-    login(
-      email: String!
-      password: String!
-    ): Auth
+    login(email: String!, password: String!): Auth
 
+    addBalance(balance: Float!): Finance
 
-    addBalance (
-      email: String!
-      balance: Int!
-    ): Finance
+    addIncome(amount: Float!, description: String, date: Date): Finance
 
-    addIncome (
-      email: String!
-      amount: Int!
-      description: String!
-      date: Date
-    ): Finance
+    addSavings(amount: Float!, description: String!, date: Date): Finance
 
-    addSavings (
-      email: String!
-      amount: Int!
-      description: String!
-      date: Date
-    ): Finance
-
-
-    addMoneyOut (
-      email: String!
-      amount: Int!
+    addMoneyOut(
+      amount: Float!
       description: String!
       date: Date
       category: String!
     ): Finance
-}
+
+    addCategory(categoryName: String!, budgetAmount: Float!): Finance
+
+    updateCategoryBudget(category: String!, amount: Float!): Finance
+
+    deleteTransaction(transaction_id: ID!, type: String!): Finance
+  }
 
   scalar Date
 `;
