@@ -32,6 +32,8 @@ export default function Dashboard() {
   const balance = data?.me?.finances[0]?.balance;
   const savingsTotal = data?.me?.finances[0]?.savingsTotal;
   const email = data?.me?.email;
+  
+  const budgetCategorie = data?.me?.finances[0]?.budgetCategories;
 
   // these are the subdocument arrays from finance of moneyOut that can be used as a prop to each component
   const income = data?.me?.finances[0]?.income;
@@ -116,7 +118,7 @@ export default function Dashboard() {
           {/* Transaction Input */}
           <Grid item xs={6}>
             {/* refetch is sent to be able to get an updated balance amount when the database changes */}
-            <TransactionForm email={email} refetch={refetch}/>
+            <TransactionForm budgetCategorie={budgetCategorie} email={email} refetch={refetch}/>
           </Grid>
         </Grid>
 

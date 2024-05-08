@@ -26,27 +26,35 @@ import {
   ADD_SAVINGS,
   ADD_MONEY_OUT,
   ADD_INCOME,
+  UPDATE_CATEGORY_BUDGET,
       } from '../../utils/mutations.js';
 
 import Auth from '../../utils/auth.js';
 
-function userBudgetCategories(props) {
+// function userBudgetCategories(props) {
+//     console.log('in userBudgetCategory');
+//     const { loading, data } = useQuery(QUERY_ME);
+//     if(!loading){
+//     const catNames = data?.me?.finance[0]?.budgetCategories;
+//     console.log('cant names below');
+//     console.log('cat names ', catNames);
+
+//     return (
+//       catNames.map((catName, index) => (
+//         <MenuItem 
+//           key={index} 
+//           value={{index}}>
+//             {catName}
+//         </MenuItem>
+//       ))
+//     );
+//   }
+// }
+
+export default function TransactionForm( { refetch, budgetCategorie } ) {
+
+  console.log('budgetCategorie is: ',budgetCategorie);
   const { loading, data } = useQuery(QUERY_ME);
-  const catNames = data?.me?.finance[0]?.budgetCategories;
-
-  return (
-    catNames.map((catName, index) => (
-      <MenuItem 
-        key={index} 
-        value={{index}}>
-          {catName}
-      </MenuItem>
-    ))
-  );
-}
-
-export default function TransactionForm({refetch}) {
-
   const [formState, setFormState] = useState({
     type: 'Expense',
     description: '',
@@ -54,11 +62,13 @@ export default function TransactionForm({refetch}) {
     category: '',
     date: dayjs().format("MM/DD/YYYY"),
   })
-
+  
+  
   
   const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
   const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
   const [addIncome, {error: incomeError, data: incomeData}] = useMutation(ADD_INCOME);
+  const [updateCategoryBudget, {error: catBudgerror, data: catBudgData}] = useMutation(UPDATE_CATEGORY_BUDGET);
 
   const handleChange = (event) => {
 
@@ -68,6 +78,7 @@ export default function TransactionForm({refetch}) {
       [name]: value 
     });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -81,13 +92,25 @@ export default function TransactionForm({refetch}) {
           variables: {
             ...formState,
             amount: parseFloat(formState.amount),
+            category: formState.category,
           },
         });
-        // this is here to get the updated balance and savings amount from the database
+
+        // add the update_category_budget here
+        await updateCategoryBudget({
+          variables: {
+            ...formState,
+            amount: parseFloat(formState.amount),
+            category: formState.category,
+          }
+        });
         refetch();
       } catch (error) {
         console.error(error);
       }
+
+
+
 
     } else if(formState.type === 'Income'){
       console.log('do the income mutaiton');
@@ -119,6 +142,7 @@ export default function TransactionForm({refetch}) {
         }
     }
   };
+
 
   return (
     <form>
@@ -194,7 +218,15 @@ export default function TransactionForm({refetch}) {
                     onChange={handleChange}
 
                   >
-                    {userBudgetCategories()}
+                    {budgetCategorie.map((catName, index) => (
+                    <MenuItem 
+                        key={index} 
+                        value={catName.categoryName}>
+                          {catName.categoryName}
+                      </MenuItem>
+
+                    ))}
+
                   </Select>
                 </FormControl>
               </Grid>
