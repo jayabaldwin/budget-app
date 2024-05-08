@@ -16,25 +16,45 @@ import SendIcon from '@mui/icons-material/Send';
 import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+
+import {
+  QUERY_ME,
+} from '../../utils/queries.js';
 
 import { 
   ADD_SAVINGS,
   ADD_MONEY_OUT,
   ADD_INCOME,
+  UPDATE_CATEGORY_BUDGET,
       } from '../../utils/mutations.js';
 
 import Auth from '../../utils/auth.js';
 
+// function userBudgetCategories(props) {
+//     console.log('in userBudgetCategory');
+//     const { loading, data } = useQuery(QUERY_ME);
+//     if(!loading){
+//     const catNames = data?.me?.finance[0]?.budgetCategories;
+//     console.log('cant names below');
+//     console.log('cat names ', catNames);
 
+//     return (
+//       catNames.map((catName, index) => (
+//         <MenuItem 
+//           key={index} 
+//           value={{index}}>
+//             {catName}
+//         </MenuItem>
+//       ))
+//     );
+//   }
+// }
 
+export default function TransactionForm( { refetch, budgetCategorie } ) {
 
-
-
-
-
-export default function TransactionForm({refetch}) {
-
+  console.log('budgetCategorie is: ',budgetCategorie);
+  const { loading, data } = useQuery(QUERY_ME);
   const [formState, setFormState] = useState({
     type: 'Expense',
     description: '',
@@ -43,9 +63,12 @@ export default function TransactionForm({refetch}) {
     date: dayjs().format("MM/DD/YYYY"),
   })
   
+  
+  
   const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
   const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
   const [addIncome, {error: incomeError, data: incomeData}] = useMutation(ADD_INCOME);
+  const [updateCategoryBudget, {error: catBudgerror, data: catBudgData}] = useMutation(UPDATE_CATEGORY_BUDGET);
 
   const handleChange = (event) => {
 
@@ -55,6 +78,7 @@ export default function TransactionForm({refetch}) {
       [name]: value 
     });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,13 +92,25 @@ export default function TransactionForm({refetch}) {
           variables: {
             ...formState,
             amount: parseFloat(formState.amount),
+            category: formState.category,
           },
         });
-        // this is here to get the updated balance and savings amount from the database
+
+        // add the update_category_budget here
+        await updateCategoryBudget({
+          variables: {
+            ...formState,
+            amount: parseFloat(formState.amount),
+            category: formState.category,
+          }
+        });
         refetch();
       } catch (error) {
         console.error(error);
       }
+
+
+
 
     } else if(formState.type === 'Income'){
       console.log('do the income mutaiton');
@@ -106,6 +142,7 @@ export default function TransactionForm({refetch}) {
         }
     }
   };
+
 
   return (
     <form>
@@ -181,21 +218,19 @@ export default function TransactionForm({refetch}) {
                     onChange={handleChange}
 
                   >
-                    <MenuItem value={"Home"}>Home</MenuItem>
-                    <MenuItem value={"Utilities"}>Utilities</MenuItem>
-                    <MenuItem value={"Transport"}>Transport</MenuItem>
-                    <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                    <MenuItem value={"Eating Out"}>Eating Out</MenuItem>
-                    <MenuItem value={"Shopping"}>Shopping</MenuItem>
-                    <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                    <MenuItem value={"Health"}>Health</MenuItem>
-                    <MenuItem value={"Education"}>Education</MenuItem>
-                    <MenuItem value={"Travel"}>Travel</MenuItem>
-                    <MenuItem value={"Business"}>Business</MenuItem>
-                    <MenuItem value={"Miscellaneous"}>Miscellaneous</MenuItem>
+                    {budgetCategorie.map((catName, index) => (
+                    <MenuItem 
+                        key={index} 
+                        value={catName.categoryName}>
+                          {catName.categoryName}
+                      </MenuItem>
+
+                    ))}
+
                   </Select>
                 </FormControl>
               </Grid>
+
               <Grid item xs={5}>
                 <DatePicker
                    setFormState={setFormState}
