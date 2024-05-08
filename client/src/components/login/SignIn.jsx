@@ -96,14 +96,7 @@ export default function SignIn(props) {
         </form>
       </div> 
 
-//         />
-//         <Button 
-//             variant="contained"
-//             type="submit" 
-//             endIcon={<SendIcon />}>
-//               Send
-//         </Button>
-//         </form>   
+
     </Box>
   );
 }
