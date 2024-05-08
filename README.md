@@ -1,7 +1,7 @@
 <br>
   <h1 align="center">Florin: Budget Software</h1>
   
-![Badge](https://img.shields.io/badge/License-MIT-yellow.svg) ![JavaScript](https://img.shields.io/badge/JavaScript-red) ![Node.js](https://img.shields.io/badge/Node.js-blue) ![Express.js@4.17.1](https://img.shields.io/badge/Express.js@4.17.1-lightgreen) ![Mongoose@7.0.2](https://img.shields.io/badge/Mongoose@7.0.2-green) ![React@18.2.0](https://img.shields.io/badge/React@18.2.0-pink) ![Bcrypt@5.1.1](https://img.shields.io/badge/Bcrypt@5.0.0-yellow) ![Dotenv@8.2.0](https://img.shields.io/badge/Dotenv@8.2.0-blue) ![ESLint@8.57.0](https://img.shields.io/badge/ESLint@8.57.0-lavender)
+![Badge](https://img.shields.io/badge/License-MIT-yellow.svg) ![JavaScript](https://img.shields.io/badge/JavaScript-red) ![Node.js](https://img.shields.io/badge/Node.js-blue) ![Express.js@4.17.1](https://img.shields.io/badge/Express.js@4.17.1-lightgreen) ![Mongoose@7.0.2](https://img.shields.io/badge/Mongoose@7.0.2-green) ![React@18.2.0](https://img.shields.io/badge/React@18.2.0-pink) ![Bcrypt@5.1.1](https://img.shields.io/badge/Bcrypt@5.0.0-yellow) ![MaterialUI@6.0.0](https://img.shields.io/badge/MaterialUI@6.0.0-red) ![MUI@6.0.0](https://img.shields.io/badge/MUI@6.0.0-purple) ![dayjs@1.11.11](https://img.shields.io/badge/dayjs@1.11.11-green) ![Dotenv@8.2.0](https://img.shields.io/badge/Dotenv@8.2.0-blue) ![ESLint@8.57.0](https://img.shields.io/badge/ESLint@8.57.0-lavender)
 
 
 ## Description
@@ -24,55 +24,46 @@ ADD DEPLOYED SITE GIT AND LINK HERE
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [User Story](#user-story)
-- [Acceptance Criteria](#acceptance-criteria)
+- [Future Development](#future-development)
 - [License](#license)
 - [Contributing](#contributing)
 - [Authors](#authors)
 - [GitHub Repository](#github-repository)
 - [Deployed Application](#deployed-application)
 
-## Usage
-
 ## Technologies Used
-
 - JavaScript
 - Node.js
-- Express.js (4.17.2)
-
-## Installation
-
-`npm init -y`: create a package.json file
-<br>
-`npm install`: install dependencies
-
-### Dependencies
+- React
+- MongoDB
+- Express.js
+- Material UI
+- Day js
 
 ## User Story
 - AS an individual wanting to manage their money better
 - I WANT an application that will allow me to track my income, expenses and potential savings
 - SO THAT I can have a clear picture of my finances, understand my spending habits, identify areas of improvement and actually save money!
 
-## Acceptance Criteria
-
-- GIVEN ...
-- WHEN ...
-- THEN ...
-- WHEN ...
-- THEN ...
-- WHEN ...
-- THEN ...
+## Future Development
+- Setting long and short term savings goals, including tracking their progress and having more complex algorithms that can give suggestions on how to adjust their budgets accordingly.
+- Detailed financial reports on spending patterns and ways to improve financial decisions.
+- Setting recurring payments and predicted bills and present as a timeline
+- Fine tuning the design, detail and better error handling
+- Ideally, secure integration with banks for automatic filling of income/expense data instead of having to add it manually
 
 ## License
-
 The application is covered under the following license: [MIT](https://opensource.org/licenses/MIT)
 
 ## Contributing
 This application is not currently accepting contributions as it is a student project.
 
 ## Authors
-
 - Jaya Baldwin: [GitHub](https://github.com/jayabaldwin)
 - Reid Back: [GitHub](https://github.com/Nuclearreid)
+
+## Acknowledgements
+- Meg Meyers (the best tutor in the whole world)
 
 ## GitHub Repository
 View GitHub Repository [here](https://github.com/jayabaldwin/budget-app)
