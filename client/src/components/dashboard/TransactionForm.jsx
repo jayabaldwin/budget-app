@@ -32,32 +32,14 @@ import {
 
 import Auth from '../../utils/auth.js';
 
-// function userBudgetCategories(props) {
-//     console.log('in userBudgetCategory');
-//     const { loading, data } = useQuery(QUERY_ME);
-//     if(!loading){
-//     const catNames = data?.me?.finance[0]?.budgetCategories;
-//     console.log('cant names below');
-//     console.log('cat names ', catNames);
-
-//     return (
-//       catNames.map((catName, index) => (
-//         <MenuItem 
-//           key={index} 
-//           value={{index}}>
-//             {catName}
-//         </MenuItem>
-//       ))
-//     );
-//   }
-// }
-
 export default function TransactionForm( { refetch, budgetCategorie } ) {
 
   const { data, loading, error, refetch:refetchCat } = useQuery(QUERY_USER_CATEGORIES, {
     fetchPolicy: "no-cache"
   });
   const categories = data?.userBudgetCategories || [];
+  // console.log('transforms ', categories);
+
 
   const [formState, setFormState] = useState({
     type: 'Expense',
@@ -103,10 +85,12 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             ...formState,
             amount: parseFloat(formState.amount),
             category: formState.category,
+            // budgetAmount: 
           }
         });
         refetch();
-        refetchCat()
+        refetchCat();
+
       } catch (error) {
         console.error(error);
       }
@@ -219,7 +203,6 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
                         value={catName.categoryName}>
                           {catName.categoryName}
                       </MenuItem>
-
                     ))}
 
                   </Select>
@@ -247,7 +230,11 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
       </Paper>
       <Box sx={{display: "flex", flexDirection: "flex-start"}}>
         {" "}
-        <SpendGraph categories={categories}/>
+        <SpendGraph 
+          categories={categories}
+          data={data}
+          loading-={loading}
+        />
       </Box>
     </form>
   );

@@ -1,6 +1,6 @@
 export default function NoMatch() {
 
     return (
-        <p>404</p>
+        <p>Stop eating so much avocado toast!</p>
     )
 }

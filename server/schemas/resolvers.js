@@ -152,7 +152,7 @@ const resolvers = {
           (cat) => cat.categoryName === category
         );
         if (index !== -1) {
-          updateFinance.budgetCategories[index].budgetAmount = amount;
+          updateFinance.budgetCategories[index].budgetAmount = budgetAmount + amount;
           await updateFinance.save();
         }
 
