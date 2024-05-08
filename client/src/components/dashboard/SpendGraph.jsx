@@ -4,28 +4,17 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
-export default function SpendGraph() {
-  const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
+export default function SpendGraph({categories}) {
+  // const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
   
-  useEffect(() => {
-    const interval = setInterval(() => {
-      refetch();
-    }, 2000);
-  
-    return () => {
-      clearInterval(interval);
-    };
-  }, [refetch]);
+  // const categories = data?.userBudgetCategories || [];
 
-
-  const categories = data?.userBudgetCategories || [];
-
-  if (loading) {
-    return <div>LOADING... </div>;
-  }
-  if (error) {
-    return <div>ERROR {error.message}</div>;
-  }
+  // if (loading) {
+  //   return <div>LOADING... </div>;
+  // }
+  // if (error) {
+  //   return <div>ERROR {error.message}</div>;
+  // }
 
   function getTotalBudgetPerCategory(transactions) {
     const uniqueCategories = [];
@@ -65,7 +54,7 @@ export default function SpendGraph() {
 
   return (
     <>
-      {data && (
+      {categories && (
         <BarChart
           width={500}
           height={400}

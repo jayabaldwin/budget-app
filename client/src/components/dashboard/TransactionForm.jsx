@@ -19,8 +19,9 @@ import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 import SpendGraph from './SpendGraph.jsx';
 import { useMutation, useQuery } from '@apollo/client'; 
+
 import {
-  QUERY_ME, QUERY_USER_CATEGORIES
+  QUERY_USER_CATEGORIES
 } from '../../utils/queries.js';
 
 import { 
@@ -79,6 +80,8 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
           },
         });
 
+        refetch();
+        refetchCat();
         // add the update_category_budget here
         await updateCategoryBudget({
           variables: {
@@ -88,6 +91,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             // budgetAmount: 
           }
         });
+
         refetch();
         refetchCat();
 
@@ -232,8 +236,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
         {" "}
         <SpendGraph 
           categories={categories}
-          data={data}
-          loading-={loading}
+          
         />
       </Box>
     </form>

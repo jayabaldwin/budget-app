@@ -135,6 +135,12 @@ const resolvers = {
           {
             $push: {
               budgetCategories: { ...args, remainingAmount: args.budgetAmount },
+              moneyOut: {
+                amount: 0,
+                description: "null",
+                date: dayjs().format("MM/DD/YYYY"),
+                category: args.categoryName,
+              },
             },
           },
           { new: true }
