@@ -28,6 +28,7 @@ export default function Dashboard() {
   // get all the user data via useQuery and send it to each item on the grid
 
   const { loading, data, refetch } = useQuery(QUERY_ME);
+
   
   const balance = data?.me?.finances[0]?.balance;
   const savingsTotal = data?.me?.finances[0]?.savingsTotal;
@@ -47,10 +48,8 @@ export default function Dashboard() {
   let totalMoneyOutThisWeek;
 
   // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined
-  if(!loading){
-
+  if(!loading && email){
     const oneWeekAgo = dayjs().subtract(1, 'week');
-
     // this is to get how much money has been spent for the past week
      moneyOutThisWeek = moneyOut.filter((transaction) => {
       const transactionDate = dayjs(transaction.date);
