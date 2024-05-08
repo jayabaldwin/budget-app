@@ -12,21 +12,54 @@ export default function Countdown() {
     const currentDayOfWeek = dayjs().day();
     const daysLeftInWeek = 7 - currentDayOfWeek;
 
-    const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
-    const all = data?.userBudgetCategories
-    console.log(all)
-
-    if (loading) {
-        return <div>LOADING... </div>;
-      }
-    
-    if (error) {
-        return <div>ERROR {error.message}</div>;
-    }
-    
-    // Use state or use map/reduce method?
-
+    const { data, loading, error } = useQuery(QUERY_USER_CATEGORIES);
+    const categories = data?.userBudgetCategories || [];
   
+    if (loading) {
+      return <div>LOADING... </div>;
+    }
+  
+    if (error) {
+      return <div>ERROR {error.message}</div>;
+    }
+  
+    function getSpentAmountPerCategory(transactions) {
+      const uniqueCategories = [];
+      const amountArr = [];
+      transactions.forEach((transaction) => {
+        const { category } = transaction;
+        if (!uniqueCategories.includes(category)) {
+          uniqueCategories.push(category);
+          amountArr.push(parseFloat(transaction.totalBudget));
+        }
+      });
+      return amountArr;
+    }
+  
+    function getTotalBudgetPerCategory(transactions) {
+      const uniqueCategories = [];
+      const amountArr = [];
+      transactions.forEach((transaction) => {
+        const { category } = transaction;
+        if (!uniqueCategories.includes(category)) {
+          uniqueCategories.push(category);
+          amountArr.push(
+            parseFloat(transaction.totalBudget + transaction.remainingAmount)
+          );
+        }
+      });
+  
+      return amountArr;
+    }
+  
+    const budgetPerCategory = getTotalBudgetPerCategory(categories);
+    var totalBudget = budgetPerCategory.reduce((accum,item) => accum + item, 0)
+    console.log('Total Budget: ' + totalBudget) 
+    
+    const spendPerCategory = getSpentAmountPerCategory(categories);
+    var totalSpent = spendPerCategory.reduce((accum,item) => accum + item, 0)
+    console.log('Total Spent Overall: ' + totalSpent) 
+
     return (
         <Paper 
         elevation={8}
@@ -43,10 +76,10 @@ export default function Countdown() {
           Countdown...
         </Typography>
             <Typography variant="h3" gutterBottom>
-            $197 left
+            ${totalBudget-totalSpent} left
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5 }}>
-            $133 spend of $330 budget
+            ${totalSpent} spent of ${totalBudget} budget
             </Typography>
         <Typography variant="body1" component="div">
           {daysLeftInWeek} days to go this week
