@@ -79,7 +79,7 @@ export default function Countdown() {
             ${totalBudget-totalSpent} left
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5 }}>
-            ${totalBudget} spent of ${totalSpent} budget
+            ${((totalBudget - totalSpent) - totalSpent) * -1 } spent of ${totalSpent} budget
             </Typography>
         <Typography variant="body1" component="div">
           {daysLeftInWeek} days to go this week
