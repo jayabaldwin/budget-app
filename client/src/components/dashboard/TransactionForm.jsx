@@ -50,7 +50,6 @@ export default function TransactionForm({refetch}) {
     });
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -84,8 +83,8 @@ export default function TransactionForm({refetch}) {
       } catch (error) {
         console.error(error);
       }
-
     }
+
       else if(formState.type === 'Savings'){
         try {
           await addSavings({
@@ -101,7 +100,6 @@ export default function TransactionForm({refetch}) {
         }
     }
   };
-
 
   return (
     <form>

@@ -22,6 +22,7 @@
     "@mui/material": "^6.0.0-alpha.4",
     "dotenv": "^16.4.5",
     "react-card-flip": "^1.2.2",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "react-window": "^1.8.10"
   }
 }

@@ -42,9 +42,11 @@ export default function Dashboard() {
   let moneyInThisWeek;
   let totalIncomeThisWeek;
   let inOutRatio;
+  let totalMoneyOutThisWeek;
 
   // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined
   if(!loading){
+
     const oneWeekAgo = dayjs().subtract(1, 'week');
 
     // this is to get how much money has been spent for the past week
@@ -53,7 +55,7 @@ export default function Dashboard() {
       return transactionDate.isAfter(oneWeekAgo);
     })
     console.log(moneyOutThisWeek);
-    const totalMoneyOutThisWeek = moneyOutThisWeek.reduce((total, transaction) => total + transaction.amount, 0 );
+    totalMoneyOutThisWeek = moneyOutThisWeek.reduce((total, transaction) => total + transaction.amount, 0 );
     console.log('total money out this week: ', totalMoneyOutThisWeek)
     ///////////////////////////////////////////////////////////
 
@@ -104,7 +106,10 @@ export default function Dashboard() {
                 <MoneyInOut 
                 sx={{
                   height:"120px"}}
-                inOutRatio={inOutRatio}>
+                inOutRatio={inOutRatio}
+                totalMoneyOutThisWeek={totalMoneyOutThisWeek}
+                totalIncomeThisWeek={totalIncomeThisWeek}
+                >
                   Money In/Out</MoneyInOut>
             </Grid>
           </Grid>
