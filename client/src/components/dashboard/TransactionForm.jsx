@@ -16,7 +16,11 @@ import SendIcon from '@mui/icons-material/Send';
 import DatePicker from '../../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+
+import {
+  QUERY_ME,
+} from '../../utils/queries.js';
 
 import { 
   ADD_SAVINGS,
@@ -26,12 +30,20 @@ import {
 
 import Auth from '../../utils/auth.js';
 
+function userBudgetCategories(props) {
+  const { loading, data } = useQuery(QUERY_ME);
+  const catNames = data?.me?.finance[0]?.budgetCategories;
 
-
-
-
-
-
+  return (
+    catNames.map((catName, index) => (
+      <MenuItem 
+        key={index} 
+        value={{index}}>
+          {catName}
+      </MenuItem>
+    ))
+  );
+}
 
 export default function TransactionForm({refetch}) {
 
@@ -42,6 +54,7 @@ export default function TransactionForm({refetch}) {
     category: '',
     date: dayjs().format("MM/DD/YYYY"),
   })
+
   
   const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
   const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
@@ -181,21 +194,11 @@ export default function TransactionForm({refetch}) {
                     onChange={handleChange}
 
                   >
-                    <MenuItem value={"Home"}>Home</MenuItem>
-                    <MenuItem value={"Utilities"}>Utilities</MenuItem>
-                    <MenuItem value={"Transport"}>Transport</MenuItem>
-                    <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                    <MenuItem value={"Eating Out"}>Eating Out</MenuItem>
-                    <MenuItem value={"Shopping"}>Shopping</MenuItem>
-                    <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                    <MenuItem value={"Health"}>Health</MenuItem>
-                    <MenuItem value={"Education"}>Education</MenuItem>
-                    <MenuItem value={"Travel"}>Travel</MenuItem>
-                    <MenuItem value={"Business"}>Business</MenuItem>
-                    <MenuItem value={"Miscellaneous"}>Miscellaneous</MenuItem>
+                    {userBudgetCategories()}
                   </Select>
                 </FormControl>
               </Grid>
+
               <Grid item xs={5}>
                 <DatePicker
                    setFormState={setFormState}
