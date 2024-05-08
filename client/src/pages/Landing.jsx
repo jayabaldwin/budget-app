@@ -29,12 +29,7 @@ export default function Landing() {
     return (
         <Grid container>
             {isLoggedIn ? (
-                <>
-                <LayoutNav />
-                <Box mt={10}>
-                  <Dashboard />
-                </Box>
-            </>
+                window.location.assign("/home")
             ) : (
             <>
             <Grid item xs={12} md={7}>

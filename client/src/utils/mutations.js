@@ -73,7 +73,7 @@ export const ADD_MONEY_OUT = gql`
 `;
 
 export const ADD_INCOME = gql`
-  mutation AddIncome($amount: Float! $date: Date, $description: String) {
+  mutation AddIncome($amount: Float!, $date: Date, $description: String!) {
     addIncome(amount: $amount, date: $date, description: $description) {
       income {
         amount

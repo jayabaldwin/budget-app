@@ -26,7 +26,7 @@ export default function UserLogout() {
   const initials = data?.me?.initials;
   const first = data?.me?.firstname; 
   const last = data?.me?.lastname; 
-  console.log('Initials: ' + initials, 'Firstname: ' + first, 'Lastname: ' + last);
+  // console.log('Initials: ' + initials, 'Firstname: ' + first, 'Lastname: ' + last);
 
 
 

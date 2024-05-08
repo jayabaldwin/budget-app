@@ -35,7 +35,7 @@ const styles = {
   }
 }
 const dashboardData = [
-  { text: 'Dashboard', icon: <DashboardIcon color='white'/>, route: '/home/dashboard' },
+  { text: 'Dashboard', icon: <DashboardIcon color='white'/>, route: '/home' },
   { text: 'Finances', icon: <FinancesIcon />, route: '/home/finance' },
   { text: 'History', icon: <HistoryIcon />, route: '/home/history' },
 ];
@@ -127,32 +127,35 @@ export default function MiniDrawer() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      {/* Top App Bar */}
       <AppBar position="fixed" open={open}>
-        <Toolbar>
-          {/* Menu toggle */}
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* AppName */}
-          {/* <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Florin
-          </Typography> */}
-          <img src={Logo} alt="Logo" style={styles.logo} />
+  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    {/* Menu toggle */}
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        onClick={handleDrawerOpen}
+        edge="start"
+        sx={{
+          marginRight: 5, // Adjust the margin as needed
+          ...(open && { display: 'none' }),
+        }}
+      >
+        <MenuIcon />
+      </IconButton>
+      {/* AppName */}
+      {/* <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
+        Florin
+      </Typography> */}
+      <img src={Logo} alt="Logo" style={styles.logo} />
+    </div>
 
-          {/* UserLogout */}
-          <UserLogout />
-        </Toolbar>
-      </AppBar>
+    {/* UserLogout */}
+    <UserLogout />
+  </Toolbar>
+</AppBar>
+
+
 
       {/* Side navigation drawer */}
       <Drawer variant="permanent" color='primary' open={open}>
