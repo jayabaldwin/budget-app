@@ -1,14 +1,9 @@
+import { useState } from 'react'
 import SignIn from "../components/login/SignIn";
 import SignUp from '../components/login/SignUp';
-// import SignUp from '../components/login/SignUp';
 import auth from '../utils/auth'
-import Dashboard from "./Dashboard";
-import LayoutNav from '../components/layout/LayoutNav'
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Logo from '../assets/logo/florin-logo.png'
-// import Card from '@mui/material/Card';
-
 
 // Adjust for responsivity
 const styles = {
@@ -21,20 +16,19 @@ const styles = {
     },
   }
 
-
 export default function Landing() {
 
     const isLoggedIn = auth.loggedIn()
+    const [isSignUpMode, setIsSignUpMode] = useState(true);
+
+    const handleToggleMode = () => {
+        setIsSignUpMode(!isSignUpMode)
+    };
 
     return (
         <Grid container>
             {isLoggedIn ? (
-                <>
-                <LayoutNav />
-                <Box mt={10}>
-                  <Dashboard />
-                </Box>
-            </>
+                window.location.assign("/home")
             ) : (
             <>
             <Grid item xs={12} md={7}>
@@ -42,36 +36,13 @@ export default function Landing() {
             </Grid>
             <Grid item xs={12} md={5}
                 sx={{backgroundColor: 'black', height: '100vh', paddingLeft: '5rem', paddingRight: '5rem'}}>
-                <SignIn />
-                <SignUp />
-            </Grid>
+                 {isSignUpMode ? <SignUp /> : <SignIn />}
+                    <button onClick={handleToggleMode}>
+                    {isSignUpMode ? 'Already have an account? Sign In' : 'New User? Sign Up'}
+                </button>
+                </Grid>
             </>
             )}
         </Grid>
     )
 }
-        
-    //   <Box
-    //       display="flex"
-    //       justifyContent="center"
-    //       alignItems="center"
-    //       minHeight="80vh"
-    //   >
-        //   {isLoggedIn ? (
-            //   <>
-            //       <LayoutNav />
-            //       <Box mt={10}>
-            //         <Dashboard />
-            //       </Box>
-            //   </>
-    //       ) : (
-    //           <Card>
-    //               <SignIn />
-    //               <SignUp />
-    //           </Card>
-    //       )}
-    //   </Box>
-    //   );
-    // }
-
- 

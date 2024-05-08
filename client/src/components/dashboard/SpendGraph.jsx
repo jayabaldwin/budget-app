@@ -55,7 +55,7 @@ export default function SpendGraph() {
       {data && (
         <BarChart
           width={400}
-          height={600}
+          height={400}
           series={[
             { data: uData, label: "Spent so far", id: "uvId", stack: "total" },
             { data: pData, label: "Remaining", id: "pvId", stack: "total" },

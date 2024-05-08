@@ -69,7 +69,7 @@ function App() {
               <>
                 <Route index element={<Landing />} />
                 <Route path="/home" element={<LayoutNav />}>
-                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route index element={<Dashboard />} />
                   <Route path="finance" element={<Finances />} />
                   <Route path="history" element={<History />} />
                   <Route path="profile" element={<Profile />} />
