@@ -4,6 +4,8 @@ import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 import SpendGraph from "../components/dashboard/SpendGraph.jsx";
 import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
 import MoneyInOut from "../components/dashboard/MoneyInOut.jsx";
+import Countdown from "../components/dashboard/CountDown.jsx";
+
 
 import dayjs from "dayjs";
 import weekOfYear from 'dayjs/plugin/weekOfYear';
@@ -91,6 +93,7 @@ export default function Dashboard() {
         <Grid container spacing={2}>
           {/* Countdown */}
           <Grid item xs={3}>
+            <Countdown />
             <Placeholder style={{height:"250px"}}>Countdown Element</Placeholder>
           </Grid>
           {/* Metrics */}
