@@ -63,8 +63,6 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
     date: dayjs().format("MM/DD/YYYY"),
   })
   
-  
-  
   const [addSavings, { error: savingsError, data: savingsData }] = useMutation(ADD_SAVINGS);
   const [addToMoneyOut, { error: moneyOutError, data: moneyOutData }] = useMutation(ADD_MONEY_OUT);
   const [addIncome, {error: incomeError, data: incomeData}] = useMutation(ADD_INCOME);
@@ -79,7 +77,6 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
     });
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -87,7 +84,6 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
     if(formState.type === 'Expense'){
       console.log(formState);
       try {
-        // these three are pretty simple, essentially just sends the variables and runs the mutations 
         await addToMoneyOut({
           variables: {
             ...formState,
@@ -96,7 +92,6 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
           },
         });
 
-        // add the update_category_budget here
         await updateCategoryBudget({
           variables: {
             ...formState,
@@ -104,14 +99,12 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             category: formState.category,
           }
         });
+
         refetch();
+
       } catch (error) {
         console.error(error);
       }
-
-
-
-
     } else if(formState.type === 'Income'){
       console.log('do the income mutaiton');
       try {
@@ -136,13 +129,11 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             },
           });
           refetch();
-          // Auth.login(data.addSavings.token);
         } catch (error) {
           console.error(error);
         }
     }
   };
-
 
   return (
     <form>

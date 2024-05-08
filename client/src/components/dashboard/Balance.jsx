@@ -30,7 +30,7 @@ export default function Balance({balance, savingsTotal}) {
                     <AccountBalanceIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
-                        ${balance}
+                        ${balance.toFixed(2) || 0}                    
                     </Typography>    
             </Paper>
             <Paper elevation={8}
@@ -45,7 +45,7 @@ export default function Balance({balance, savingsTotal}) {
                     <SavingsIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
-                        ${savingsTotal}
+                        ${savingsTotal.toFixed(2 || 0)}
                     </Typography>    
             </Paper>
         </ReactCardFlip>
