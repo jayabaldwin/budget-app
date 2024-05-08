@@ -26,8 +26,8 @@ export default function SignIn(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState.email);
-    console.log(formState.password);
+    // console.log(formState.email);
+    // console.log(formState.password);
 
     try {
       const mutationResponse = await login({

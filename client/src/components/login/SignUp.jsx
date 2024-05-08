@@ -39,7 +39,7 @@ function Signup(props) {
           password: formState.password,
         },
       });
-    console.log(mutationResponse);
+    // console.log(mutationResponse);
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
   };

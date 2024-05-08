@@ -44,7 +44,7 @@ export default function Finances() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      console.log(formState);
+      // console.log(formState);
       try {
 
         await addBudget({
@@ -56,6 +56,7 @@ export default function Finances() {
       } catch (error) {
         console.error(error);
       }
+
   };
 
   return (

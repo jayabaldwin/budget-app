@@ -42,7 +42,7 @@ export default function Settings() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      console.log(formState);
+      // console.log(formState);
       try {
 
         await addBudget({

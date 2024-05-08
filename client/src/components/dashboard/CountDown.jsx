@@ -14,7 +14,7 @@ export default function Countdown() {
 
     const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
     const all = data?.userBudgetCategories
-    console.log(all)
+    // console.log(all)
 
     if (loading) {
         return <div>LOADING... </div>;

@@ -112,7 +112,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
         console.error(error);
       }
     } else if (formState.type === "Income") {
-      console.log("do the income mutaiton");
+      // console.log("do the income mutaiton");
       try {
         await addIncome({
           variables: {
@@ -133,7 +133,6 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
           },
         });
         refetch();
-        // Auth.login(data.addSavings.token);
       } catch (error) {
         console.error(error);
       }
@@ -248,7 +247,9 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
       </Paper>
       <Box sx={{display: "flex", flexDirection: "flex-start"}}>
         {" "}
+
         <SpendGraph categories={categories} />
+
       </Box>
     </form>
   );

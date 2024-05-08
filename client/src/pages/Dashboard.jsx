@@ -57,9 +57,9 @@ export default function Dashboard() {
       const transactionDate = dayjs(transaction.date);
       return transactionDate.isAfter(oneWeekAgo);
     })
-    console.log(moneyOutThisWeek);
+    // console.log(moneyOutThisWeek);
     totalMoneyOutThisWeek = moneyOutThisWeek.reduce((total, transaction) => total + transaction.amount, 0 );
-    console.log('total money out this week: ', totalMoneyOutThisWeek)
+    // console.log('total money out this week: ', totalMoneyOutThisWeek)
     ///////////////////////////////////////////////////////////
 
     // this is to calculate how much has been spent in the past week
@@ -67,15 +67,15 @@ export default function Dashboard() {
       const incomeAddDate = dayjs(transaction.date);
       return incomeAddDate.isAfter(oneWeekAgo);
     })
-    console.log(moneyInThisWeek);
+    // console.log(moneyInThisWeek);
 
     totalIncomeThisWeek = moneyInThisWeek.reduce((total, transaction) => total + transaction.amount, 0);
-    console.log('total income: ', totalIncomeThisWeek);
+    // console.log('total income: ', totalIncomeThisWeek);
     //////////////////////////////////////////////////////////////////
 
     // gets how much was put in vs taken out
     inOutRatio = totalIncomeThisWeek - totalMoneyOutThisWeek;
-    console.log('inOutRatio: ', inOutRatio);
+    // console.log('inOutRatio: ', inOutRatio);
     refetch();
   }
 
