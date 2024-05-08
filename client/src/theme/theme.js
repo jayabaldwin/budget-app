@@ -2,22 +2,19 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
-      main: "#000000",
+      main: "#673ab7",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#ffffff",
-      contrastText: "#000000",
-    },
-    tertiary: {
       main: "#000000",
       contrastText: "#ffffff",
     },
   },
-  typography: {
-    fontFamily: ["Poppins", "sans-serif"].join(","),
-  },
+  // typography: {
+  //   fontFamily: ["Poppins", "sans-serif"].join(","),
+  // },
 });
 
 export default theme;

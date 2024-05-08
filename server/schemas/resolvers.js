@@ -25,9 +25,11 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    
     categories: async () => {
       return Category.find();
     },
+
     userBudgetCategories: async (parent, __, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
