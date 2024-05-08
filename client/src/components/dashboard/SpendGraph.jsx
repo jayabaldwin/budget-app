@@ -21,6 +21,8 @@ export default function SpendGraph() {
     const amountArr = [];
     transactions.forEach((transaction) => {
       const { category } = transaction;
+      console.log(`total amount remaing for: ${category} ,${transaction.remainingAmount}`);
+
       if (!uniqueCategories.includes(category)) {
         uniqueCategories.push(category);
         amountArr.push(parseFloat(transaction.remainingAmount));
@@ -34,6 +36,7 @@ export default function SpendGraph() {
     const amountArr = [];
     transactions.forEach((transaction) => {
       const { category } = transaction;
+      console.log(`total budget for: ${category} ,${transaction.totalBudget}`);
       if (!uniqueCategories.includes(category)) {
         uniqueCategories.push(category);
         amountArr.push(
@@ -41,12 +44,14 @@ export default function SpendGraph() {
         );
       }
     });
-
     return amountArr;
   }
 
   const pData = getTotalBudgetPerCategory(categories);
-  const uData = getSpentAmountPerCategory(categories);
+  // make this a positive int
+  const uData = getSpentAmountPerCategory(categories).map(amount => amount * -1); // Multiply each element by -1
+  
+
   const xLabels = [
     ...new Set(categories.map((transaction) => transaction.category)),
   ];

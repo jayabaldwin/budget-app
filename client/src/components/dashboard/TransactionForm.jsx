@@ -86,7 +86,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
 
     // Used to send the expenses to the database
     if (formState.type === "Expense") {
-      console.log(formState);
+      console.log("the form state :", formState);
       try {
         // these three are pretty simple, essentially just sends the variables and runs the mutations
         await addToMoneyOut({
@@ -96,17 +96,18 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             category: formState.category,
           },
         });
-
+        
         // add the update_category_budget here
         await updateCategoryBudget({
           variables: {
             ...formState,
+            // this is wrong. it's making the form's amount as the new budget ammount
             amount: parseFloat(formState.amount),
             category: formState.category,
           }
         });
         refetch();
-        refetchCat()
+        refetchCat();
       } catch (error) {
         console.error(error);
       }
@@ -247,7 +248,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
       </Paper>
       <Box sx={{display: "flex", flexDirection: "flex-start"}}>
         {" "}
-        <SpendGraph categories={categories}/>
+        <SpendGraph categories={categories} />
       </Box>
     </form>
   );

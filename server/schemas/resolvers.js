@@ -125,6 +125,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
     // category names must come from a drop down, no user input!
     addCategory: async (_, args, context) => {
       if (context.user) {
@@ -152,7 +153,8 @@ const resolvers = {
           (cat) => cat.categoryName === category
         );
         if (index !== -1) {
-          updateFinance.budgetCategories[index].budgetAmount = amount;
+          // this should be budgetAmount = budgetAmount-amount
+          updateFinance.budgetCategories[index].budgetAmount = budgetAmount - amount;
           await updateFinance.save();
         }
 
@@ -245,6 +247,7 @@ const resolvers = {
           (cat) => cat.categoryName === category
         );
         updateFinance.budgetCategories[index].remainingAmount -= amount;
+
         await updateFinance.save();
 
         return updateFinance;
