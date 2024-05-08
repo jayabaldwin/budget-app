@@ -3,7 +3,6 @@
   
 ![Badge](https://img.shields.io/badge/License-MIT-yellow.svg) ![JavaScript](https://img.shields.io/badge/JavaScript-red) ![Node.js](https://img.shields.io/badge/Node.js-blue) ![Express.js@4.17.1](https://img.shields.io/badge/Express.js@4.17.1-lightgreen) ![Mongoose@7.0.2](https://img.shields.io/badge/Mongoose@7.0.2-green) ![React@18.2.0](https://img.shields.io/badge/React@18.2.0-pink) ![Bcrypt@5.1.1](https://img.shields.io/badge/Bcrypt@5.0.0-yellow) ![MaterialUI@6.0.0](https://img.shields.io/badge/MaterialUI@6.0.0-red) ![MUI@6.0.0](https://img.shields.io/badge/MUI@6.0.0-purple) ![dayjs@1.11.11](https://img.shields.io/badge/dayjs@1.11.11-green) ![Dotenv@8.2.0](https://img.shields.io/badge/Dotenv@8.2.0-blue) ![ESLint@8.57.0](https://img.shields.io/badge/ESLint@8.57.0-lavender)
 
-
 ## Description
 We wanted to create a budgeting software, that is simple but smart. It was imperative that all your essential data was laid out right in front of you and presented in a fun and interactive way. The goal of this project was to assist others in gaining control over their finances and make budgeting an enjoyable process… something you actually look forward to. 
 
@@ -28,6 +27,7 @@ ADD DEPLOYED SITE GIT AND LINK HERE
 - [License](#license)
 - [Contributing](#contributing)
 - [Authors](#authors)
+- [Acknowledgements](#Acknowledgements)
 - [GitHub Repository](#github-repository)
 - [Deployed Application](#deployed-application)
 
