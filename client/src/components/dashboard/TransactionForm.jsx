@@ -21,7 +21,8 @@ import SpendGraph from './SpendGraph.jsx';
 import { useMutation, useQuery } from '@apollo/client'; 
 
 import {
-  QUERY_USER_CATEGORIES
+  QUERY_USER_CATEGORIES,
+  QUERY_ME,
 } from '../../utils/queries.js';
 
 import { 
@@ -34,6 +35,9 @@ import {
 import Auth from '../../utils/auth.js';
 
 export default function TransactionForm( { refetch, budgetCategorie } ) {
+
+  // const {data: meData, loading: meLoading, error:meError} = useQuery(QUERY_ME);
+  // console.log('meData: ', meData);
 
   const { data, loading, error, refetch:refetchCat } = useQuery(QUERY_USER_CATEGORIES, {
     fetchPolicy: "no-cache"
@@ -79,6 +83,13 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             category: formState.category,
           },
         });
+        setFormState({
+          type: 'Expense',
+          description: '',
+          amount: '',
+          category: '',
+          date: dayjs().format("MM/DD/YYYY"),
+        });
 
         refetch();
         refetchCat();
@@ -88,7 +99,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             ...formState,
             amount: parseFloat(formState.amount),
             category: formState.category,
-            // budgetAmount: 
+            // budgetAmount: meData?.finances[0]?.budgetCategories?.budgetAmount
           }
         });
 
@@ -107,6 +118,14 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             amount: parseFloat(formState.amount),
           },
         });
+        setFormState({
+          type: 'Expense',
+          description: '',
+          amount: '',
+          category: '',
+          date: dayjs().format("MM/DD/YYYY"),
+        });
+
         refetch();
       } catch (error) {
         console.error(error);
@@ -119,6 +138,14 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
             amount: parseFloat(formState.amount),
           },
         });
+        setFormState({
+          type: 'Expense',
+          description: '',
+          amount: '',
+          category: '',
+          date: dayjs().format("MM/DD/YYYY"),
+        });
+
         refetch();
         // Auth.login(data.addSavings.token);
       } catch (error) {
