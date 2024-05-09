@@ -51,7 +51,7 @@ export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyO
                         Past 7 days
                     </Typography>   
                     </div>
-                    <PaidIcon fontSize='large' />
+                    <PaymentsIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
                         ${totalMoneyOutThisWeek.toFixed(2) || 0}
