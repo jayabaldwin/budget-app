@@ -95,7 +95,8 @@ export default function Dashboard() {
         <Grid container spacing={2}>
           {/* Countdown */}
           <Grid item xs={3}>
-            <Countdown />
+            <Countdown 
+              />
             {/* <Placeholder style={{height:"250px"}}>Countdown Element</Placeholder> */}
           </Grid>
           {/* Metrics */}

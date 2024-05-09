@@ -12,7 +12,7 @@ export default function Countdown() {
     const currentDayOfWeek = dayjs().day();
     const daysLeftInWeek = 7 - currentDayOfWeek;
 
-    const { data, loading, error } = useQuery(QUERY_USER_CATEGORIES);
+    const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
     const categories = data?.userBudgetCategories || [];
   
     if (loading) {
@@ -21,6 +21,10 @@ export default function Countdown() {
   
     if (error) {
       return <div>ERROR {error.message}</div>;
+    }
+
+    if(!loading){
+      refetch();
     }
   
     function getSpentAmountPerCategory(transactions) {
@@ -79,7 +83,7 @@ export default function Countdown() {
             ${totalBudget-totalSpent} left
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5 }}>
-            ${((totalBudget - totalSpent) - totalSpent) * -1 } spent of ${totalSpent} budget
+            ${(totalBudget - (totalSpent * 2)) * -1 } spent of ${totalSpent} budget
             </Typography>
         <Typography variant="body1" component="div">
           {daysLeftInWeek} days to go this week
