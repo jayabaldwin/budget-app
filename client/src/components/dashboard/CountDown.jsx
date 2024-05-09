@@ -1,6 +1,7 @@
 import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 import Paper from '@mui/material/Paper';
+import Skeleton from '@mui/material/Skeleton';
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import dayjs from 'dayjs'
@@ -14,7 +15,9 @@ export default function Countdown() {
     const categories = data?.userBudgetCategories || [];
   
     if (loading) {
-      return <div>LOADING... </div>;
+      return (
+        <Skeleton variant="rounded" width={300} height={290} />
+      )
     }
   
     if (error) {

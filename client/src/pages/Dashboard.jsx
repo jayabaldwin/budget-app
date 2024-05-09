@@ -4,6 +4,7 @@ import Balance from '../components/dashboard/Balance.jsx';
 import MoneyInOut from "../components/dashboard/MoneyInOut.jsx";
 import Countdown from "../components/dashboard/CountDown.jsx";
 import dayjs from "dayjs";
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries.js';
@@ -63,9 +64,7 @@ export default function Dashboard() {
   }
 
   if(loading){
-    return(
-      <p>Hold on, We're getting your data!</p>
-    )
+    return <CircularProgress color="secondary" />
   }
 
 
