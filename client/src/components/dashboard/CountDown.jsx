@@ -1,7 +1,5 @@
-import React from "react";
 import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
-import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -72,7 +70,7 @@ export default function Countdown() {
             border: '2px solid',
             borderColor: '#ffffff',
             borderRadius: '15px',
-            height: '270px'
+            height: '290px'
         }}
         >
             <CardContent sx={{textAlign: 'center'}}>
@@ -88,8 +86,6 @@ export default function Countdown() {
         <Typography variant="body1" component="div">
           {daysLeftInWeek} days to go this week
         </Typography>
-       
-        
       </CardContent>
         </Paper>
     )

@@ -33,6 +33,7 @@ import {
       } from '../../utils/mutations.js';
 
 import Auth from '../../utils/auth.js';
+import Finances from '../../pages/Finances.jsx';
 
 export default function TransactionForm( { refetch, budgetCategorie } ) {
 
@@ -155,9 +156,10 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
   };
 
   return (
+    <Grid container>
     <form>
       <Paper 
-      sx={{ p: 2, height: '275px', borderRadius: '15px' }} elevation={8}>
+      sx={{ p: 4, borderRadius: '15px' }} elevation={8}>
         <Typography variant='h5'>Add {formState.type}</Typography>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
@@ -186,7 +188,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
 
           <Grid item xs={12}>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={9}>
+              <Grid item xs={12} sm={9}>
                 <TextField
                   required
                   label="Description"
@@ -197,7 +199,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
                 />
               </Grid>
 
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="outlined-amount">Amount</InputLabel>
                   <OutlinedInput
@@ -216,7 +218,7 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
 
           <Grid item xs={12}>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <FormControl fullWidth disabled={formState.type !== 'Expense'}>
                   <InputLabel id="budget-category-label">Category</InputLabel>
                   <Select
@@ -240,13 +242,13 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={5}>
+              <Grid item xs={12} sm={5}>
                 <DatePicker
                    setFormState={setFormState}
                    formState={formState}
                 />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12} sm={3}>
                 <Button 
                     variant="contained" 
                     onClick={handleSubmit}
@@ -259,13 +261,15 @@ export default function TransactionForm( { refetch, budgetCategorie } ) {
           </Grid>
         </Grid>
       </Paper>
-      <Box sx={{display: "flex", flexDirection: "flex-start"}}>
+      <Box mt={4}>
         {" "}
         <SpendGraph 
           categories={categories}
           
         />
       </Box>
-    </form>
+  
+      </form>
+    </Grid>
   );
 }
