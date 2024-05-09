@@ -25,7 +25,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    
+
     categories: async () => {
       return Category.find();
     },
@@ -137,7 +137,7 @@ const resolvers = {
               budgetCategories: { ...args, remainingAmount: args.budgetAmount },
               moneyOut: {
                 amount: 0,
-                description: "null",
+                description: "New Category",
                 date: dayjs().format("MM/DD/YYYY"),
                 category: args.categoryName,
               },
@@ -158,7 +158,8 @@ const resolvers = {
           (cat) => cat.categoryName === category
         );
         if (index !== -1) {
-          updateFinance.budgetCategories[index].budgetAmount = budgetAmount + amount;
+          updateFinance.budgetCategories[index].budgetAmount =
+            budgetAmount + amount;
           await updateFinance.save();
         }
 

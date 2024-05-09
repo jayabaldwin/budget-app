@@ -1,35 +1,17 @@
 import Grid from "@mui/material/Grid";
-import { styled } from '@mui/material/styles';
 import TransactionForm from '../components/dashboard/TransactionForm.jsx'
-import SpendGraph from "../components/dashboard/SpendGraph.jsx";
-import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
+import Balance from '../components/dashboard/Balance.jsx';
 import MoneyInOut from "../components/dashboard/MoneyInOut.jsx";
 import Countdown from "../components/dashboard/CountDown.jsx";
+import SpendGraph from "../components/dashboard/SpendGraph.jsx";
+import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
 import Box from '@mui/material/Box'
-
-
 import dayjs from "dayjs";
-import weekOfYear from 'dayjs/plugin/weekOfYear';
 
-// What Reid is adding
-import Balance from '../components/dashboard/Balance.jsx';
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries.js';
 
-
-const Placeholder = styled('div')(() => ({
-    display: 'flex',
-    justifyContent: 'center',
-    padding: '0.5rem',
-    margin: '1rem',
-    border: '2px solid',
-    borderRadius: '15px'
-}));
-
 export default function Dashboard() {
-  // dayjs.extend(weekOfYear);
-  // get all the user data via useQuery and send it to each item on the grid
-
   const { loading, data, refetch } = useQuery(QUERY_ME);
 
   
@@ -39,7 +21,7 @@ export default function Dashboard() {
   
   const budgetCategorie = data?.me?.finances[0]?.budgetCategories;
 
-  // // these are the subdocument arrays from finance of moneyOut that can be used as a prop to each component
+  // these are the subdocument arrays from finance of moneyOut that can be used as a prop to each component
   const income = data?.me?.finances[0]?.income;
   const savings = data?.me?.finances[0]?.savings;
   const moneyOut = data?.me?.finances[0]?.moneyOut;
