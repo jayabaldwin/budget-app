@@ -3,9 +3,9 @@ import Grid from "@mui/material/Grid";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
-
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import CircularProgress from '@mui/material/CircularProgress';
 import { FixedSizeList } from 'react-window';
 import Box from '@mui/material/Box';
 
@@ -108,9 +108,7 @@ export default function History() {
     const { loading, data } = useQuery(QUERY_ME);
 
     if(loading){
-        return(
-        <p>Getting your history!</p>
-        )
+      return <CircularProgress color="primary" />
     }
 
     const moneyOut = data?.me?.finances[0]?.moneyOut;

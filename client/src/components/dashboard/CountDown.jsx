@@ -16,7 +16,7 @@ export default function Countdown() {
   
     if (loading) {
       return (
-        <Skeleton variant="rounded" width={300} height={290} />
+        <Skeleton variant="rounded" width={400} height={290} />
       )
     }
   

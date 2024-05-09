@@ -64,7 +64,7 @@ export default function Dashboard() {
   }
 
   if(loading){
-    return <CircularProgress color="secondary" />
+    return <CircularProgress color="primary" />
   }
 
 
