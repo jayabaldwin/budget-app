@@ -82,8 +82,8 @@ export default function Finances() {
   return (
     <form>
       <Paper 
-      sx={{ p: 2 }} elevation={8}>
-        <Typography variant='h5'>Add {formState.type}</Typography>
+      sx={{ display: 'flex', flexWrap: 'wrap', p: 2, borderRadius: '15px' }} elevation={8}>
+        <Typography sx={{textAlign: 'center', mb: '2rem'}} variant='h4'>Add Budget Category {formState.type}</Typography>
         <Grid container spacing={2} alignItems="center">
 
           <Grid item xs={12}>
@@ -127,13 +127,13 @@ export default function Finances() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={3}>
                 <Button 
                     variant="contained" 
                     onClick={handleSubmit}
                     type='submit' 
                     fullWidth endIcon={<SendIcon />}>
-                  Add
+                  Set Budget
                 </Button>
               </Grid>
             </Grid>
