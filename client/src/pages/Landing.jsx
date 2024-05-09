@@ -5,15 +5,15 @@ import auth from '../utils/auth'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Logo from '../assets/logo/florin-logo.png'
+import { padding } from '@mui/system';
 
 // Adjust for responsivity
 const styles = {
     logo: {
-      width: '100%',
-      maxWidth: '700px',
+      width: 'auto',
+      maxWidth: '100%', 
       height: 'auto',
-      marginTop: '10rem',
-      marginLeft: '7rem'
+      padding: '30px',
     },
   }
 
@@ -32,10 +32,10 @@ export default function Landing() {
                 window.location.assign("/home")
             ) : (
             <>
-            <Grid item xs={12} md={7}>
+            <Grid item sx={{display: 'flex', alignItems: 'center'}} sm={12} md={7}>
                 <img src={Logo} alt="Logo" style={styles.logo} />
             </Grid>
-            <Grid item xs={12} md={5}
+            <Grid item sm={12} md={5}
                 sx={{backgroundColor: 'black', height: '100vh', paddingLeft: '5rem', paddingRight: '5rem'}}>
                  {isSignUpMode ? <SignUp /> : <SignIn />}
                     <Button onClick={handleToggleMode} 

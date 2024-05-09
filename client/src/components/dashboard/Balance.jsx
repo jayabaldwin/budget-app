@@ -19,14 +19,19 @@ export default function Balance({balance, savingsTotal}) {
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
             <Paper elevation={8}
-                sx={{ width: '100%', maxWidth: 500, borderRadius: '15px' }} 
+                sx={{ width: '100%', borderRadius: '15px' }} 
                 onClick={handleClick}
             >
                 <CardContent sx={{
                     display: 'flex',}}>
-                    <Typography variant="h5" sx={{flexGrow: 1}} gutterBottom>
+                    <div style={{flexGrow: 1}}>
+                    <Typography variant="h5">
                         Balance
-                    </Typography>  
+                    </Typography> 
+                    <Typography variant="subtitle2" gutterBottom>
+                        Current
+                    </Typography>   
+                    </div>
                     <AccountBalanceIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>
@@ -34,14 +39,19 @@ export default function Balance({balance, savingsTotal}) {
                     </Typography>    
             </Paper>
             <Paper elevation={8}
-                sx={{ width: '100%', maxWidth: 500, borderRadius: '15px' }} 
+                sx={{ width: '100%', borderRadius: '15px' }} 
                 onClick={handleClick}
             >
                 <CardContent sx={{
                     display: 'flex',}}>
-                    <Typography variant="h5" sx={{flexGrow: 1}} gutterBottom>
+                    <div style={{flexGrow: 1}}>
+                    <Typography variant="h5">
                         Savings
-                    </Typography>  
+                    </Typography> 
+                    <Typography variant="subtitle2" gutterBottom>
+                        Current
+                    </Typography>   
+                    </div>
                     <SavingsIcon fontSize='large' />
                 </CardContent>
                     <Typography variant='h4' sx={{pl: '16px', pr: '16px', pb: '8px'}} gutterBottom>

@@ -18,7 +18,7 @@ export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyO
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
             <Paper elevation={8}
-                sx={{ width: '100%', maxWidth: 500, borderRadius: '15px' }} 
+                sx={{ width: '100%', borderRadius: '15px' }} 
                 onClick={handleClick}
             >
                 <CardContent sx={{
@@ -38,7 +38,7 @@ export default function MoneyInOut({inOutRatio, totalIncomeThisWeek, totalMoneyO
                     </Typography>    
             </Paper>
             <Paper elevation={8}
-                sx={{ width: '100%', maxWidth: 500, borderRadius: '15px' }} 
+                sx={{ width: '100%', borderRadius: '15px' }} 
                 onClick={handleClick}
             >
                 <CardContent sx={{

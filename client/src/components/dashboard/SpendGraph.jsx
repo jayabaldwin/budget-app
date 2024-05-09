@@ -1,8 +1,4 @@
-// import React from 'react';
-import React, {useEffect } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { QUERY_USER_CATEGORIES } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
 
 export default function SpendGraph({categories}) {
   function getTotalBudgetPerCategory(transactions) {
@@ -45,7 +41,7 @@ export default function SpendGraph({categories}) {
     <>
       {categories && (
         <BarChart
-          width={1000}
+          width={800}
           height={400}
           series={[
             { data: pData, label: "Total Budget", id: "uvId", stack: "total" },
