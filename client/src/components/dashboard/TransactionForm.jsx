@@ -22,7 +22,6 @@ import { useMutation, useQuery } from '@apollo/client';
 
 import {
   QUERY_USER_CATEGORIES,
-  QUERY_ME,
 } from '../../utils/queries.js';
 
 import { 

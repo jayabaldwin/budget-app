@@ -3,10 +3,6 @@ import TransactionForm from '../components/dashboard/TransactionForm.jsx'
 import Balance from '../components/dashboard/Balance.jsx';
 import MoneyInOut from "../components/dashboard/MoneyInOut.jsx";
 import Countdown from "../components/dashboard/CountDown.jsx";
-import SpendGraph from "../components/dashboard/SpendGraph.jsx";
-import CashFlowGraph from "../components/dashboard/CashFlowGraph.jsx";
-import Box from '@mui/material/Box'
-import Finances from "./Finances.jsx";
 import dayjs from "dayjs";
 
 import { useQuery } from '@apollo/client';
@@ -35,7 +31,7 @@ export default function Dashboard() {
   let totalMoneyOutThisWeek;
 
   // Media queries
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:700px)');
   const isTablet = useMediaQuery('(max-width:900px)');
 
   // if these arn't in this if statment, it'll cause issues cause it'll try to run the filter of the array before it's loaded/defined

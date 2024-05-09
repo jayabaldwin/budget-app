@@ -5,14 +5,11 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-import DatePicker from '../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
-import dayjs from "dayjs";
 import { useMutation, useQuery } from '@apollo/client';
 
 import {
@@ -22,9 +19,6 @@ import {
 import { 
     ADD_CATEGORY,
       } from '../utils/mutations.js';
-
-import Auth from '../utils/auth.js';
-
 
 export default function Finances() {
 
@@ -40,7 +34,7 @@ export default function Finances() {
     { value: "Education" },
     { value: "Travel" },
     { value: "Business" },
-    { value: "Miscellaneous" }
+    { value: "Other" }
   ];
   
 

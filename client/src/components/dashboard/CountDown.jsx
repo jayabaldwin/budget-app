@@ -74,7 +74,7 @@ export default function Countdown() {
         }}
         >
             <CardContent sx={{textAlign: 'center'}}>
-        <Typography sx={{ fontSize: 16, mb: 4 }} color="text.secondary" gutterBottom>
+        <Typography sx={{ fontSize: 12, mb: 3 }} color="text.secondary" gutterBottom>
           Countdown...
         </Typography>
             <Typography variant="h3" gutterBottom>

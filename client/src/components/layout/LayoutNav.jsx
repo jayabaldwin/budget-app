@@ -23,7 +23,6 @@ import HistoryIcon from '@mui/icons-material/History';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserLogout from './UserLogout';
-import Tooltip from '@mui/material/Tooltip';
 import Logo from '../../assets/logo/florin-logo-small.png'
 
 
@@ -129,38 +128,34 @@ export default function MiniDrawer() {
       <CssBaseline />
 
       <AppBar position="fixed" open={open}>
-  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-    {/* Menu toggle */}
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        onClick={handleDrawerOpen}
-        edge="start"
-        sx={{
-          marginRight: 5, // Adjust the margin as needed
-          ...(open && { display: 'none' }),
-        }}
-      >
-        <MenuIcon />
-      </IconButton>
-      {/* AppName */}
-      {/* <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
-        Florin
-      </Typography> */}
-      <img src={Logo} alt="Logo" style={styles.logo} />
-    </div>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* Menu toggle */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5, // Adjust the margin as needed
+              ...(open && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <img src={Logo} alt="Logo" style={styles.logo} />
+        </div>
 
-    {/* UserLogout */}
-    <UserLogout />
-  </Toolbar>
-</AppBar>
+      {/* UserLogout */}
+      <UserLogout />
+    </Toolbar>
+  </AppBar>
 
 
 
       {/* Side navigation drawer */}
-      <Drawer variant="permanent" color='primary' open={open}>
-        <DrawerHeader color='412794'>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>

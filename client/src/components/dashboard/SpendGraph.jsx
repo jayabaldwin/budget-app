@@ -1,8 +1,4 @@
-// import React from 'react';
-import React, {useEffect } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { QUERY_USER_CATEGORIES } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
 
 export default function SpendGraph({categories}) {
   function getTotalBudgetPerCategory(transactions) {
