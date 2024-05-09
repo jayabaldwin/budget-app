@@ -12,7 +12,7 @@ export default function Countdown() {
     const currentDayOfWeek = dayjs().day();
     const daysLeftInWeek = 7 - currentDayOfWeek;
 
-    const { data, loading, error } = useQuery(QUERY_USER_CATEGORIES);
+    const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
     const categories = data?.userBudgetCategories || [];
   
     if (loading) {
@@ -21,6 +21,10 @@ export default function Countdown() {
   
     if (error) {
       return <div>ERROR {error.message}</div>;
+    }
+
+    if(!loading){
+      refetch();
     }
   
     function getSpentAmountPerCategory(transactions) {
