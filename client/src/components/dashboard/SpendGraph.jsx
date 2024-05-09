@@ -5,17 +5,6 @@ import { QUERY_USER_CATEGORIES } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 export default function SpendGraph({categories}) {
-  // const { data, loading, error, refetch } = useQuery(QUERY_USER_CATEGORIES);
-  
-  // const categories = data?.userBudgetCategories || [];
-
-  // if (loading) {
-  //   return <div>LOADING... </div>;
-  // }
-  // if (error) {
-  //   return <div>ERROR {error.message}</div>;
-  // }
-
   function getTotalBudgetPerCategory(transactions) {
     const uniqueCategories = [];
     const amountArr = [];
