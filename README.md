@@ -15,7 +15,7 @@ We wanted to create a budgeting software, that is simple but smart. It was imper
 - A cash flow graph comparing total income, expenses and savings for the months (this did not fit into our MVP but will be revisited at a later date)
 
 ### Brief functionality walk through:
-ADD DEPLOYED SITE GIT AND LINK HERE
+View deployed application [HERE](https://budget-app-bkwy.onrender.com/)
 
 ## Table of Contents
 
@@ -69,4 +69,4 @@ This application is not currently accepting contributions as it is a student pro
 View GitHub Repository [here](https://github.com/jayabaldwin/budget-app)
 
 ## Deployed Application
-ADD LINK TO DEPLOYED APPLICATION HERE
+View deployed application [here](https://budget-app-bkwy.onrender.com/)
