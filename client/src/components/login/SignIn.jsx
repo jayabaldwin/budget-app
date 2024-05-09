@@ -1,12 +1,13 @@
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send'
 import Typography from '@mui/material/Typography';
-import { LOGIN } from '../../utils/mutations';
-import Auth from '../../utils/auth';
-import { useState } from 'react';
-import { useMutation } from '@apollo/client';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import SnackbarContent from '@mui/material/SnackbarContent';
@@ -46,6 +47,11 @@ function Notification({ message, handleClose }) {
   );
 }
 
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 export default function SignIn(props) {
   const [formState, setFormState] = useState ({email: '', password: ''});
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -54,6 +60,12 @@ export default function SignIn(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (formState.password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long');
+      setOpenSnackbar(true);
+      return;
+    }
 
     try {
       const mutationResponse = await login({
@@ -101,6 +113,7 @@ export default function SignIn(props) {
           </Typography>
             <TextField
               required
+              error={formState.email.length > 5 && !isValidEmail(formState.email)}
               id="outlined-required"
               label="Email"
               type="email"
@@ -109,6 +122,7 @@ export default function SignIn(props) {
               onChange={handleChange}
             />
             <TextField
+              error={formState.password.length > 0 && formState.password.length < 8}
               id="outlined-password-input"
               label="Password"
               type="password"

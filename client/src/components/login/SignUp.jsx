@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,11 +13,6 @@ import Snackbar from '@mui/material/Snackbar';
 import SnackbarContent from '@mui/material/SnackbarContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
-import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import Auth from '../../utils/auth';
-import { ADD_USER } from '../../utils/mutations';
 
 function Notification({ message, handleClose }) {
   const action = (
@@ -45,6 +45,11 @@ function Notification({ message, handleClose }) {
   );
 }
 
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 function Signup(props) {
   const [formState, setFormState] = useState({
     firstname: '',
@@ -61,6 +66,12 @@ function Signup(props) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    if (formState.password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long');
+      setOpenSnackbar(true);
+      return;
+    }
+
     try {
       const mutationResponse = await addUser({
         variables: {
@@ -73,7 +84,7 @@ function Signup(props) {
       const token = mutationResponse.data.addUser.token;
       Auth.login(token);
     } catch (error) {
-      setErrorMessage('Invalid email or password');
+      setErrorMessage('Invalid sign up credentials');
       setOpenSnackbar(true);
     }
   };
@@ -120,13 +131,14 @@ function Signup(props) {
           />
           <TextField
             required
+            error={formState.email.length > 5 && !isValidEmail(formState.email)}
             id="outlined-required"
             label="Email"
             name='email'
             onChange={handleChange}
           />
           <TextField
-          required
+            error={formState.password.length > 0 && formState.password.length < 8}
             id="outlined-password-input"
             label="Password"
             type="password"
@@ -149,3 +161,4 @@ function Signup(props) {
 }
 
 export default Signup;
+
