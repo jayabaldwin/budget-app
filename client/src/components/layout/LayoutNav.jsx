@@ -96,7 +96,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
-    backgroundColor: '#000000',
+    // backgroundColor: '#ffffff',
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -154,7 +154,13 @@ export default function MiniDrawer() {
 
 
       {/* Side navigation drawer */}
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open}
+      // PaperProps={{
+      //   sx: {
+      //     background: '#3c1973',
+      //   },
+      // }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
