@@ -13,7 +13,11 @@ import SendIcon from '@mui/icons-material/Send';
 import DatePicker from '../utils/DatePicker.jsx';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+
+import {
+  QUERY_USER_CATEGORIES,
+} from '../utils/queries.js';
 
 import { 
     ADD_CATEGORY,
@@ -24,13 +28,30 @@ import Auth from '../utils/auth.js';
 
 export default function Finances() {
 
+  const menuItems = [
+    { value: "Home" },
+    { value: "Utilities" },
+    { value: "Transport" },
+    { value: "Groceries" },
+    { value: "Eating Out" },
+    { value: "Shopping" },
+    { value: "Entertainment" },
+    { value: "Health" },
+    { value: "Education" },
+    { value: "Travel" },
+    { value: "Business" },
+    { value: "Miscellaneous" }
+  ];
+  
+
   const [formState, setFormState] = useState({
     budgetAmount: '',
     categoryName: '',
   })
-  
-  const [addBudget, { error, data }] = useMutation(ADD_CATEGORY);
+  const {error: catError, data: catData, refetch} = useQuery(QUERY_USER_CATEGORIES);
+    // console.log('catData is: ', catData?.userBudgetCategories.category);
 
+  const [addBudget, { error: budgetError, data: budgetData }] = useMutation(ADD_CATEGORY); 
 
   const handleChange = (event) => {
 
@@ -53,6 +74,12 @@ export default function Finances() {
             budgetAmount: parseFloat(formState.budgetAmount),
           },
         });
+        setFormState(prevState => ({
+          ...prevState,
+          budgetAmount: '',
+        }));
+        refetch();
+
       } catch (error) {
         console.error(error);
       }
@@ -96,19 +123,13 @@ export default function Finances() {
                     value={formState.categoryName}
                     label="Budget Category"
                     onChange={handleChange}
-                  >
-                    <MenuItem value={"Home"}>Home</MenuItem>
-                    <MenuItem value={"Utilities"}>Utilities</MenuItem>
-                    <MenuItem value={"Transport"}>Transport</MenuItem>
-                    <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                    <MenuItem value={"Eating Out"}>Eating Out</MenuItem>
-                    <MenuItem value={"Shopping"}>Shopping</MenuItem>
-                    <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                    <MenuItem value={"Health"}>Health</MenuItem>
-                    <MenuItem value={"Education"}>Education</MenuItem>
-                    <MenuItem value={"Travel"}>Travel</MenuItem>
-                    <MenuItem value={"Business"}>Business</MenuItem>
-                    <MenuItem value={"Miscellaneous"}>Miscellaneous</MenuItem>
+                    >
+                    {menuItems
+                        .filter(item => !catData || !catData.userBudgetCategories.some(catItem => catItem.category === item.value))
+                        .map(item => (
+                          <MenuItem key={item.value} value={item.value}>{item.value}</MenuItem>
+                    ))}
+
                   </Select>
                 </FormControl>
               </Grid>

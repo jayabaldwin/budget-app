@@ -56,7 +56,7 @@ export default function SpendGraph({categories}) {
     <>
       {categories && (
         <BarChart
-          width={500}
+          width={1000}
           height={400}
           series={[
             { data: pData, label: "Total Budget", id: "uvId", stack: "total" },

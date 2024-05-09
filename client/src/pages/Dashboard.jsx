@@ -80,13 +80,12 @@ export default function Dashboard() {
     refetch();
   }
 
-  
   if(loading){
     return(
       <p>Hold on, We're getting your data!</p>
     )
   }
-
+  
     return (
       <Grid container sx={{marginTop: '1rem', marginRight: '1rem'}} 
         // sx={{mt:10}}
