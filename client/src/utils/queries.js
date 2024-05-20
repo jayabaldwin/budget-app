@@ -43,7 +43,7 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_USER_CATEGORIES = gql`
-  query UserCategories {
+  query UserBudgetCategories {
     userBudgetCategories {
       amount
       description
@@ -52,6 +52,38 @@ export const QUERY_USER_CATEGORIES = gql`
       _id
       remainingAmount
       totalBudget
+    }
+  }
+`;
+
+export const QUERY_CATEGORIES = gql`
+  query UserCategories {
+    userCategories {
+      _id
+      categoryName
+      remainingAmount
+      budgetAmount
+    }
+  }
+`;
+
+// combine two queries together!
+export const QUERY_COMBINED = gql`
+  {
+    userBudgetCategories {
+      amount
+      description
+      date
+      category
+      _id
+      remainingAmount
+      totalBudget
+    }
+    userCategories {
+      _id
+      categoryName
+      remainingAmount
+      budgetAmount
     }
   }
 `;
