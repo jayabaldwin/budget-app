@@ -1,6 +1,5 @@
 const { User, Finance, UserBudget, Category } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-const dayjs = require("dayjs");
 
 const resolvers = {
   Query: {
@@ -30,40 +29,12 @@ const resolvers = {
       return Category.find();
     },
 
-    userBudgetCategories: async (parent, __, context) => {
+    userCategories: async (_, __, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
         const finance = await Finance.findById(user.finances[0]._id);
-
         const userBudgetCatArr = finance.budgetCategories;
-        const moneyOutArr = finance.moneyOut;
-
-        const startDate = dayjs().startOf("week").add(1, "day");
-        const endDate = dayjs().endOf("week").add(1, "day");
-
-        let filtered = [];
-        for (let i = 0; i < userBudgetCatArr.length; i++) {
-          for (let j = 0; j < moneyOutArr.length; j++) {
-            if (
-              moneyOutArr[j].category === userBudgetCatArr[i].categoryName &&
-              moneyOutArr[j].date >= startDate &&
-              moneyOutArr[j].date <= endDate
-            ) {
-              const expense = {
-                ...moneyOutArr[j].toObject(),
-
-                totalBudget: userBudgetCatArr[i].budgetAmount,
-                remainingAmount: userBudgetCatArr[i].remainingAmount,
-              };
-
-              filtered.push(expense);
-            }
-          }
-        }
-
-        console.log("filtered ", filtered);
-
-        return filtered;
+        return userBudgetCatArr;
       }
       throw AuthenticationError;
     },
@@ -128,18 +99,15 @@ const resolvers = {
     // category names must come from a drop down, no user input!
     addCategory: async (_, args, context) => {
       if (context.user) {
-        console.log(args);
         const user = await User.findById(context.user._id);
         const finance = await Finance.findByIdAndUpdate(
           user.finances[0]._id,
           {
             $push: {
-              budgetCategories: { ...args, remainingAmount: args.budgetAmount },
-              moneyOut: {
-                amount: 0,
-                description: "New Category",
-                date: dayjs().format("MM/DD/YYYY"),
-                category: args.categoryName,
+              budgetCategories: {
+                ...args,
+                budgetAmount: parseFloat(args.budgetAmount),
+                remainingAmount: parseFloat(args.budgetAmount),
               },
             },
           },
@@ -150,23 +118,23 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    updateCategoryBudget: async (_, { category, amount }, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id);
-        const updateFinance = await Finance.findById(user.finances[0]._id);
-        const index = updateFinance.budgetCategories.findIndex(
-          (cat) => cat.categoryName === category
-        );
-        if (index !== -1) {
-          updateFinance.budgetCategories[index].budgetAmount =
-            budgetAmount + amount;
-          await updateFinance.save();
-        }
+    // updateCategoryBudget: async (_, { category, amount }, context) => {
+    //   if (context.user) {
+    //     const user = await User.findById(context.user._id);
+    //     const updateFinance = await Finance.findById(user.finances[0]._id);
+    //     const index = updateFinance.budgetCategories.findIndex(
+    //       (cat) => cat.categoryName === category
+    //     );
+    //     if (index !== -1) {
+    //       updateFinance.budgetCategories[index].budgetAmount =
+    //         budgetAmount + amount;
+    //       await updateFinance.save();
+    //     }
 
-        return updateFinance;
-      }
-      throw AuthenticationError;
-    },
+    //     return updateFinance;
+    //   }
+    //   throw AuthenticationError;
+    // },
 
     // Delete category
 
@@ -181,9 +149,9 @@ const resolvers = {
           {
             $push: {
               income: {
-                amount: amount,
+                amount: parseFloat(amount),
                 description: description,
-                date: date ? date : null,
+                date: date,
               },
             },
             $inc: { balance: amount },
@@ -206,9 +174,9 @@ const resolvers = {
           {
             $push: {
               savings: {
-                amount: amount,
+                amount: parseFloat(amount),
                 description: description,
-                date: date ? date : null,
+                date: date,
               },
             },
             $inc: {
@@ -238,9 +206,9 @@ const resolvers = {
           {
             $push: {
               moneyOut: {
-                amount: amount,
-                description: description,
-                date: date ? date : null,
+                amount: parseFloat(amount),
+                description: description || "no description",
+                date: date,
                 category: category,
               },
             },
