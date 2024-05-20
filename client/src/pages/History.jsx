@@ -31,7 +31,7 @@ return (
             {item && (
                 <div key={index}>
                 <Typography>
-                    Amount: ${item.amount}
+                    Amount: ${item.amount.toLocaleString('en-US')}
                     <br/>
                     Description: {item.description}
                     <br/>
@@ -62,7 +62,7 @@ return (
             {item && (
                 <div key={index}>
                 <Typography>
-                    Amount: ${item.amount}
+                    Amount: ${item.amount.toLocaleString('en-US')}
                     <br/>
                     Description: {item.description}
                     <br/>
@@ -90,7 +90,7 @@ function savingsRow(props) {
             {item && (
               <div key={index}>
                 <Typography sx={{ m:0 }}>
-                  Amount: ${item.amount}
+                  Amount: ${item.amount.toLocaleString('en-US')}
                   <br/>
                   Description: {item.description}
                   <br/>

@@ -20,6 +20,8 @@ export default function Countdown() {
       )
     }
   
+    // Definitely change this
+    // An error message should not be presented to the user!!
     if (error) {
       return <div>ERROR {error.message}</div>;
     }
@@ -28,30 +30,20 @@ export default function Countdown() {
       refetch();
     }
   
-    function getSpentAmountPerCategory(transactions) {
-      const uniqueCategories = [];
+    function getTotalBudgetPerCategory(categories) {
       const amountArr = [];
-      transactions.forEach((transaction) => {
-        const { category } = transaction;
-        if (!uniqueCategories.includes(category)) {
-          uniqueCategories.push(category);
-          amountArr.push(parseFloat(transaction.totalBudget));
-        }
+      categories.forEach((transaction) => {
+        amountArr.push(parseFloat(transaction.budgetAmount));
       });
       return amountArr;
     }
   
-    function getTotalBudgetPerCategory(transactions) {
-      const uniqueCategories = [];
+    function getSpentAmountPerCategory(transactions) {
       const amountArr = [];
       transactions.forEach((transaction) => {
-        const { category } = transaction;
-        if (!uniqueCategories.includes(category)) {
-          uniqueCategories.push(category);
-          amountArr.push(
-            parseFloat(transaction.totalBudget + transaction.remainingAmount)
-          );
-        }
+        amountArr.push(
+          parseFloat(transaction.budgetAmount - transaction.remainingAmount)
+        );
       });
   
       return amountArr;
@@ -62,7 +54,8 @@ export default function Countdown() {
     console.log('Total Budget: ' + totalBudget) 
     
     const spendPerCategory = getSpentAmountPerCategory(categories);
-    var totalSpent = spendPerCategory.reduce((accum,item) => accum + item, 0)
+    var totalSpent = parseFloat(spendPerCategory.reduce((accum,item) => accum + item, 0))
+   
     console.log('Total Spent Overall: ' + totalSpent) 
 
     return (
@@ -81,10 +74,11 @@ export default function Countdown() {
           Countdown...
         </Typography>
             <Typography variant="h3" gutterBottom>
-            ${totalBudget-totalSpent} left
+            ${(totalBudget-totalSpent).toLocaleString('en-US')} left
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5 }}>
-            ${(totalBudget - (totalSpent * 2)) * -1 } spent of ${totalSpent} budget
+            ${(totalSpent).toLocaleString('ed-US')} spent of ${totalBudget.toLocaleString('en-US')} budget
+
             </Typography>
         <Typography variant="body1" component="div">
           {daysLeftInWeek} days to go this week
